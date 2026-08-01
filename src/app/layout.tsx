@@ -62,18 +62,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nl" className={`${cormorant.variable} ${inter.variable}`}>
       <head>
-        {/* Zet een markering zodat foto's zacht kunnen invaden. Zonder JavaScript
-            blijft alles gewoon meteen zichtbaar. De herhaalde controle vangt de
-            foto's op die al binnen waren voordat React de pagina overnam. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var d=document;d.documentElement.classList.add('js');
-function m(){d.querySelectorAll('img[data-fade]').forEach(function(i){if(i.complete&&!i.hasAttribute('data-loaded'))i.setAttribute('data-loaded','')})}
-addEventListener('load',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.hasAttribute('data-fade'))t.setAttribute('data-loaded','')},true);
-d.addEventListener('DOMContentLoaded',m);addEventListener('load',m);
-[300,1000,2500].forEach(function(t){setTimeout(m,t)});})();`,
-          }}
-        />
+        {/* Zonder JavaScript komt de zachte overgang van de foto's nooit op gang.
+            Deze regel zorgt dat ze dan meteen zichtbaar zijn. */}
+        <noscript>
+          <style>{`img[data-fade]{opacity:1 !important}`}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(organizationSchema())}

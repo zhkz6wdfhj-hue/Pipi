@@ -319,18 +319,9 @@
 }
 
 /* =============================================================================
-   Foto's — vaste verhouding, zachte fade-in bij laden
-   De klasse js- wordt door een klein inline-script gezet, zodat foto's ook
-   zonder JavaScript zichtbaar blijven.
+   Foto's — vaste verhouding
+   De zachte overgang bij het laden regelt src/components/ui/media.tsx.
    ========================================================================== */
-
-img[data-fade] {
-  transition: opacity 500ms var(--ease-calm);
-}
-
-html.js img[data-fade]:not([data-loaded]) {
-  opacity: 0;
-}
 
 .ratio-portrait {
   aspect-ratio: 4 / 5;
@@ -358,7 +349,8 @@ html.js img[data-fade]:not([data-loaded]) {
     scroll-behavior: auto !important;
   }
 
-  html.js img[data-fade]:not([data-loaded]) {
-    opacity: 1;
+  /* Zonder beweging verschijnt de foto meteen, zonder overgang. */
+  img[data-fade] {
+    opacity: 1 !important;
   }
 }

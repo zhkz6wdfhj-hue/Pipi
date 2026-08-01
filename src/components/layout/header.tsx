@@ -134,11 +134,12 @@ export function Header() {
               className="flex h-10 items-center gap-2 px-2 text-[0.9375rem] text-ink"
             >
               <BagIcon />
-              <span className="sr-only">Winkelmand openen, </span>
-              <span aria-hidden={!hydrated}>
-                {hydrated ? itemCount : 0}
-                <span className="sr-only"> artikelen</span>
+              {/* De teller staat er twee keer: één keer om te zien, één keer om
+                  voor te lezen. Zo hoort een schermlezer één vloeiende zin. */}
+              <span className="sr-only">
+                Winkelmand openen, {hydrated ? itemCount : 0} artikelen
               </span>
+              <span aria-hidden="true">{hydrated ? itemCount : 0}</span>
             </button>
           </div>
         </div>

@@ -117,7 +117,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
                     ? 'border-accent bg-accent-soft text-ink'
                     : beschikbaar
                       ? 'border-line bg-surface text-ink hover:border-line-strong'
-                      : 'cursor-not-allowed border-line bg-surface text-ink-soft/50'
+                      : 'cursor-not-allowed border-line bg-surface text-ink-soft/70'
                 }`}
               >
                 {optie}
