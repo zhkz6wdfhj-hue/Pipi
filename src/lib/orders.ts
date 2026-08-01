@@ -55,21 +55,53 @@ export interface Order {
   confirmationSentAt: string | null;
 }
 
-const DATA_DIR = path.join(process.cwd(), '.data');
+/**
+ * Waar de bestellingen komen te staan.
+ *
+ * Op je eigen computer is dat .data/orders.json in de projectmap, zodat je
+ * bestellingen gewoon kunt openen en nalezen. Op Vercel is die map
+ * alleen-lezen; daar wijken we uit naar /tmp, de enige plek waar geschreven
+ * mag worden. Met ORDERS_DIR kies je desgewenst zelf een map.
+ */
+const DATA_DIR =
+  process.env.ORDERS_DIR ?? (process.env.VERCEL ? '/tmp/melin-clo' : path.join(process.cwd(), '.data'));
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 
+/**
+ * Kopie in het geheugen. Die is er om twee redenen: het scheelt lezen van de
+ * schijf, en het houdt de winkel overeind als schrijven onverhoopt niet lukt.
+ * Een bestelling die net geplaatst is, blijft dan in elk geval vindbaar zolang
+ * de server draait — genoeg voor de bedankpagina en de bevestigingsmail.
+ */
+let cache: Order[] | null = null;
+
 async function readAll(): Promise<Order[]> {
+  if (cache) return cache;
+
   try {
     const raw = await readFile(ORDERS_FILE, 'utf8');
-    return JSON.parse(raw) as Order[];
+    cache = JSON.parse(raw) as Order[];
   } catch {
-    return [];
+    cache = [];
   }
+
+  return cache;
 }
 
 async function writeAll(orders: Order[]): Promise<void> {
-  await mkdir(DATA_DIR, { recursive: true });
-  await writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
+  cache = orders;
+
+  try {
+    await mkdir(DATA_DIR, { recursive: true });
+    await writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
+  } catch (error) {
+    // Een bestelling mag nooit stuklopen omdat de schijf niet meewerkt. De
+    // bevestigingsmail is dan het echte bewijsstuk; zie README, hoofdstuk 8.
+    console.error(
+      'De bestelling kon niet naar schijf geschreven worden en staat alleen in het geheugen:',
+      error
+    );
+  }
 }
 
 /** Schrijfacties netjes achter elkaar, zodat twee bestellingen elkaar niet overschrijven. */
