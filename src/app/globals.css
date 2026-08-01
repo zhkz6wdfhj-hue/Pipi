@@ -1,0 +1,364 @@
+@import 'tailwindcss';
+
+/* =============================================================================
+   Melin_clo — ontwerptokens
+   Klassiek, licht, elegant. Warm wit als basis, warm donkerbruin-zwart voor
+   tekst, één ingetogen accent in taupe. Alle randen zijn haarlijnen van 1px.
+   Wijzig een kleur hier en de hele site volgt.
+   ========================================================================== */
+
+@theme {
+  /* Kleur */
+  --color-bg: #faf8f4; /* warm wit — paginabodem */
+  --color-surface: #ffffff; /* kaarten, velden, lades */
+  --color-ink: #1f1b18; /* warm donkerbruin-zwart, nooit puur zwart */
+  --color-ink-soft: #5b534b; /* bijschriften, hulpteksten (7.1:1 op bg) */
+  --color-accent: #8a7a66; /* taupe/kameel — randen, focus, actieve staat */
+  --color-accent-ink: #6b5b47; /* zelfde familie, donker genoeg voor tekst (6.2:1) */
+  --color-accent-soft: #f1ece4; /* zachte vulling voor actieve chips */
+  --color-line: #e3ddd3; /* haarlijn */
+  --color-line-strong: #cdc4b6; /* haarlijn bij hover/actief */
+  --color-button: #2a241e; /* primaire knop, wit erop (15.3:1) */
+  --color-button-hover: #1f1b18;
+  --color-error: #8c3a2b; /* foutmelding, 6.0:1 op wit */
+  --color-success: #4a6152;
+
+  /* Typografie */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-label: 0.6875rem; /* 11px — kleine kapitalen */
+  --text-label--line-height: 1.45;
+  --text-label--letter-spacing: 0.12em;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-lead: 1.0625rem; /* 17px */
+  --text-lead--line-height: 1.6;
+
+  /* Ruimte */
+  --spacing-gutter: 1.25rem;
+  --spacing-section: 3.5rem; /* 56px mobiel */
+  --spacing-section-lg: 6rem; /* 96px desktop */
+
+  /* Detail */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --shadow-float: 0 1px 2px rgba(31, 27, 24, 0.04), 0 12px 32px rgba(31, 27, 24, 0.08);
+
+  --ease-calm: cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* =============================================================================
+   Basis
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      font-size: var(--text-lead);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.005em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--color-line-strong);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* Velden houden een haarlijn, nooit een zware rand. */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* =============================================================================
+   Herbruikbare patronen
+   ========================================================================== */
+
+@utility container-page {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Verticaal ritme tussen secties: 56px mobiel, 96px desktop. */
+@utility section {
+  padding-block: 3.5rem;
+
+  @media (min-width: 1024px) {
+    padding-block: 6rem;
+  }
+}
+
+@utility section-t {
+  padding-top: 3.5rem;
+
+  @media (min-width: 1024px) {
+    padding-top: 6rem;
+  }
+}
+
+@utility section-b {
+  padding-bottom: 3.5rem;
+
+  @media (min-width: 1024px) {
+    padding-bottom: 6rem;
+  }
+}
+
+@utility label-caps {
+  font-size: var(--text-label);
+  line-height: 1.45;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Display-schaal. Cormorant nooit vet: 400 als regel, 500 alleen klein. */
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 1.55rem + 2.9vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: 0.004em;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.45rem + 1.7vw, 2.625rem);
+  line-height: 1.12;
+  letter-spacing: 0.006em;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.3rem + 0.85vw, 1.875rem);
+  line-height: 1.2;
+  letter-spacing: 0.008em;
+}
+
+@utility display-sm {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+/* Tekstlink met rustige onderlijnovergang van 200ms. */
+@utility link-quiet {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 200ms var(--ease-calm);
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+@utility link-underlined {
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-strong);
+  transition: text-decoration-color 200ms var(--ease-calm);
+
+  &:hover {
+    text-decoration-color: var(--color-accent);
+  }
+}
+
+/* Lopende tekst op inhoudspagina's (service, juridisch, over). */
+@utility prose-melin {
+  max-width: 68ch;
+  color: var(--color-ink);
+
+  & h2 {
+    font-size: 1.5rem;
+    margin-top: 2.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  & h3 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.75rem;
+    margin-bottom: 0.375rem;
+    letter-spacing: 0;
+  }
+
+  & p {
+    margin-bottom: 1rem;
+    color: var(--color-ink-soft);
+  }
+
+  & ul,
+  & ol {
+    margin-bottom: 1rem;
+    padding-left: 1.15rem;
+    color: var(--color-ink-soft);
+  }
+
+  & ul {
+    list-style: disc;
+  }
+
+  & ol {
+    list-style: decimal;
+  }
+
+  & li {
+    margin-bottom: 0.375rem;
+    padding-left: 0.25rem;
+  }
+
+  & a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+    color: var(--color-accent-ink);
+    transition: text-decoration-color 200ms var(--ease-calm);
+  }
+
+  & a:hover {
+    text-decoration-color: var(--color-accent);
+  }
+
+  & strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: var(--text-small);
+  }
+
+  & th,
+  & td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+  }
+
+  & th {
+    font-size: var(--text-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  & td {
+    color: var(--color-ink-soft);
+  }
+}
+
+/* =============================================================================
+   Foto's — vaste verhouding, zachte fade-in bij laden
+   De klasse js- wordt door een klein inline-script gezet, zodat foto's ook
+   zonder JavaScript zichtbaar blijven.
+   ========================================================================== */
+
+img[data-fade] {
+  transition: opacity 500ms var(--ease-calm);
+}
+
+html.js img[data-fade]:not([data-loaded]) {
+  opacity: 0;
+}
+
+.ratio-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.ratio-landscape {
+  aspect-ratio: 3 / 2;
+}
+
+/* =============================================================================
+   Bewegingsvoorkeur
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.js img[data-fade]:not([data-loaded]) {
+    opacity: 1;
+  }
+}

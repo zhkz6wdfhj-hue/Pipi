@@ -1,0 +1,136 @@
+import Link from 'next/link';
+
+import { ProductCard } from '@/components/product/product-card';
+import { ButtonLink } from '@/components/ui/button';
+import { SceneMedia } from '@/components/ui/media';
+import { getFeaturedProducts } from '@/data/products';
+import { site } from '@/data/site';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata = pageMetadata({
+  title: `${site.name} — lange wollen jassen en blazers`,
+  description:
+    'Lange wollen jassen en blazers in kleine oplages. Warme wol, rustige kleuren, een pasvorm die jaren meegaat. Gratis verzending vanaf € 150 binnen Nederland en België.',
+  path: '/',
+});
+
+const beloftes = [
+  {
+    titel: 'Verzending',
+    tekst:
+      'Binnen Nederland € 4,95, naar België € 7,95. Vanaf € 150 verzenden we gratis. Bestel je vóór 15.00 uur, dan gaat je pakket dezelfde dag nog weg.',
+    href: '/service/verzending',
+    link: 'Verzending en levering',
+  },
+  {
+    titel: 'Retour',
+    tekst:
+      'Je hebt veertien dagen bedenktijd. Past de jas niet of valt de kleur tegen, dan stuur je hem terug met het formulier dat in je pakket zit.',
+    href: '/service/retourneren',
+    link: 'Retourneren en ruilen',
+  },
+  {
+    titel: 'Contact',
+    tekst:
+      'Twijfel je over de maat of wil je weten hoe een stof aanvoelt? Mail of stuur een bericht op Instagram. Meestal antwoorden we dezelfde dag.',
+    href: '/contact',
+    link: 'Neem contact op',
+  },
+];
+
+export default function HomePage() {
+  const uitgelicht = getFeaturedProducts(4);
+
+  return (
+    <>
+      {/* Sfeerbeeld met één zin en één knop */}
+      <section className="container-page pt-6 lg:pt-10">
+        <SceneMedia
+          src="/images/sfeer-collectie-01.jpg"
+          alt="Een kameelkleurige en een houtskoolgrijze lange wollen jas naast elkaar in warm daglicht."
+          width={1800}
+          height={1200}
+          priority
+          sizes="(min-width: 1240px) 1176px, 100vw"
+        />
+
+        <div className="mt-8 flex flex-col gap-6 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
+          <h1 className="display-xl max-w-2xl text-balance">
+            Wollen jassen die je in oktober aantrekt en in maart pas weer weghangt.
+          </h1>
+          <ButtonLink href="/collectie" className="self-start lg:self-auto">
+            Bekijk de collectie
+          </ButtonLink>
+        </div>
+      </section>
+
+      {/* Uitgelichte producten */}
+      <section className="section-t container-page" aria-labelledby="uitgelicht-titel">
+        <div className="mb-8 flex items-baseline justify-between gap-4 border-b border-line pb-4">
+          <h2 id="uitgelicht-titel" className="display-md">
+            Uitgelicht
+          </h2>
+          <Link href="/collectie" className="link-underlined shrink-0 text-[0.9375rem] text-ink-soft">
+            Alles bekijken
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
+          {uitgelicht.map((product) => (
+            <ProductCard
+              key={product.slug}
+              product={product}
+              sizes="(min-width: 1024px) 280px, 47vw"
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Over het merk, kort */}
+      <section className="section-t container-page" aria-labelledby="over-titel">
+        <div className="grid gap-10 border-t border-line pt-12 lg:grid-cols-2 lg:gap-16 lg:pt-16">
+          <div className="max-w-xl">
+            <h2 id="over-titel" className="display-lg mb-5">
+              Klein gehouden, met opzet
+            </h2>
+            <p className="text-lead leading-relaxed text-ink-soft">
+              Melin_clo begon in 2022 met één jas en een telefoon vol foto&apos;s. De wol komt van
+              een spinnerij in Portugal, waar ook genaaid wordt. Van elk model maken we twintig tot
+              veertig stuks; is een maat op, dan is hij op. Zo blijft er niets over aan het eind van
+              het seizoen.
+            </p>
+            <Link href="/over" className="link-underlined mt-6 inline-block text-[0.9375rem]">
+              Lees het hele verhaal
+            </Link>
+          </div>
+
+          <SceneMedia
+            src="/images/sfeer-atelier-01.jpg"
+            alt="Vijf wollen jassen naast elkaar aan een rek, in ecru, kameel, taupe, donkergroen en houtskool."
+            width={1800}
+            height={1200}
+            sizes="(min-width: 1024px) 570px, 100vw"
+          />
+        </div>
+      </section>
+
+      {/* Drie beloftes */}
+      <section className="section container-page" aria-labelledby="beloftes-titel">
+        <h2 id="beloftes-titel" className="sr-only">
+          Verzending, retour en contact
+        </h2>
+        <div className="grid gap-8 border-t border-line pt-12 sm:grid-cols-3 sm:gap-10 lg:pt-16">
+          {beloftes.map((belofte) => (
+            <div key={belofte.titel}>
+              <h3 className="label-caps mb-3 text-ink">{belofte.titel}</h3>
+              <p className="text-[0.9375rem] leading-relaxed text-ink-soft">{belofte.tekst}</p>
+              <Link href={belofte.href} className="link-underlined mt-3 inline-block text-[0.875rem]">
+                {belofte.link}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
