@@ -7,7 +7,7 @@
  */
 
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { Logo } from './logo';
@@ -23,7 +23,6 @@ const navigation = [
 
 export function Header() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const { itemCount, hydrated, openDrawer } = useCart();
 
@@ -36,7 +35,7 @@ export function Header() {
   useEffect(() => {
     setMenuOpen(false);
     setSearchOpen(false);
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   useEffect(() => {
     if (searchOpen) searchInput.current?.focus();
@@ -53,11 +52,15 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
+  /**
+   * Bewust alleen op basis van het pad, niet van de zoekparameters. Zou je hier
+   * useSearchParams gebruiken, dan mag Next de koptekst niet meer vooraf op de
+   * server maken: statische pagina's zouden dan met een lege balk beginnen en
+   * de navigatie zou niet in de HTML staan. Jassen en blazers zijn snelkoppelingen
+   * naar dezelfde pagina; die krijgen daarom geen eigen streepje.
+   */
   function isActive(href: string): boolean {
-    const [path, search] = href.split('?');
-    if (path !== pathname) return false;
-    if (!search) return !searchParams.get('categorie');
-    return searchParams.get('categorie') === new URLSearchParams(search).get('categorie');
+    return href === pathname;
   }
 
   function submitSearch(event: React.FormEvent<HTMLFormElement>) {

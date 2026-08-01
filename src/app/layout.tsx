@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
-import { Suspense } from 'react';
 
 import './globals.css';
 
@@ -82,9 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
 
         <CartProvider>
-          <Suspense fallback={<div className="h-16 border-b border-line md:h-20" />}>
-            <Header />
-          </Suspense>
+          <Header />
 
           <main id="hoofdinhoud" className="flex-1">
             {children}

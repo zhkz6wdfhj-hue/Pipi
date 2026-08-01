@@ -21,7 +21,8 @@ e-mails.
 7. [E-mail instellen](#7-e-mail-instellen)
 8. [Bestellingen bewaren](#8-bestellingen-bewaren)
 9. [Publiceren op Vercel](#9-publiceren-op-vercel)
-10. [Nog te doen voor livegang](#10-nog-te-doen-voor-livegang)
+10. [Een statische kopie maken](#10-een-statische-kopie-maken)
+11. [Nog te doen voor livegang](#11-nog-te-doen-voor-livegang)
 
 ---
 
@@ -58,6 +59,7 @@ account aanmaakt.
 | `npm run typecheck` | Controleert alle types zonder te bouwen                 |
 | `npm run lint`      | Controleert de code op fouten                           |
 | `npm run images`    | Maakt de placeholderfoto's opnieuw (zie hoofdstuk 4)     |
+| `npm run export-html` | Maakt een statische HTML-kopie om te bekijken of door te sturen |
 
 ---
 
@@ -386,7 +388,29 @@ Voor livegang zijn er twee routes:
 
 ---
 
-## 10. Nog te doen voor livegang
+## 10. Een statische kopie maken
+
+Wil je de winkel laten zien aan iemand die geen Node of npm heeft — of wil je
+hem zelf rustig doorbladeren zonder een server te starten — dan maak je een map
+met kale HTML-bestanden:
+
+```bash
+npm run build && npm run start      # in het ene terminalvenster
+npm run export-html                 # in het andere
+```
+
+Je krijgt een map `html-kopie/`. Open daarin `index.html` en je klikt door de
+hele site. De vormgeving, de lettertypen, de foto's en de links werken;
+de winkelmand, het afrekenen, de zoekfunctie en de cookiemelding niet, want
+daar is een server voor nodig. Bovenaan elke pagina staat een balkje dat dat
+uitlegt.
+
+Handig om door te sturen, of om de teksten na te lezen zonder afleiding. Voor
+een winkel waar echt besteld kan worden, publiceer je het project (hoofdstuk 9).
+
+---
+
+## 11. Nog te doen voor livegang
 
 De volledige lijst staat in **[LIVEGANG.md](LIVEGANG.md)**. In het kort:
 

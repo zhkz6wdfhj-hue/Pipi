@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "images": "node scripts/generate-images.mjs"
+    "images": "node scripts/generate-images.mjs",
+    "export-html": "node scripts/export-html.mjs"
   },
   "dependencies": {
     "next": "^15.5.22",

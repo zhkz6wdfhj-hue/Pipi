@@ -16,3 +16,7 @@ tsconfig.tsbuildinfo
 
 # Lokale bestellingen (alleen voor ontwikkeling — zie README, hoofdstuk "Bestellingen")
 .data/orders.json
+
+# Statische HTML-kopie (te maken met: node scripts/export-html.mjs)
+html-kopie
+melin-clo-html.zip
