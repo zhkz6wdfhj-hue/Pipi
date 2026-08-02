@@ -19,6 +19,10 @@ export function ProductBuyBox({ product }: { product: Product }) {
   const { addItem } = useCart();
   const [kleur, setKleur] = useState<ColorSlug>(product.colors[0]);
 
+  // De foto's tonen de eerste kleur. Kiest iemand een andere, dan zeggen we dat
+  // erbij — anders lijkt het alsof de foto's niet kloppen.
+  const gefotografeerd = product.colors[0];
+
   return (
     <div>
       <p className="text-lead text-ink">{formatPrice(product.price)}</p>
@@ -60,6 +64,18 @@ export function ProductBuyBox({ product }: { product: Product }) {
             </button>
           ))}
         </div>
+
+        {kleur !== gefotografeerd ? (
+          <p aria-live="polite" className="mt-3 text-[0.875rem] leading-relaxed text-ink-soft">
+            De foto&apos;s tonen dit model in {COLORS[gefotografeerd].label.toLowerCase()}. In{' '}
+            {COLORS[kleur].label.toLowerCase()} is de snit precies hetzelfde; twijfel je over de
+            stof, vraag dan een staal aan via{' '}
+            <a href="/contact" className="link-underlined text-accent-ink">
+              contact
+            </a>
+            .
+          </p>
+        ) : null}
       </div>
 
       {/* Maatwerk */}

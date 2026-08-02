@@ -36,6 +36,14 @@
  * die pas je per klant aan.
  *
  * -----------------------------------------------------------------------------
+ * KLEUREN EN FOTO'S
+ * -----------------------------------------------------------------------------
+ * De eerste kleur in `colors` is de kleur die op de foto's te zien is. De andere
+ * kleuren zijn stoffen waarin je hetzelfde model ook maakt; de productpagina
+ * vermeldt bij die keuze dat de foto's een andere kleur tonen. Heb je foto's in
+ * een tweede kleur, maak er dan gerust een apart product van.
+ *
+ * -----------------------------------------------------------------------------
  * EEN PRIJS WIJZIGEN
  * -----------------------------------------------------------------------------
  * Pas alleen `price` aan (in centen). Bestellingen die al geplaatst zijn
@@ -53,7 +61,7 @@
 
 export type Category = 'jassen' | 'blazers';
 
-export type ColorSlug = 'kameel' | 'ecru' | 'houtskool' | 'taupe' | 'donkergroen';
+export type ColorSlug = 'zwart' | 'houtskool' | 'lichtgrijs' | 'kameel' | 'ecru' | 'bruin';
 
 export interface ColorDefinition {
   slug: ColorSlug;
@@ -66,16 +74,17 @@ export interface ColorDefinition {
 }
 
 export const COLORS: Record<ColorSlug, ColorDefinition> = {
-  kameel: { slug: 'kameel', label: 'Kameel', swatch: '#B99770', swatchBorder: '#A8865F' },
-  ecru: { slug: 'ecru', label: 'Ecru', swatch: '#EDE3D2', swatchBorder: '#D6C9B2' },
-  houtskool: { slug: 'houtskool', label: 'Houtskool', swatch: '#45464A', swatchBorder: '#35363A' },
-  taupe: { slug: 'taupe', label: 'Taupe', swatch: '#9A8E7E', swatchBorder: '#877B6C' },
-  donkergroen: {
-    slug: 'donkergroen',
-    label: 'Donkergroen',
-    swatch: '#3E4B3F',
-    swatchBorder: '#2F3A30',
+  zwart: { slug: 'zwart', label: 'Zwart', swatch: '#1E1F23', swatchBorder: '#101115' },
+  houtskool: { slug: 'houtskool', label: 'Houtskool', swatch: '#4B4C50', swatchBorder: '#35363A' },
+  lichtgrijs: {
+    slug: 'lichtgrijs',
+    label: 'Lichtgrijs',
+    swatch: '#A9AEB4',
+    swatchBorder: '#8E939A',
   },
+  kameel: { slug: 'kameel', label: 'Kameel', swatch: '#C2A177', swatchBorder: '#A8865F' },
+  ecru: { slug: 'ecru', label: 'Ecru', swatch: '#EDE3D2', swatchBorder: '#D6C9B2' },
+  bruin: { slug: 'bruin', label: 'Donkerbruin', swatch: '#4A3830', swatchBorder: '#382A24' },
 };
 
 export const CATEGORIES: { slug: Category; label: string; labelSingular: string }[] = [
@@ -123,160 +132,150 @@ export interface Product {
   tagline: string;
   /** Volledige omschrijving, 40 tot 70 woorden. */
   description: string;
+  /** De eerste kleur is de kleur die op de foto's te zien is. */
   colors: ColorSlug[];
   variants: ProductVariant[];
   images: ProductImage[];
   specs: ProductSpecs;
   featured: boolean;
-  /** Datum waarop het product in de collectie kwam; bepaalt de sortering "Nieuw". */
+  /** Datum waarop het model in de collectie kwam; bepaalt de sortering "Nieuw". */
   releasedAt: string;
 }
 
+/** Alle foto's zijn even groot; dat scheelt herhaling hieronder. */
+const FOTO = { width: 960, height: 1200 } as const;
+
 export const products: Product[] = [
-  {
-    slug: 'duinjas',
-    name: 'Duinjas',
-    category: 'jassen',
-    price: 40000,
-    tagline: 'Rechte jas van geborstelde wol, net onder de knie.',
-    description:
-      'Een rechte jas van geborstelde wol die net onder de knie valt. De schouder ligt iets ruimer, zodat er een trui onder past zonder dat de jas breed oogt. Verdekte knoopsluiting, twee steekzakken op heuphoogte en een split achter voor de looplijn. Draag hem open over een broek, of gesloten met de kraag omhoog als het waait.',
-    colors: ['kameel', 'ecru'],
-    variants: [
-      { color: 'kameel', sku: 'MEL-DUI-KAM' },
-      { color: 'ecru', sku: 'MEL-DUI-ECR' },
-    ],
-    images: [
-      {
-        src: '/images/jas-duinjas-kameel-01.jpg',
-        alt: 'Kameelkleurige lange wollen jas, recht model, gefotografeerd van voren op een warm witte achtergrond.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-duinjas-kameel-02.jpg',
-        alt: 'Dezelfde kameelkleurige jas van opzij, waarbij de lengte tot net onder de knie te zien is.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-duinjas-kameel-03.jpg',
-        alt: 'Detailopname van de verdekte knoopsluiting en de kraag van de kameelkleurige jas.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-duinjas-kameel-04.jpg',
-        alt: 'De kameelkleurige jas open gedragen over een donkere broek, gezien vanaf de heup.',
-        width: 1200,
-        height: 1500,
-      },
-    ],
-    specs: {
-      composition: '80% scheerwol, 20% gerecycled polyamide',
-      lining: 'Volledig gevoerd met cupro',
-      closure: 'Verdekte knoopsluiting, vijf knopen',
-      lengthCm: 118,
-      madeIn: 'Genaaid in Portugal',
-      care: 'Alleen chemisch reinigen; borstel de wol na het dragen uit met een zachte kledingborstel.',
-    },
-    featured: true,
-    releasedAt: '2025-09-12',
-  },
   {
     slug: 'havenjas',
     name: 'Havenjas',
     category: 'jassen',
     price: 40000,
-    tagline: 'Dubbelrij jas tot halverwege de kuit, in dicht geweven wol.',
+    tagline: 'Dubbelrij jas in zwarte wol, tot over de enkel.',
     description:
-      'De langste jas uit de collectie, met een dubbele rij knopen en een brede revers die je hoog kunt dichtslaan. De wol is dicht geweven en houdt wind tegen; de voering van cupro laat de jas soepel over een colbert glijden. Valt tot halverwege de kuit. Een jas voor koude ochtenden en late treinen.',
-    colors: ['houtskool', 'taupe'],
+      'Een dubbelrij jas die tot over de enkel valt. De schouder ligt breed en recht, de revers is groot genoeg om hoog dicht te slaan. Zwarte wol met een dichte weving, waardoor de lijn strak blijft en de jas niet gaat bollen. Draag hem open over een broek, of gesloten met een ceintuur uit je eigen kast.',
+    colors: ['zwart', 'houtskool', 'bruin'],
     variants: [
+      { color: 'zwart', sku: 'MEL-HAV-ZWA' },
       { color: 'houtskool', sku: 'MEL-HAV-HOU' },
-      { color: 'taupe', sku: 'MEL-HAV-TAU' },
+      { color: 'bruin', sku: 'MEL-HAV-BRU' },
     ],
     images: [
       {
-        src: '/images/jas-havenjas-houtskool-01.jpg',
-        alt: 'Lange wollen jas in houtskoolgrijs met dubbele rij knopen, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-havenjas-zwart-01.jpg',
+        alt: 'Zwarte lange wollen jas met dubbele rij knopen, van voren gefotografeerd tegen een lichte achtergrond.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-havenjas-houtskool-02.jpg',
-        alt: 'De houtskoolgrijze jas gesloten gedragen, met de brede revers hoog dichtgeslagen.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-havenjas-zwart-02.jpg',
+        alt: 'Dezelfde zwarte jas gedragen bij een lichte muur, waarbij de lengte tot over de enkel te zien is.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-havenjas-houtskool-03.jpg',
-        alt: 'Detail van de dubbele knopenrij en het weefsel van de houtskoolgrijze wol.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-havenjas-zwart-03.jpg',
+        alt: 'Detail van de dubbele knopenrij en de brede revers van de zwarte jas.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-havenjas-houtskool-04.jpg',
-        alt: 'De houtskoolgrijze jas van achteren, waarbij de lengte tot halverwege de kuit zichtbaar is.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-havenjas-zwart-04.jpg',
+        alt: 'De zwarte jas gesloten gedragen, met een tas over de schouder.',
+        ...FOTO,
       },
     ],
     specs: {
       composition: '90% scheerwol, 10% kasjmier',
       lining: 'Volledig gevoerd met cupro',
       closure: 'Dubbele rij knopen, zes knopen waarvan vier sluitend',
-      lengthCm: 122,
+      lengthCm: 132,
       madeIn: 'Genaaid in Portugal',
       care: 'Alleen chemisch reinigen; hang de jas na een regenbui op een brede hanger te drogen.',
     },
     featured: true,
-    releasedAt: '2025-09-12',
+    releasedAt: '2025-11-07',
+  },
+  {
+    slug: 'duinjas',
+    name: 'Duinjas',
+    category: 'jassen',
+    price: 40000,
+    tagline: 'Dubbelrij jas in grijze visgraatwol, tot halverwege de kuit.',
+    description:
+      'Grijze wol met een fijne visgraat, van dichtbij zichtbaar en van een meter afstand egaal. Dubbele rij knopen, brede revers en twee kleppen op heuphoogte. De jas valt tot halverwege de kuit en houdt zijn vorm doordat de stof stevig is. Een jas voor doordeweekse dagen, over een colbert of over een trui.',
+    colors: ['houtskool', 'zwart', 'kameel'],
+    variants: [
+      { color: 'houtskool', sku: 'MEL-DUI-HOU' },
+      { color: 'zwart', sku: 'MEL-DUI-ZWA' },
+      { color: 'kameel', sku: 'MEL-DUI-KAM' },
+    ],
+    images: [
+      {
+        src: '/images/jas-duinjas-houtskool-01.jpg',
+        alt: 'Houtskoolgrijze lange wollen jas met dubbele rij knopen, van voren gefotografeerd in een lichte kamer.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-duinjas-houtskool-02.jpg',
+        alt: 'Dezelfde grijze jas open gedragen, waarbij de lengte tot halverwege de kuit zichtbaar is.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-duinjas-houtskool-03.jpg',
+        alt: 'De grijze jas van opzij, met zicht op de brede revers en de zakken met klep.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-duinjas-houtskool-04.jpg',
+        alt: 'Detailopname van de visgraatstructuur en de knopen van de grijze jas.',
+        ...FOTO,
+      },
+    ],
+    specs: {
+      composition: '80% scheerwol, 20% gerecycled polyamide',
+      lining: 'Volledig gevoerd met cupro',
+      closure: 'Dubbele rij knopen, zes knopen waarvan vier sluitend',
+      lengthCm: 120,
+      madeIn: 'Genaaid in Portugal',
+      care: 'Alleen chemisch reinigen; borstel de wol na het dragen uit met een zachte kledingborstel.',
+    },
+    featured: true,
+    releasedAt: '2025-10-24',
   },
   {
     slug: 'kadejas',
     name: 'Kadejas',
     category: 'jassen',
     price: 40000,
-    tagline: 'Wikkeljas met ceintuur, in een zachte en luchtige wolmix.',
+    tagline: 'Kameelkleurige jas met hoge kraag en ceintuur.',
     description:
-      'Een wikkeljas zonder knopen: je sluit hem met de ceintuur, of laat hem los hangen. De wolmix is zachter en iets luchtiger dan de rest van de collectie, waardoor de jas mooi meebeweegt. De taille kun je hoog of laag leggen. Werkt over een jurk net zo goed als over een spijkerbroek en trui.',
-    colors: ['ecru', 'kameel'],
+      'De kraag staat rechtop en sluit met drie knopen tot onder de kin, zodat je geen sjaal nodig hebt. Daaronder loopt de jas ruim door en wordt hij gesloten met een ceintuur van dezelfde stof. Zachte kameelkleurige wol met een lichte glans. Knoop de ceintuur los en de jas valt als een cape.',
+    colors: ['kameel', 'ecru', 'bruin'],
     variants: [
-      { color: 'ecru', sku: 'MEL-KAD-ECR' },
       { color: 'kameel', sku: 'MEL-KAD-KAM' },
+      { color: 'ecru', sku: 'MEL-KAD-ECR' },
+      { color: 'bruin', sku: 'MEL-KAD-BRU' },
     ],
     images: [
       {
-        src: '/images/jas-kadejas-ecru-01.jpg',
-        alt: 'Ecru wikkeljas van wol met ceintuur, gesloten gedragen en van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-kadejas-kameel-01.jpg',
+        alt: 'Kameelkleurige wollen jas met hoge opstaande kraag die met drie knopen sluit, en een geknoopte ceintuur.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-kadejas-ecru-02.jpg',
-        alt: 'De ecru wikkeljas los hangend, waarbij de val van de stof te zien is.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-kadejas-kameel-02.jpg',
+        alt: 'De kameelkleurige jas van dichtbij, met zicht op de ruime mouw en de geknoopte ceintuur.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-kadejas-ecru-03.jpg',
-        alt: 'Detail van de geknoopte ceintuur op de taille van de ecru wikkeljas.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-kadejas-ecru-04.jpg',
-        alt: 'De ecru wikkeljas van opzij, gedragen over een lange jurk.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-kadejas-kameel-03.jpg',
+        alt: 'Detail van de opstaande kraag en de knopen van de kameelkleurige jas.',
+        ...FOTO,
       },
     ],
     specs: {
       composition: '70% scheerwol, 25% alpaca, 5% polyamide',
       lining: 'Half gevoerd met cupro in rug en mouwen',
-      closure: 'Ceintuur van dezelfde stof, geen knopen',
-      lengthCm: 115,
+      closure: 'Opstaande kraag met drie knopen, gesloten met een ceintuur',
+      lengthCm: 118,
       madeIn: 'Genaaid in Portugal',
       care: 'Alleen chemisch reinigen; strijk de ceintuur zo nodig met een doek ertussen.',
     },
@@ -284,151 +283,90 @@ export const products: Product[] = [
     releasedAt: '2025-10-03',
   },
   {
+    slug: 'lijnjas',
+    name: 'Lijnjas',
+    category: 'jassen',
+    price: 40000,
+    tagline: 'Het langste en smalste model, in lichtgrijze wol.',
+    description:
+      'Het langste model dat we maken: één rechte lijn van schouder tot enkel, zonder ceintuur en zonder extra volume. De lichtgrijze wol is dunner dan bij de andere jassen, waardoor hij soepel meeloopt in plaats van stijf te blijven staan. Smalle revers, verzonken knopen, zakken in de naad. Mooi over iets lichts eronder.',
+    colors: ['lichtgrijs', 'houtskool', 'zwart'],
+    variants: [
+      { color: 'lichtgrijs', sku: 'MEL-LIJ-LGR' },
+      { color: 'houtskool', sku: 'MEL-LIJ-HOU' },
+      { color: 'zwart', sku: 'MEL-LIJ-ZWA' },
+    ],
+    images: [
+      {
+        src: '/images/jas-lijnjas-lichtgrijs-01.jpg',
+        alt: 'Lichtgrijze lange wollen jas, recht model, gedragen op straat met een tas over de arm.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-lijnjas-lichtgrijs-02.jpg',
+        alt: 'Dezelfde lichtgrijze jas open gedragen, waarbij de lengte tot de enkel te zien is.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-lijnjas-lichtgrijs-03.jpg',
+        alt: 'De lichtgrijze jas van achteren, met zicht op de rechte lijn van schouder tot zoom.',
+        ...FOTO,
+      },
+      {
+        src: '/images/jas-lijnjas-lichtgrijs-04.jpg',
+        alt: 'De lichtgrijze jas gedragen over een lichte broek en een grijze trui.',
+        ...FOTO,
+      },
+    ],
+    specs: {
+      composition: '75% scheerwol, 25% viscose',
+      lining: 'Half gevoerd met cupro in de rug',
+      closure: 'Enkele rij verzonken knopen, vier knopen',
+      lengthCm: 138,
+      madeIn: 'Genaaid in Portugal',
+      care: 'Alleen chemisch reinigen; hang de jas los in de kast zodat de schouders hun vorm houden.',
+    },
+    featured: false,
+    releasedAt: '2025-11-21',
+  },
+  {
     slug: 'veldjas',
     name: 'Veldjas',
     category: 'jassen',
     price: 40000,
-    tagline: 'Rechte jas in melangewol, met kleppen op de zakken.',
+    tagline: 'Rechte jas in donkerbruine wol, met kleppen op de zakken.',
     description:
-      'Rechte jas met een klein, strak revers en verzonken knopen, zodat de voorkant rustig blijft. De wol heeft een lichte melange waardoor het groen in de zon warmer oogt dan binnen. Twee ruime zakken met klep, één binnenzak. De lengte valt tot over de knie en houdt je benen uit de wind tijdens lange wandelingen.',
-    colors: ['donkergroen', 'houtskool'],
+      'Donkerbruine wol met een warme ondertoon die in de herfst goed samengaat met kaki en crème. Recht model met kleppen op de zakken en een klein, strak revers. De jas valt tot over de knie en heeft een split achter, zodat je er goed in kunt lopen. Draag hem open, met de mouwen los.',
+    colors: ['bruin', 'houtskool', 'zwart'],
     variants: [
-      { color: 'donkergroen', sku: 'MEL-VEL-DGR' },
+      { color: 'bruin', sku: 'MEL-VEL-BRU' },
       { color: 'houtskool', sku: 'MEL-VEL-HOU' },
+      { color: 'zwart', sku: 'MEL-VEL-ZWA' },
     ],
     images: [
       {
-        src: '/images/jas-veldjas-donkergroen-01.jpg',
-        alt: 'Donkergroene lange wollen jas met kleppen op de zakken, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-veldjas-bruin-01.jpg',
+        alt: 'Donkerbruine lange wollen jas gedragen op straat, met een tas over de schouder.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-veldjas-donkergroen-02.jpg',
-        alt: 'De donkergroene jas open gedragen, waarbij de voering en de binnenzak zichtbaar zijn.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-veldjas-bruin-02.jpg',
+        alt: 'Dezelfde donkerbruine jas over een houten bank, tussen herfstbladeren.',
+        ...FOTO,
       },
       {
-        src: '/images/jas-veldjas-donkergroen-03.jpg',
-        alt: 'Detail van de melangewol en een verzonken knoop van de donkergroene jas.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-veldjas-donkergroen-04.jpg',
-        alt: 'De donkergroene jas buiten gedragen, van opzij, met de handen in de zakken.',
-        width: 1200,
-        height: 1500,
+        src: '/images/jas-veldjas-bruin-03.jpg',
+        alt: 'De donkerbruine jas open gedragen over een spijkerbroek en een lichte trui.',
+        ...FOTO,
       },
     ],
     specs: {
       composition: '85% scheerwol, 15% mohair',
       lining: 'Volledig gevoerd met cupro, één binnenzak',
       closure: 'Enkele rij verzonken knopen, vier knopen',
-      lengthCm: 120,
+      lengthCm: 122,
       madeIn: 'Genaaid in Portugal',
       care: 'Alleen chemisch reinigen; laat de jas na een natte dag eerst drogen voordat je hem opbergt.',
-    },
-    featured: false,
-    releasedAt: '2025-10-03',
-  },
-  {
-    slug: 'lijnjas',
-    name: 'Lijnjas',
-    category: 'jassen',
-    price: 40000,
-    tagline: 'De smalste jas uit de collectie, in dunnere wol.',
-    description:
-      'Het smalste model dat we maken: rechte lijn van schouder tot zoom, zonder ceintuur of extra volume. Door de dunnere wolkwaliteit draag je hem al vanaf begin oktober, ook binnen over een blouse. Enkele rij knopen, smalle revers, zakken in de naad. Draag je er graag een dikke trui onder, zeg het dan bij het opnemen van de maten; dan houden we extra ruimte aan.',
-    colors: ['taupe', 'houtskool'],
-    variants: [
-      { color: 'taupe', sku: 'MEL-LIJ-TAU' },
-      { color: 'houtskool', sku: 'MEL-LIJ-HOU' },
-    ],
-    images: [
-      {
-        src: '/images/jas-lijnjas-taupe-01.jpg',
-        alt: 'Taupekleurige smalle wollen jas, recht model, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-lijnjas-taupe-02.jpg',
-        alt: 'De taupekleurige jas van opzij, waarbij de rechte lijn van schouder tot zoom te zien is.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-lijnjas-taupe-03.jpg',
-        alt: 'Detail van de smalle revers en de eerste knoop van de taupekleurige jas.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/jas-lijnjas-taupe-04.jpg',
-        alt: 'De taupekleurige jas binnen gedragen over een lichte blouse.',
-        width: 1200,
-        height: 1500,
-      },
-    ],
-    specs: {
-      composition: '75% scheerwol, 25% viscose',
-      lining: 'Half gevoerd met cupro in de rug',
-      closure: 'Enkele rij knopen, drie knopen',
-      lengthCm: 112,
-      madeIn: 'Genaaid in Portugal',
-      care: 'Alleen chemisch reinigen; hang de jas los in de kast zodat de schouders hun vorm houden.',
-    },
-    featured: false,
-    releasedAt: '2025-11-07',
-  },
-  {
-    slug: 'grachtblazer',
-    name: 'Grachtblazer',
-    category: 'blazers',
-    price: 40000,
-    tagline: 'Enkelrij blazer met twee knopen, in glad afgewerkte wol.',
-    description:
-      'Een enkelrij blazer met twee knopen en een licht getailleerde zijnaad. De wol is glad afgewerkt, dus de blazer blijft strak zitten zonder te kreuken. Schoudervulling is dun gehouden, waardoor de lijn zacht blijft. Draag hem op kantoor over een hemd, of ’s avonds met een T-shirt en de mouwen één slag opgerold.',
-    colors: ['houtskool', 'taupe'],
-    variants: [
-      { color: 'houtskool', sku: 'MEL-GRA-HOU' },
-      { color: 'taupe', sku: 'MEL-GRA-TAU' },
-    ],
-    images: [
-      {
-        src: '/images/blazer-grachtblazer-houtskool-01.jpg',
-        alt: 'Houtskoolgrijze wollen blazer met twee knopen, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-grachtblazer-houtskool-02.jpg',
-        alt: 'De houtskoolgrijze blazer open gedragen over een wit hemd.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-grachtblazer-houtskool-03.jpg',
-        alt: 'Detail van de revers en de borstzak van de houtskoolgrijze blazer.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-grachtblazer-houtskool-04.jpg',
-        alt: 'De houtskoolgrijze blazer van achteren, met zicht op de split in het rugpand.',
-        width: 1200,
-        height: 1500,
-      },
-    ],
-    specs: {
-      composition: '95% scheerwol, 5% elastaan',
-      lining: 'Volledig gevoerd met viscose',
-      closure: 'Enkele rij knopen, twee knopen',
-      lengthCm: 74,
-      madeIn: 'Genaaid in Portugal',
-      care: 'Alleen chemisch reinigen; stoom de blazer kort als er een vouw in zit.',
     },
     featured: false,
     releasedAt: '2025-09-26',
@@ -438,100 +376,111 @@ export const products: Product[] = [
     name: 'Atelierblazer',
     category: 'blazers',
     price: 40000,
-    tagline: 'Ongevoerde blazer in losjes geweven wol, ook voor het voorjaar.',
+    tagline: 'Ongevoerde blazer in gebroken wit, ook voor het voorjaar.',
     description:
-      'Ongevoerde blazer met open naden aan de binnenkant, zodat hij licht blijft en ook in het voorjaar te dragen is. De wol is losser geweven en voelt bijna als linnen. Eén knoop, ronde zoom, geen schoudervulling. Omdat er geen voering in zit valt hij dichter om het lichaam, dus we houden bij het opmeten iets meer ruimte aan dan bij de andere modellen.',
-    colors: ['ecru', 'kameel'],
+      'Ongevoerde blazer in gebroken wit, met open naden aan de binnenkant zodat hij licht blijft. De wol is losser geweven en voelt bijna als linnen. Eén knoop, zachte schouder, geen vulling. Omdat er geen voering in zit valt hij dicht om het lichaam; we houden bij het opmeten daarom iets meer ruimte aan.',
+    colors: ['ecru', 'kameel', 'lichtgrijs'],
     variants: [
       { color: 'ecru', sku: 'MEL-ATE-ECR' },
       { color: 'kameel', sku: 'MEL-ATE-KAM' },
+      { color: 'lichtgrijs', sku: 'MEL-ATE-LGR' },
     ],
     images: [
       {
         src: '/images/blazer-atelierblazer-ecru-01.jpg',
-        alt: 'Ecru ongevoerde wollen blazer met één knoop, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
+        alt: 'Gebroken witte wollen blazer met één knoop, gedragen over een spijkerbroek in de sneeuw.',
+        ...FOTO,
       },
       {
         src: '/images/blazer-atelierblazer-ecru-02.jpg',
-        alt: 'De ecru blazer open gedragen, waarbij de afgewerkte binnennaden zichtbaar zijn.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-atelierblazer-ecru-03.jpg',
-        alt: 'Detail van het losse weefsel en de ronde zoom van de ecru blazer.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-atelierblazer-ecru-04.jpg',
-        alt: 'De ecru blazer van opzij, met de mouwen één slag opgerold.',
-        width: 1200,
-        height: 1500,
+        alt: 'Dezelfde gebroken witte blazer met een grote wollen sjaal eroverheen, tegen een lichte achtergrond.',
+        ...FOTO,
       },
     ],
     specs: {
       composition: '100% scheerwol',
       lining: 'Ongevoerd, met afgewerkte binnennaden',
       closure: 'Eén knoop',
-      lengthCm: 71,
+      lengthCm: 72,
       madeIn: 'Genaaid in Portugal',
       care: 'Alleen chemisch reinigen; hang de blazer luchtig op, hij kreukt sneller dan een gevoerd model.',
     },
+    featured: true,
+    releasedAt: '2025-11-21',
+  },
+  {
+    slug: 'grachtblazer',
+    name: 'Grachtblazer',
+    category: 'blazers',
+    price: 40000,
+    tagline: 'Ruime dubbelrij blazer in glad afgewerkte grijze wol.',
+    description:
+      'Ruime blazer met een laag gezette schouder en een brede revers, in grijze wol die glad is afgewerkt. Dubbele rij knopen, waarvan je er meestal maar één sluit. De mouw is bewust wat langer, zodat hij tot over de pols valt. Draag hem over een hemd op kantoor, of los over een T-shirt.',
+    colors: ['houtskool', 'zwart', 'lichtgrijs'],
+    variants: [
+      { color: 'houtskool', sku: 'MEL-GRA-HOU' },
+      { color: 'zwart', sku: 'MEL-GRA-ZWA' },
+      { color: 'lichtgrijs', sku: 'MEL-GRA-LGR' },
+    ],
+    images: [
+      {
+        src: '/images/blazer-grachtblazer-houtskool-01.jpg',
+        alt: 'Grijze ruime wollen blazer met dubbele rij knopen, gedragen over een donkere broek.',
+        ...FOTO,
+      },
+      {
+        src: '/images/blazer-grachtblazer-houtskool-02.jpg',
+        alt: 'Detail van de brede revers van de grijze blazer, gedragen over een lichtblauw hemd.',
+        ...FOTO,
+      },
+    ],
+    specs: {
+      composition: '95% scheerwol, 5% elastaan',
+      lining: 'Volledig gevoerd met viscose',
+      closure: 'Dubbele rij knopen, vier knopen waarvan twee sluitend',
+      lengthCm: 76,
+      madeIn: 'Genaaid in Portugal',
+      care: 'Alleen chemisch reinigen; stoom de blazer kort als er een vouw in zit.',
+    },
     featured: false,
-    releasedAt: '2025-11-07',
+    releasedAt: '2025-09-12',
   },
   {
     slug: 'zondagblazer',
     name: 'Zondagblazer',
     category: 'blazers',
     price: 40000,
-    tagline: 'Ruime blazer in zwaardere wol, te dragen over een trui.',
+    tagline: 'Lange zwarte blazer, ruim gesneden en zwaarder van stof.',
     description:
-      'Ruime blazer met laag gezette schouder en langere mouw, bedoeld om over een trui te dragen. De wol is zwaarder dan bij de andere blazers, waardoor hij netjes valt in plaats van bol te staan. Eén knoop op heuphoogte, diepe zakken. In deze lengte vervangt hij op zachte dagen een jas.',
-    colors: ['kameel', 'donkergroen'],
+      'Lange zwarte blazer die net over de heup valt, ruim gesneden en met een schouder die iets afhangt. De wol is zwaarder dan bij de andere blazers, waardoor hij netjes valt in plaats van bol te staan. Twee knopen, diepe zakken. In deze lengte kun je hem op zachte dagen als jas dragen.',
+    colors: ['zwart', 'houtskool', 'bruin'],
     variants: [
-      { color: 'kameel', sku: 'MEL-ZON-KAM' },
-      { color: 'donkergroen', sku: 'MEL-ZON-DGR' },
+      { color: 'zwart', sku: 'MEL-ZON-ZWA' },
+      { color: 'houtskool', sku: 'MEL-ZON-HOU' },
+      { color: 'bruin', sku: 'MEL-ZON-BRU' },
     ],
     images: [
       {
-        src: '/images/blazer-zondagblazer-kameel-01.jpg',
-        alt: 'Kameelkleurige ruime wollen blazer met één knoop, van voren gefotografeerd.',
-        width: 1200,
-        height: 1500,
+        src: '/images/blazer-zondagblazer-zwart-01.jpg',
+        alt: 'Lange zwarte wollen blazer, ruim gesneden, gedragen op straat.',
+        ...FOTO,
       },
       {
-        src: '/images/blazer-zondagblazer-kameel-02.jpg',
-        alt: 'De kameelkleurige blazer gedragen over een dikke trui, van voren.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-zondagblazer-kameel-03.jpg',
-        alt: 'Detail van de laag gezette schouder en de langere mouw van de kameelkleurige blazer.',
-        width: 1200,
-        height: 1500,
-      },
-      {
-        src: '/images/blazer-zondagblazer-kameel-04.jpg',
-        alt: 'De kameelkleurige blazer van opzij, met een hand in de diepe zijzak.',
-        width: 1200,
-        height: 1500,
+        src: '/images/blazer-zondagblazer-zwart-02.jpg',
+        alt: 'Dezelfde zwarte blazer buiten gedragen over een spijkerbroek, tussen herfstbladeren.',
+        ...FOTO,
       },
     ],
     specs: {
       composition: '80% scheerwol, 20% alpaca',
       lining: 'Half gevoerd met cupro in de rug',
-      closure: 'Eén knoop op heuphoogte',
-      lengthCm: 78,
+      closure: 'Enkele rij knopen, twee knopen',
+      lengthCm: 80,
       madeIn: 'Genaaid in Portugal',
       care: 'Alleen chemisch reinigen; borstel de wol na het dragen uit zodat pluis van de trui verdwijnt.',
     },
-    featured: true,
-    releasedAt: '2025-10-24',
+    featured: false,
+    releasedAt: '2025-10-03',
   },
 ];
 

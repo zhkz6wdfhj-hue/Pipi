@@ -164,9 +164,11 @@ worden.
 
 ## 4. Foto's vervangen
 
-In `public/images/` staan nu **placeholderfoto's**: rustige, abstracte tekeningen
-in de juiste kleur en de juiste verhouding. Ze zijn er zodat de vormgeving klopt
-zolang de echte foto's er nog niet zijn. Vervang ze zo:
+In `public/images/` staan nu foto's die uit schermafbeeldingen van het
+Instagram-raster zijn gesneden. Ze tonen de echte kleding, maar ze zijn
+**ongeveer een derde van de resolutie die je nodig hebt** — goed genoeg om de
+site te beoordelen, niet goed genoeg om mee te verkopen. Vervang ze door de
+originelen:
 
 ### De foto's uit Instagram halen
 
@@ -210,14 +212,15 @@ schermlezers en is dus geen bijzaak. Beschrijf wat je ziet, bijvoorbeeld
 
 ### De placeholders opnieuw maken
 
-Wil je terug naar de tekeningen, of heb je een kleur toegevoegd:
+Er staat nog een script klaar dat abstracte tekeningen maakt in de juiste
+kleuren en verhoudingen — handig als je tijdelijk zonder foto's zit:
 
 ```bash
 npm run images
 ```
 
-Dit overschrijft alles in `public/images/`. Doe het dus niet nadat je je eigen
-foto's erin hebt gezet.
+**Let op:** dit overschrijft alles in `public/images/`. Doe het niet nadat je je
+eigen foto's erin hebt gezet.
 
 ---
 

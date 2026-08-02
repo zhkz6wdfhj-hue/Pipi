@@ -47,7 +47,7 @@ export default function HomePage() {
       <section className="container-page pt-6 lg:pt-10">
         <SceneMedia
           src="/images/sfeer-collectie-01.jpg"
-          alt="Een kameelkleurige en een houtskoolgrijze lange wollen jas naast elkaar in warm daglicht."
+          alt="Een lange wollen jas in poederkleur, gedragen op straat langs een modern gebouw."
           width={1800}
           height={1200}
           priority
@@ -106,7 +106,7 @@ export default function HomePage() {
 
           <SceneMedia
             src="/images/sfeer-atelier-01.jpg"
-            alt="Vijf wollen jassen naast elkaar aan een rek, in ecru, kameel, taupe, donkergroen en houtskool."
+            alt="Kameelkleurige wollen jas met brede revers, van dichtbij gefotografeerd in het najaarslicht."
             width={1800}
             height={1200}
             sizes="(min-width: 1024px) 570px, 100vw"

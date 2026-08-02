@@ -23,7 +23,7 @@ export default function OverPage() {
 
       <SceneMedia
         src="/images/sfeer-atelier-01.jpg"
-        alt="Vijf wollen jassen naast elkaar aan een rek, in ecru, kameel, taupe, donkergroen en houtskool."
+        alt="Kameelkleurige wollen jas met brede revers, van dichtbij gefotografeerd in het najaarslicht."
         width={1800}
         height={1200}
         priority
