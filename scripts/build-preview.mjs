@@ -5,6 +5,9 @@
  * erin — de opmaak, de lettertypen en alle foto's — dus je kunt het mailen,
  * in een chat plakken of op een usb-stick zetten en het werkt overal.
  *
+ * De foto's worden hiervoor flink verkleind; het bestand moet immers als geheel
+ * verstuurd kunnen worden. Beoordeel de vormgeving hierop, niet de scherpte.
+ *
  * Je klikt gewoon door de pagina's heen: de links zijn omgezet naar verwijzingen
  * binnen hetzelfde bestand. Wat een server nodig heeft — de winkelmand, het
  * afrekenen, zoeken — staat als schermafbeelding op een eigen pagina, zodat je
@@ -112,7 +115,7 @@ async function alsDataUri(bestandsnaam, breedte) {
 
   const buffer = await sharp(path.join(AFBEELDINGEN, bestandsnaam))
     .resize({ width: breedte, withoutEnlargement: true })
-    .jpeg({ quality: 78, mozjpeg: true })
+    .jpeg({ quality: 62, mozjpeg: true })
     .toBuffer();
 
   const uri = `data:image/jpeg;base64,${buffer.toString('base64')}`;
@@ -132,7 +135,7 @@ async function bakFotosIn(html) {
   );
 
   for (const naam of namen) {
-    const breedte = naam.startsWith('sfeer') || naam.startsWith('og') ? 1100 : 640;
+    const breedte = naam.startsWith('sfeer') || naam.startsWith('og') ? 820 : 400;
     const uri = await alsDataUri(naam, breedte);
     resultaat = resultaat.replaceAll(`/images/${naam}`, uri);
   }
@@ -188,8 +191,8 @@ async function opnamesPagina() {
     if (!beschikbaar.has(bestand)) continue;
 
     const buffer = await sharp(path.join(SCHERMAFBEELDINGEN, bestand))
-      .resize({ width: 860, withoutEnlargement: true })
-      .jpeg({ quality: 70, mozjpeg: true })
+      .resize({ width: 720, withoutEnlargement: true })
+      .jpeg({ quality: 62, mozjpeg: true })
       .toBuffer();
 
     blokken.push(`
