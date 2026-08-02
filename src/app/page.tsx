@@ -46,8 +46,8 @@ export default function HomePage() {
       {/* Sfeerbeeld met één zin en één knop */}
       <section className="container-page pt-6 lg:pt-10">
         <SceneMedia
-          src="/images/sfeer-collectie-01.jpg"
-          alt="Een lange wollen jas in poederkleur, gedragen op straat langs een modern gebouw."
+          src="/images/sfeer-atelier-01.jpg"
+          alt="Het atelier aan de gracht: paspoppen met wollen jassen, een rek met modellen, een werktafel vol patronen en een naaimachine, met uitzicht op Amsterdamse grachtenpanden."
           width={1800}
           height={1200}
           priority
@@ -56,7 +56,7 @@ export default function HomePage() {
 
         <div className="mt-8 flex flex-col gap-6 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
           <h1 className="display-xl max-w-2xl text-balance">
-            Wollen jassen die op jouw maat worden gemaakt, en daarna jaren meegaan.
+            Wollen jassen die hier op jouw maat worden gemaakt, en daarna jaren meegaan.
           </h1>
           <ButtonLink href="/collectie" className="self-start lg:self-auto">
             Bekijk de collectie
@@ -94,10 +94,10 @@ export default function HomePage() {
               Klein gehouden, met opzet
             </h2>
             <p className="text-lead leading-relaxed text-ink-soft">
-              Melin_clo begon in 2022 met één jas en een telefoon vol foto&apos;s. De wol komt van
-              een spinnerij in Portugal, waar ook genaaid wordt. We maken niets vooruit: elke jas
-              wordt pas gesneden als er iemand is die hem gaat dragen, naar diens maten. Daarom
-              blijft er aan het eind van het seizoen niets over.
+              Melin_clo begon in 2022 met één jas en een telefoon vol foto&apos;s. Inmiddels
+              werken we vanuit een atelier aan de gracht: daar liggen de patronen, daar hangen de
+              modellen, en daar passen we. We maken niets vooruit — elke jas wordt pas gesneden als
+              er iemand is die hem gaat dragen, naar diens maten.
             </p>
             <Link href="/over" className="link-underlined mt-6 inline-block text-[0.9375rem]">
               Lees het hele verhaal
@@ -105,8 +105,8 @@ export default function HomePage() {
           </div>
 
           <SceneMedia
-            src="/images/sfeer-atelier-01.jpg"
-            alt="Kameelkleurige wollen jas met brede revers, van dichtbij gefotografeerd in het najaarslicht."
+            src="/images/sfeer-collectie-01.jpg"
+            alt="Een lange wollen jas in poederkleur, gedragen op straat langs een modern gebouw."
             width={1800}
             height={1200}
             sizes="(min-width: 1024px) 570px, 100vw"

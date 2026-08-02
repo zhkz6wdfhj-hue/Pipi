@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { PageHeader } from '@/components/layout/page-header';
+import { SceneMedia } from '@/components/ui/media';
 import { layeringOptions, measurements } from '@/data/measurements';
 import { site } from '@/data/site';
 import { pageMetadata } from '@/lib/seo';
@@ -24,6 +25,16 @@ export default function OpMaatPage() {
         ]}
       />
 
+      <SceneMedia
+        src="/images/sfeer-atelier-01.jpg"
+        alt="Het atelier aan de gracht, met de werktafel waarop de patronen liggen en het rek met modellen om te passen."
+        width={1800}
+        height={1200}
+        priority
+        sizes="(min-width: 1240px) 1176px, 100vw"
+        className="mb-12 lg:mb-16"
+      />
+
       <div className="prose-melin">
         <h2 className="!mt-0">Hoe het gaat</h2>
         <ol>
@@ -38,7 +49,8 @@ export default function OpMaatPage() {
           <li>
             <strong>Je meet jezelf op, of we doen het samen.</strong> Met een meetlint en iemand die
             helpt lukt het thuis prima; hieronder staat precies wat we nodig hebben. Woon je in de
-            buurt van Amsterdam, dan kunnen we ook afspreken.
+            buurt van Amsterdam, dan kun je ook langskomen in het atelier — bij daglicht zie je
+            meteen hoe een stof er echt uitziet.
           </li>
           <li>
             <strong>Het atelier gaat aan de slag.</strong> Reken op {site.delivery.weeksMin} tot{' '}

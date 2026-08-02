@@ -117,6 +117,18 @@ Controleer daarna in `src/data/site.ts`:
 En in `src/data/measurements.ts`: de zeven maten die je opneemt. Vraagt je
 atelier er meer of andere, pas de lijst dan aan.
 
+### Herkomst van stof en naaiwerk — belangrijk
+
+Bij `specs.madeIn` staat nu **"Gemaakt in ons atelier in Amsterdam"**, en op de
+overpagina staat dat je stof bij Europese wevers inkoopt. Dat is de veilige
+formulering; ik weet niet waar je stof precies vandaan komt of waar er genaaid
+wordt.
+
+Vul het aan met wat er werkelijk klopt. Herkomstclaims op kleding zijn geen
+sfeerteksten: "gemaakt in Amsterdam" of "Italiaanse wol" moet je kunnen
+onderbouwen, anders is het misleidende handelspraktijk. Noem alleen wat je hard
+kunt maken.
+
 ---
 
 ## 7. Domein en publiceren — een halve dag

@@ -24,7 +24,7 @@ export function pageMetadata(input: {
   const url = absoluteUrl(input.path);
   const image = input.image ?? {
     url: absoluteUrl('/images/og-melin-clo.jpg'),
-    alt: 'Melin_clo — een lange wollen jas in poederkleur, gedragen op straat.',
+    alt: 'Het atelier van Melin_clo aan een Amsterdamse gracht, met paspoppen, een rek met wollen jassen en een werktafel vol patronen.',
   };
 
   return {

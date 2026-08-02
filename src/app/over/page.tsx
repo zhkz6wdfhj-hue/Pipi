@@ -21,14 +21,20 @@ export default function OverPage() {
         breadcrumb={[{ label: 'Over Melin_clo', href: '/over' }]}
       />
 
-      <SceneMedia
-        src="/images/sfeer-atelier-01.jpg"
-        alt="Kameelkleurige wollen jas met brede revers, van dichtbij gefotografeerd in het najaarslicht."
-        width={1800}
-        height={1200}
-        priority
-        sizes="(min-width: 1240px) 1176px, 100vw"
-      />
+      <figure>
+        <SceneMedia
+          src="/images/sfeer-atelier-01.jpg"
+          alt="Het atelier aan de gracht: paspoppen met wollen jassen, een rek met modellen, een werktafel vol patronen en een naaimachine, met uitzicht op Amsterdamse grachtenpanden."
+          width={1800}
+          height={1200}
+          priority
+          sizes="(min-width: 1240px) 1176px, 100vw"
+        />
+        <figcaption className="mt-3 text-[0.8125rem] leading-relaxed text-ink-soft">
+          Het atelier aan de gracht. Links de paspoppen met de modellen van dit seizoen, in het
+          midden de werktafel met de patronen, rechts het licht waar we op passen.
+        </figcaption>
+      </figure>
 
       <div className="section-t grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
         <div>
@@ -49,12 +55,30 @@ export default function OverPage() {
             vandaar deze site.
           </p>
 
+          <h2>Het atelier</h2>
+          <p>
+            We werken vanuit een atelier aan een Amsterdamse gracht, op een verdieping met hoge
+            ramen. Dat is geen bedrijfspand met een showroom, maar een werkruimte: aan de muur
+            hangen de schetsen, op de tafel liggen de patronen en de rollen stof, en aan het rek
+            hangt van elk model één exemplaar om te passen.
+          </p>
+          <p>
+            Het noorderlicht is de reden dat we hier zitten. Wol verandert van kleur onder kunstlicht
+            — een houtskoolgrijs kan zomaar blauw worden, kameel kan geel worden. Bij daglicht zie je
+            wat je koopt, en dat scheelt teleurstellingen bij het uitpakken.
+          </p>
+          <p>
+            Kom je uit de buurt, dan kun je hier langskomen om de maten te laten opnemen en de
+            stoffen in het echt te zien. Woon je verder weg, dan doen we het per mail of telefoon;
+            dat werkt in de praktijk net zo goed.
+          </p>
+
           <h2>De wol</h2>
           <p>
-            De stof komt van een spinnerij in het noorden van Portugal, een familiebedrijf dat al
-            drie generaties weeft. De scheerwol is Europees, de kasjmier en alpaca die we bijmengen
-            komen via dezelfde spinnerij binnen. In hetzelfde stadje zit het atelier dat de jassen
-            naait; stof en naaiwerk liggen dus geen honderden kilometers uit elkaar.
+            We kopen onze stof in bij Europese wevers en werken met scheerwol, aangevuld met kasjmier,
+            alpaca of mohair — welke mengeling het wordt, verschilt per model en staat bij elk
+            product vermeld. Rollen komen per stuk binnen en gaan hier op tafel; er ligt geen
+            magazijn vol.
           </p>
           <p>
             Waarom wol en niet iets goedkopers? Omdat wol warm blijft als hij vochtig wordt, omdat
