@@ -1,6 +1,7 @@
 # Melin_clo — webshop
 
-De webshop van Melin_clo: lange wollen jassen en blazers, in kleine oplages. Deze
+De webshop van Melin_clo: lange wollen jassen en blazers, na de bestelling op maat
+gemaakt. Deze
 site vervangt het bestellen via Instagram.
 
 Gebouwd met Next.js (App Router), TypeScript en Tailwind CSS. Er is geen CMS en
@@ -116,8 +117,7 @@ Kopieer een bestaand blok, plak het onderaan de lijst en pas aan:
   tagline: 'Eén zin voor het overzicht.',
   description: '40 tot 70 woorden over stof, pasvorm, lengte en draagmoment.',
   colors: ['kameel', 'ecru'],
-  sizes: ['XS', 'S', 'M', 'L', 'XL'],
-  variants: [ … ],        // één regel per kleur + maat, met voorraad
+  variants: [ … ],        // één regel per kleur, met een artikelnummer
   images: [ … ],          // pad, alt-tekst, breedte en hoogte
   specs: { … },           // samenstelling, voering, sluiting, lengte, onderhoud
   featured: true,         // op de homepage? De eerste vier worden getoond
@@ -125,16 +125,26 @@ Kopieer een bestaand blok, plak het onderaan de lijst en pas aan:
 }
 ```
 
-### Voorraad bijwerken
+### Alles wordt op maat gemaakt
 
-In `variants` staat per kleur en maat hoeveel er nog is. Zet je een maat op `0`,
-dan blijft hij zichtbaar op de productpagina maar is hij uitgeschakeld — de klant
-ziet dus dat de maat bestaat en uitverkocht is. Staat alles op `0`, dan krijgt
-het product het label "Uitverkocht" in de collectie.
+Er zijn geen confectiematen en geen voorraad. De klant kiest een model en een
+kleur; de maten neem je zelf op nadat de bestelling binnen is. In `variants`
+staat daarom één regel per kleur, met een artikelnummer — meer niet.
 
-> Voorraad wordt niet automatisch afgeboekt na een bestelling. Bij deze
-> hoeveelheden werkt handmatig bijwerken prima; in het interne besteloverzicht
-> per e-mail staat een herinnering.
+Wat daaruit volgt, zit overal in de site verwerkt: er staat nergens
+"uitverkocht", de levertijd is {weeksMin} tot {weeksMax} weken uit
+`src/data/site.ts`, en op de bedankpagina en in de bevestigingsmail staat dat je
+binnen twee werkdagen contact opneemt voor de maten.
+
+Welke maten je opneemt staat in `src/data/measurements.ts`. Pas die lijst aan als
+je atelier andere maten nodig heeft; de pagina /service/op-maat en het blok op de
+productpagina volgen vanzelf.
+
+> **Let op bij de juridische teksten.** Omdat het maatwerk is, vervalt het
+> wettelijke herroepingsrecht van veertien dagen. Dat staat zo uitgelegd op
+> /juridisch/herroepingsrecht en in de algemene voorwaarden. Ga je later tóch
+> confectiematen verkopen, dan moeten die teksten terug — laat ze dan opnieuw
+> nakijken.
 
 ### Een kleur toevoegen
 

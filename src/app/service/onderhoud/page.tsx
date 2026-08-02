@@ -77,7 +77,7 @@ export default function OnderhoudPage() {
         </p>
 
         <p>
-          <Link href="/service/maattabel">Maattabel</Link> ·{' '}
+          <Link href="/service/op-maat">Op maat gemaakt</Link> ·{' '}
           <Link href="/contact">Een vraag stellen</Link>
         </p>
       </div>

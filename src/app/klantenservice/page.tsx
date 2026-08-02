@@ -15,12 +15,12 @@ const onderwerpen = [
   {
     href: '/service/verzending',
     titel: 'Verzending en levering',
-    tekst: 'Kosten, levertijden en wat er gebeurt als je niet thuis bent.',
+    tekst: 'Levertijd, kosten en wat er gebeurt als je niet thuis bent.',
   },
   {
-    href: '/service/retourneren',
-    titel: 'Retourneren en ruilen',
-    tekst: 'Veertien dagen bedenktijd, en hoe je een retour aanmeldt.',
+    href: '/service/passen-en-aanpassen',
+    titel: 'Passen en aanpassen',
+    tekst: 'Zit je jas niet goed? We passen hem kosteloos aan tot hij past.',
   },
   {
     href: '/service/betaalmethoden',
@@ -28,9 +28,9 @@ const onderwerpen = [
     tekst: 'iDEAL, Bancontact en creditcard, en wanneer je geld wordt afgeschreven.',
   },
   {
-    href: '/service/maattabel',
-    titel: 'Maattabel',
-    tekst: 'Alle maten in centimeters, en hoe je jezelf het beste opmeet.',
+    href: '/service/op-maat',
+    titel: 'Op maat gemaakt',
+    tekst: 'Welke maten we opnemen, hoe dat gaat en hoe lang het maken duurt.',
   },
   {
     href: '/service/onderhoud',

@@ -8,6 +8,19 @@ const nextConfig: NextConfig = {
     // te vervangen door de foto's uit Instagram.
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    // De oude adressen bestonden toen we nog met confectiematen werkten. Ze
+    // kunnen nog in oude mails of zoekresultaten staan, dus we sturen ze door.
+    return [
+      { source: '/service/maattabel', destination: '/service/op-maat', permanent: true },
+      {
+        source: '/service/retourneren',
+        destination: '/service/passen-en-aanpassen',
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

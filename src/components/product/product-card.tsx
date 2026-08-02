@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { ProductMedia } from '@/components/ui/media';
-import { COLORS, isSoldOut, type Product } from '@/data/products';
+import { COLORS, type Product } from '@/data/products';
 import { formatPrice } from '@/lib/format';
 
 /**
@@ -19,7 +19,6 @@ export function ProductCard({
   sizes?: string;
 }) {
   const image = product.images[0];
-  const uitverkocht = isSoldOut(product);
 
   return (
     <article>
@@ -34,11 +33,9 @@ export function ProductCard({
             sizes={sizes}
             imageClassName="transition-opacity duration-200 ease-[cubic-bezier(0.2,0,0.2,1)] group-hover:opacity-90"
           />
-          {uitverkocht ? (
-            <p className="label-caps absolute top-3 left-3 border border-line bg-surface px-2.5 py-1 text-ink-soft">
-              Uitverkocht
-            </p>
-          ) : null}
+          <p className="label-caps absolute top-3 left-3 border border-line bg-surface px-2.5 py-1 text-ink-soft">
+            Op maat
+          </p>
         </div>
 
         <div className="mt-3.5">

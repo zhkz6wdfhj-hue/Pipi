@@ -91,8 +91,6 @@ export function websiteSchema() {
 }
 
 export function productSchema(product: Product) {
-  const inStock = product.variants.some((variant) => variant.stock > 0);
-
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -109,9 +107,8 @@ export function productSchema(product: Product) {
       '@type': 'Offer',
       price: toAmountString(product.price),
       priceCurrency: 'EUR',
-      availability: inStock
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      // Alles wordt na de bestelling gemaakt; dat is precies wat MadeToOrder zegt.
+      availability: 'https://schema.org/MadeToOrder',
       url: absoluteUrl(`/product/${product.slug}`),
       itemCondition: 'https://schema.org/NewCondition',
       seller: { '@type': 'Organization', name: site.name },
@@ -123,13 +120,13 @@ export function productSchema(product: Product) {
           addressCountry: ['NL', 'BE'],
         },
       },
+      // Maatwerk valt buiten het herroepingsrecht; in plaats van retourneren
+      // passen we kosteloos aan. Dat laatste kent schema.org niet, dus we zijn
+      // hier eerlijk over wat er wél geldt.
       hasMerchantReturnPolicy: {
         '@type': 'MerchantReturnPolicy',
         applicableCountry: ['NL', 'BE'],
-        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-        merchantReturnDays: site.returnDays,
-        returnMethod: 'https://schema.org/ReturnByMail',
-        returnFees: 'https://schema.org/ReturnShippingFees',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
       },
     },
   };

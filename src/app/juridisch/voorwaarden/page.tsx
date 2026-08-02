@@ -50,7 +50,9 @@ export default function VoorwaardenPage() {
         <p>
           De omschrijvingen en foto&apos;s op deze site zijn zo nauwkeurig mogelijk. Kleuren kunnen op
           een scherm afwijken van de werkelijkheid; dat is geen gebrek. Kennelijke vergissingen of
-          fouten in het aanbod binden ons niet. Een aanbod geldt zolang de voorraad strekt.
+          fouten in het aanbod binden ons niet. Omdat wij op bestelling maken, is er geen voorraad
+          die op kan raken; wel kunnen wij een model of een kleur uit de collectie halen zolang er
+          nog geen overeenkomst tot stand is gekomen.
         </p>
 
         <h2>Artikel 4 — De overeenkomst</h2>
@@ -87,32 +89,39 @@ export default function VoorwaardenPage() {
         <h2>Artikel 7 — Levering</h2>
         <p>
           Wij leveren op het adres dat je bij de bestelling hebt opgegeven, in Nederland en België.
-          We doen ons best om een bestelling die op een werkdag vóór 15.00 uur binnenkomt dezelfde
-          dag te versturen.
+          Omdat elk kledingstuk op maat wordt gemaakt, bedraagt de levertijd {site.delivery.weeksMin}{' '}
+          tot {site.delivery.weeksMax} weken vanaf de bestelling. Binnen{' '}
+          {site.delivery.contactWithinDays} werkdagen na de bestelling nemen wij contact op om de
+          maten op te nemen; die termijn is in de levertijd inbegrepen.
         </p>
         <p>
-          De uiterste levertermijn is dertig dagen na het sluiten van de overeenkomst, tenzij we
-          samen iets anders afspreken. Lukt het ons niet binnen die termijn te leveren, dan laten we
-          dat op tijd weten en mag je de overeenkomst kosteloos ontbinden. Wij betalen het bedrag dan
-          binnen veertien dagen terug.
+          De levertijd van {site.delivery.weeksMin} tot {site.delivery.weeksMax} weken geldt als
+          uiterste termijn, tenzij we samen iets anders afspreken. Lukt het ons niet binnen die
+          termijn te leveren, dan laten we dat op tijd weten en mag je de overeenkomst kosteloos
+          ontbinden. Wij betalen het bedrag dan binnen veertien dagen terug.
         </p>
         <p>
           Het risico van beschadiging of verlies ligt bij ons tot het moment dat jij — of iemand die
           jij hebt aangewezen — het pakket in ontvangst neemt.
         </p>
 
-        <h2>Artikel 8 — Herroepingsrecht</h2>
+        <h2>Artikel 8 — Maatwerk en herroepingsrecht</h2>
         <p>
-          Je hebt {site.returnDays} dagen bedenktijd, gerekend vanaf de dag nadat je de bestelling
-          hebt ontvangen. Binnen die termijn mag je de overeenkomst zonder opgave van redenen
-          ontbinden. Hoe dat werkt, wat je terugkrijgt en welk formulier je kunt gebruiken, staat op
-          de pagina over het{' '}
+          Al onze kledingstukken worden na de bestelling vervaardigd naar de maten die de klant
+          opgeeft. Daarmee vallen zij onder de wettelijke uitzondering op het herroepingsrecht voor
+          goederen die volgens de specificaties van de consument zijn vervaardigd (artikel 6:230p
+          BW). Er geldt dus geen bedenktijd van veertien dagen.
+        </p>
+        <p>
+          Tot het moment waarop wij met de productie beginnen, kun je je bestelling kosteloos
+          annuleren; je krijgt dan het volledige bedrag terug. Wij laten weten wanneer dat moment
+          nadert. De volledige uitleg staat op de pagina over het{' '}
           <Link href="/juridisch/herroepingsrecht">herroepingsrecht</Link>.
         </p>
         <p>
-          Tijdens de bedenktijd ga je zorgvuldig om met het product en de verpakking. Je mag het
-          uitpakken en passen zoals je in een winkel zou doen. Ga je verder dan dat, dan mogen wij de
-          waardevermindering in rekening brengen.
+          Naast de wet geven wij een eigen toezegging: past het kledingstuk niet zoals het hoort, dan
+          passen wij het kosteloos aan, mits je dat binnen {site.alterationDays} dagen na ontvangst
+          meldt. De verzendkosten daarvan zijn voor ons.
         </p>
 
         <h2>Artikel 9 — Conformiteit en garantie</h2>
@@ -124,8 +133,9 @@ export default function VoorwaardenPage() {
         </p>
         <p>
           Slijtage door normaal gebruik, schade door verkeerd onderhoud (bijvoorbeeld wol in de
-          wasmachine) en schade door ongelukken vallen hier niet onder. Onze adviezen voor onderhoud
-          staan op de pagina over{' '}
+          wasmachine) en schade door ongelukken vallen hier niet onder. Ook een pasvorm die afwijkt
+          doordat de opgegeven maten niet klopten, is geen gebrek — maar dan passen wij het
+          kledingstuk alsnog kosteloos aan. Onze adviezen voor onderhoud staan op de pagina over{' '}
           <Link href="/service/onderhoud">het onderhoud van wol</Link>.
         </p>
 

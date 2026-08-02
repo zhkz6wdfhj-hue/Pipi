@@ -142,7 +142,7 @@ export function CartDrawer() {
                           {item.name}
                         </Link>
                         <p className="mt-0.5 text-[0.8125rem] text-ink-soft">
-                          {item.colorLabel} · maat {item.size}
+                          {item.colorLabel}
                         </p>
                       </div>
                       <p className="shrink-0 text-[0.9375rem] text-ink">
@@ -153,7 +153,7 @@ export function CartDrawer() {
                     <div className="mt-3 flex items-center justify-between gap-3">
                       <QuantityStepper
                         value={item.quantity}
-                        label={`${item.name}, maat ${item.size}`}
+                        label={`${item.name} in ${item.colorLabel.toLowerCase()}`}
                         onChange={(quantity) => setQuantity(item.id, quantity)}
                       />
                       <button

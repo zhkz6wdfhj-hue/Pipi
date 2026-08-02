@@ -30,8 +30,8 @@ export async function generateMetadata({
   return pageMetadata({
     title: titel,
     description: omschrijving
-      ? `${omschrijving} van Melin_clo. Kleine oplages in kameel, ecru, houtskool, taupe en donkergroen.`
-      : 'Vijf lange wollen jassen en drie blazers, in kleine oplages gemaakt. Kameel, ecru, houtskool, taupe en donkergroen.',
+      ? `${omschrijving} van Melin_clo. Op maat gemaakt, in kameel, ecru, houtskool, taupe en donkergroen.`
+      : 'Vijf lange wollen jassen en drie blazers, na je bestelling op maat gemaakt. Kameel, ecru, houtskool, taupe en donkergroen.',
     path: filters.categorie ? `/collectie?categorie=${filters.categorie}` : '/collectie',
   });
 }
@@ -74,8 +74,8 @@ export default async function CollectiePage({
         <h1 className="display-xl">{titel}</h1>
         <p className="mt-4 max-w-2xl text-lead leading-relaxed text-ink-soft">
           Acht modellen, meer niet. De kleuren zijn op elkaar afgestemd, zodat een jas en een blazer
-          uit deze collectie ook samen te dragen zijn. Van elk model maken we twintig tot veertig
-          stuks.
+          uit deze collectie ook samen te dragen zijn. Alles wordt na je bestelling op maat gemaakt;
+          je kiest hier dus een model en een kleur, de maat nemen we daarna samen op.
         </p>
       </header>
 
@@ -85,8 +85,8 @@ export default async function CollectiePage({
         <div className="py-20 text-center">
           <h2 className="display-md mb-3">Niets gevonden met deze filters</h2>
           <p className="mx-auto mb-6 max-w-md text-ink-soft">
-            Deze combinatie levert niets op. Misschien is de maat die je zocht net uitverkocht, of
-            maken we die kleur op dit moment niet.
+            Deze combinatie levert niets op — die kleur maken we in deze categorie op dit moment
+            niet.
           </p>
           <Link
             href={buildFilterUrl(filters, { leegmaken: true })}

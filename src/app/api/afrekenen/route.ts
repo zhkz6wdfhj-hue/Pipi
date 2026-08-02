@@ -81,7 +81,7 @@ export async function POST(request: Request) {
   // 3. Bedragen op de server uitrekenen.
   const discountCode = typeof body.discountCode === 'string' ? body.discountCode : null;
   const totals = totalsFor(items, country, discountCode);
-  const bezorging = expectedDelivery(country);
+  const bezorging = expectedDelivery();
 
   // 4. Bestelling bewaren.
   const id = generateOrderId();

@@ -33,8 +33,9 @@ export default async function BestellingPage({ params }: { params: Promise<{ id:
             <p className="label-caps mb-4 text-accent-ink">Bestelling ontvangen</p>
             <h1 className="display-xl mb-5">Bedankt, {order.customer.firstName}</h1>
             <p className="max-w-2xl text-lead leading-relaxed text-ink-soft">
-              We hebben je betaling binnen en zijn je pakket aan het klaarmaken. Er is een
-              bevestiging onderweg naar{' '}
+              We hebben je betaling binnen. Omdat je jas op maat wordt gemaakt, nemen we binnen{' '}
+              {site.delivery.contactWithinDays} werkdagen contact op om je maten door te nemen. Er is
+              een bevestiging onderweg naar{' '}
               <span className="text-ink">{order.customer.email}</span>. Zit die er over tien minuten
               nog niet bij, kijk dan even in je ongewenste post.
             </p>
@@ -111,7 +112,7 @@ export default async function BestellingPage({ params }: { params: Promise<{ id:
                       </Link>
                     </h3>
                     <p className="mt-1 text-[0.875rem] text-ink-soft">
-                      {item.colorLabel} · maat {item.size} · {item.quantity} stuks
+                      {item.colorLabel} · {item.quantity} stuks
                     </p>
                   </div>
                   <p className="shrink-0 text-[0.9375rem]">
@@ -180,29 +181,29 @@ export default async function BestellingPage({ params }: { params: Promise<{ id:
             <ol className="space-y-6 border-t border-line pt-6">
               <Stap
                 nummer={1}
-                titel="We pakken je bestelling in"
-                tekst="Meestal dezelfde dag nog, in elk geval op de eerstvolgende werkdag. De jas gaat in een stofzak en daarna in een doos."
+                titel="We nemen contact op voor je maten"
+                tekst={`Binnen ${site.delivery.contactWithinDays} werkdagen, per mail of telefoon. We lopen samen de maten door en vragen wat je onder de jas wilt dragen.`}
               />
               <Stap
                 nummer={2}
-                titel="Je krijgt het volgnummer"
-                tekst={`Zodra het pakket bij de vervoerder ligt, sturen we je een mail met de link waarmee je het kunt volgen.`}
+                titel="Het atelier gaat aan de slag"
+                tekst="Je jas wordt gesneden en genaaid naar jouw maten. Vanaf dat moment is hij van jou alleen; annuleren kan tot we met de stof beginnen."
               />
               <Stap
                 nummer={3}
                 titel="Bezorging"
-                tekst={`Verwacht tussen ${formatDateShort(order.deliveryFrom)} en ${formatDateShort(order.deliveryTo)}. Het pakket past niet door de brievenbus, dus er moet iemand thuis zijn.`}
+                tekst={`Verwacht tussen ${formatDateShort(order.deliveryFrom)} en ${formatDateShort(order.deliveryTo)}. Zodra het pakket bij de vervoerder ligt, sturen we je het volgnummer. Het past niet door de brievenbus, dus er moet iemand thuis zijn.`}
               />
               <Stap
                 nummer={4}
-                titel="Past het niet?"
-                tekst={`Je hebt ${site.returnDays} dagen bedenktijd. In het pakket zit een retourformulier; op de pagina over retourneren staat precies hoe het werkt.`}
+                titel="Zit hij niet goed?"
+                tekst={`Dan passen we hem kosteloos aan tot hij past. Meld het binnen ${site.alterationDays} dagen na ontvangst; ook de verzending heen en terug is dan voor ons.`}
               />
             </ol>
 
             <div className="mt-10 flex flex-wrap gap-6 border-t border-line pt-6 text-[0.9375rem]">
-              <Link href="/service/retourneren" className="link-underlined">
-                Retourneren en ruilen
+              <Link href="/service/passen-en-aanpassen" className="link-underlined">
+                Passen en aanpassen
               </Link>
               <Link href="/service/onderhoud" className="link-underlined">
                 Onderhoud van wol

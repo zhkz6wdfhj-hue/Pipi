@@ -23,7 +23,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'https://www.melin-clo.nl',
 
   description:
-    'Lange wollen jassen en blazers in kleine oplages. Melin_clo maakt weinig, maar goed: warme wol, rustige kleuren en een pasvorm die jaren meegaat.',
+    'Lange wollen jassen en blazers, na je bestelling op maat gemaakt. Melin_clo maakt niets vooruit: warme wol, rustige kleuren en een pasvorm die van jou alleen is.',
 
   /** INVULLEN — het e-mailadres waarop je klanten wilt ontvangen. */
   email: 'hallo@melin-clo.nl',
@@ -51,17 +51,26 @@ export const site = {
     country: 'Nederland',
   },
 
-  /** Verwerkingstijd en levertijd zoals ze op de site en in de mail staan. */
+  /**
+   * Levertijd. Alles wordt na de bestelling op maat gemaakt, dus dit is de tijd
+   * van bestelling tot bezorging — inclusief het opnemen van de maten en het
+   * naaien. Wordt overal op de site en in de e-mails uit deze twee getallen
+   * opgebouwd.
+   */
   delivery: {
-    handlingDays: 1,
-    nlDaysMin: 2,
-    nlDaysMax: 3,
-    beDaysMin: 3,
-    beDaysMax: 4,
+    weeksMin: 4,
+    weeksMax: 6,
+    /** Binnen hoeveel werkdagen je contact opneemt om de maten door te nemen. */
+    contactWithinDays: 2,
   },
 
-  /** Bedenktijd volgens het Nederlandse herroepingsrecht. */
-  returnDays: 14,
+  /**
+   * Maatwerk valt buiten het wettelijke herroepingsrecht; er is dus geen
+   * bedenktijd van veertien dagen. In plaats daarvan beloven we de jas
+   * kosteloos aan te passen tot hij past. Dit is het aantal dagen na ontvangst
+   * waarbinnen de klant dat moet melden — pas het gerust aan.
+   */
+  alterationDays: 30,
 } as const;
 
 /** "Melin_clo" met een net leesteken voor in lopende tekst. */

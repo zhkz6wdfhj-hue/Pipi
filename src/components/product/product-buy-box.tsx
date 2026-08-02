@@ -1,53 +1,30 @@
 'use client';
 
 /**
- * Kleur kiezen, maat kiezen, in de winkelmand.
+ * Kleur kiezen en in de winkelmand.
  *
- * Uitverkochte maten blijven zichtbaar maar zijn uitgeschakeld: zo zie je in
- * één oogopslag wat er nog is, in plaats van je af te vragen waarom een maat
- * ineens verdwenen is.
+ * Er is geen maatkeuze: elk kledingstuk wordt na de bestelling op maat gemaakt.
+ * We nemen daarna zelf contact op om de maten door te nemen. Dat staat hier ook
+ * met zoveel woorden, zodat niemand zich afvraagt waar de maten zijn gebleven.
  */
 
 import { useState } from 'react';
 
 import { useCart } from '@/context/cart-context';
-import { COLORS, getStock, SIZES, type ColorSlug, type Product, type Size } from '@/data/products';
+import { COLORS, type ColorSlug, type Product } from '@/data/products';
+import { site } from '@/data/site';
 import { formatPrice } from '@/lib/format';
 
 export function ProductBuyBox({ product }: { product: Product }) {
   const { addItem } = useCart();
-
   const [kleur, setKleur] = useState<ColorSlug>(product.colors[0]);
-  const [maat, setMaat] = useState<Size | null>(null);
-  const [fout, setFout] = useState<string | null>(null);
-
-  const voorraad = maat ? getStock(product, kleur, maat) : 0;
-  const allesUit = product.sizes.every((size) => getStock(product, kleur, size) === 0);
-
-  function kiesKleur(nieuweKleur: ColorSlug) {
-    setKleur(nieuweKleur);
-    setFout(null);
-    // Maat leegmaken als hij in de nieuwe kleur niet leverbaar is.
-    if (maat && getStock(product, nieuweKleur, maat) === 0) setMaat(null);
-  }
-
-  function inWinkelmand() {
-    if (!maat) {
-      setFout('Kies eerst een maat.');
-      return;
-    }
-    if (voorraad === 0) {
-      setFout('Deze maat is uitverkocht.');
-      return;
-    }
-    setFout(null);
-    addItem(product, kleur, maat);
-  }
 
   return (
     <div>
       <p className="text-lead text-ink">{formatPrice(product.price)}</p>
-      <p className="mt-1 text-[0.8125rem] text-ink-soft">Inclusief btw. Verzendkosten bij het afrekenen.</p>
+      <p className="mt-1 text-[0.8125rem] text-ink-soft">
+        Inclusief btw en het maken op maat. Verzendkosten bij het afrekenen.
+      </p>
 
       {/* Kleur */}
       <div className="mt-8">
@@ -64,7 +41,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
               type="button"
               role="radio"
               aria-checked={kleur === optie}
-              onClick={() => kiesKleur(optie)}
+              onClick={() => setKleur(optie)}
               className={`inline-flex items-center gap-2 rounded-xs border px-3 py-2 text-[0.875rem] transition-colors duration-200 ${
                 kleur === optie
                   ? 'border-accent bg-accent-soft text-ink'
@@ -85,89 +62,31 @@ export function ProductBuyBox({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* Maat */}
-      <div className="mt-8">
-        <div className="mb-3 flex items-baseline justify-between gap-3">
-          <span className="label-caps text-ink" id="maat-label">
-            Maat
-          </span>
-          <a href="#maattabel" className="link-underlined text-[0.875rem] text-ink-soft">
-            Maattabel
-          </a>
-        </div>
-
-        <div role="radiogroup" aria-labelledby="maat-label" className="grid grid-cols-5 gap-2">
-          {SIZES.map((optie) => {
-            const beschikbaar = getStock(product, kleur, optie) > 0;
-            const gekozen = maat === optie;
-
-            return (
-              <button
-                key={optie}
-                type="button"
-                role="radio"
-                aria-checked={gekozen}
-                disabled={!beschikbaar}
-                onClick={() => {
-                  setMaat(optie);
-                  setFout(null);
-                }}
-                className={`relative rounded-xs border py-2.5 text-[0.875rem] transition-colors duration-200 ${
-                  gekozen
-                    ? 'border-accent bg-accent-soft text-ink'
-                    : beschikbaar
-                      ? 'border-line bg-surface text-ink hover:border-line-strong'
-                      : 'cursor-not-allowed border-line bg-surface text-ink-soft/70'
-                }`}
-              >
-                {optie}
-                {!beschikbaar ? <span className="sr-only"> (uitverkocht)</span> : null}
-                {!beschikbaar ? (
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                  >
-                    <span className="block h-px w-8 rotate-[-24deg] bg-line-strong" />
-                  </span>
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
-
-        {allesUit ? (
-          <p className="mt-3 text-[0.875rem] text-ink-soft">
-            In deze kleur is alles uitverkocht. Kies een andere kleur of{' '}
-            <a href="/contact" className="link-underlined text-accent-ink">
-              laat weten
-            </a>{' '}
-            welke maat je zoekt.
-          </p>
-        ) : maat && voorraad > 0 && voorraad <= 2 ? (
-          <p className="mt-3 text-[0.875rem] text-ink-soft">
-            Nog {voorraad} op voorraad in maat {maat}.
-          </p>
-        ) : null}
+      {/* Maatwerk */}
+      <div className="mt-8 border border-line bg-surface p-5">
+        <h2 className="label-caps mb-2 text-ink">Op jouw maat</h2>
+        <p className="text-[0.875rem] leading-relaxed text-ink-soft">
+          Je kiest hier geen confectiemaat. Binnen {site.delivery.contactWithinDays} werkdagen na je
+          bestelling nemen we contact op om je maten door te nemen — dat kan per mail, of we spreken
+          af. Daarna gaat de jas in productie.
+        </p>
+        <p className="mt-2.5 text-[0.875rem] leading-relaxed text-ink-soft">
+          Reken op {site.delivery.weeksMin} tot {site.delivery.weeksMax} weken van bestelling tot
+          bezorging.
+        </p>
       </div>
 
       <div className="mt-8">
         <button
           type="button"
-          onClick={inWinkelmand}
-          disabled={allesUit}
-          className="w-full max-w-[20rem] rounded-xs bg-button px-6 py-3.5 text-[0.9375rem] text-white transition-colors duration-200 hover:bg-button-hover disabled:cursor-not-allowed disabled:opacity-45"
+          onClick={() => addItem(product, kleur)}
+          className="w-full max-w-[20rem] rounded-xs bg-button px-6 py-3.5 text-[0.9375rem] text-white transition-colors duration-200 hover:bg-button-hover"
         >
-          {allesUit ? 'Uitverkocht' : 'In winkelmand'}
+          In winkelmand
         </button>
 
-        {fout ? (
-          <p aria-live="polite" className="mt-2.5 text-[0.875rem] text-error">
-            {fout}
-          </p>
-        ) : null}
-
         <p className="mt-4 text-[0.875rem] leading-relaxed text-ink-soft">
-          Gratis verzending vanaf € 150. Veertien dagen bedenktijd.
+          Zit hij niet zoals hij hoort? Dan passen we hem kosteloos aan tot hij past.
         </p>
       </div>
     </div>

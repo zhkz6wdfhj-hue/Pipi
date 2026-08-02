@@ -3,21 +3,20 @@
  * bestelling bewaren en de betaling afronden.
  *
  * Belangrijk: prijzen komen NOOIT uit de browser. De klant stuurt alleen welk
- * product, welke kleur, welke maat en hoeveel; alle bedragen rekenen we hier
- * opnieuw uit. Zo kan er niet met de prijs geknoeid worden.
+ * product, welke kleur en hoeveel; alle bedragen rekenen we hier opnieuw uit.
+ * Zo kan er niet met de prijs geknoeid worden.
  */
 
 import { calculateTotals, cartItemId, validateCart, type CartItem } from './cart';
-import { addWorkingDays } from './format';
+
 import { sendOrderEmails } from './email/send';
 import { updateOrder, type Order, type OrderStatus } from './orders';
-import { COLORS, getProductBySlug, SIZES, type ColorSlug, type Size } from '@/data/products';
+import { COLORS, getProductBySlug, type ColorSlug } from '@/data/products';
 import { site, type CountryCode } from '@/data/site';
 
 export interface IncomingLine {
   slug: string;
   color: string;
-  size: string;
   quantity: number;
 }
 
@@ -33,10 +32,9 @@ export function rebuildCart(lines: unknown): { items: CartItem[]; problems: stri
   for (const raw of lines as IncomingLine[]) {
     const product = getProductBySlug(String(raw?.slug ?? ''));
     const color = String(raw?.color ?? '') as ColorSlug;
-    const size = String(raw?.size ?? '') as Size;
     const quantity = Number(raw?.quantity ?? 0);
 
-    if (!product || !(color in COLORS) || !(SIZES as readonly string[]).includes(size)) {
+    if (!product || !(color in COLORS)) {
       problems.push('Er zat een artikel in je winkelmand dat we niet herkennen.');
       continue;
     }
@@ -46,20 +44,19 @@ export function rebuildCart(lines: unknown): { items: CartItem[]; problems: stri
       continue;
     }
 
-    const variant = product.variants.find((v) => v.color === color && v.size === size);
+    const variant = product.variants.find((v) => v.color === color);
     if (!variant) {
-      problems.push(`${product.name} bestaat niet in deze combinatie van kleur en maat.`);
+      problems.push(`${product.name} maken we niet in deze kleur.`);
       continue;
     }
 
     const image = product.images[0];
     items.push({
-      id: cartItemId(product.slug, color, size),
+      id: cartItemId(product.slug, color),
       slug: product.slug,
       name: product.name,
       color,
       colorLabel: COLORS[color].label,
-      size,
       price: product.price,
       quantity,
       image: image.src,
@@ -68,7 +65,6 @@ export function rebuildCart(lines: unknown): { items: CartItem[]; problems: stri
     });
   }
 
-  // Nog één keer langs de voorraad, zodat uitverkochte maten niet doorglippen.
   const gecontroleerd = validateCart(items);
   return { items: gecontroleerd.items, problems: [...problems, ...gecontroleerd.problems] };
 }
@@ -77,16 +73,18 @@ export function totalsFor(items: CartItem[], country: CountryCode, discountCode:
   return calculateTotals(items, { country, discountCode });
 }
 
-/** Verwachte bezorgperiode, gerekend in werkdagen vanaf vandaag. */
-export function expectedDelivery(country: CountryCode): { from: string; to: string } {
-  const vandaag = new Date();
-  const min = country === 'BE' ? site.delivery.beDaysMin : site.delivery.nlDaysMin;
-  const max = country === 'BE' ? site.delivery.beDaysMax : site.delivery.nlDaysMax;
+/**
+ * Verwachte bezorgperiode. Alles wordt op maat gemaakt, dus we rekenen in weken
+ * vanaf de besteldatum — niet in werkdagen vanaf de verzending.
+ */
+export function expectedDelivery(): { from: string; to: string } {
+  const vanaf = new Date();
+  vanaf.setDate(vanaf.getDate() + site.delivery.weeksMin * 7);
 
-  return {
-    from: addWorkingDays(vandaag, site.delivery.handlingDays + min).toISOString(),
-    to: addWorkingDays(vandaag, site.delivery.handlingDays + max).toISOString(),
-  };
+  const tot = new Date();
+  tot.setDate(tot.getDate() + site.delivery.weeksMax * 7);
+
+  return { from: vanaf.toISOString(), to: tot.toISOString() };
 }
 
 /**

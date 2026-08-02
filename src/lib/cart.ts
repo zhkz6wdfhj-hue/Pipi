@@ -7,18 +7,18 @@
  */
 
 import { discountAmount, findDiscount } from '@/data/discounts';
-import { getProductBySlug, getStock, type ColorSlug, type Size } from '@/data/products';
+import { getProductBySlug, type ColorSlug } from '@/data/products';
 import { shippingCost } from '@/data/shipping';
 import type { CountryCode } from '@/data/site';
 
 export interface CartItem {
-  /** Unieke sleutel binnen de mand: slug-kleur-maat. */
+  /** Unieke sleutel binnen de mand: slug-kleur. Maten spelen geen rol; alles
+      wordt na de bestelling op maat gemaakt. */
   id: string;
   slug: string;
   name: string;
   color: ColorSlug;
   colorLabel: string;
-  size: Size;
   /** Stukprijs in centen op het moment van toevoegen. */
   price: number;
   quantity: number;
@@ -37,8 +37,8 @@ export interface CartTotals {
   itemCount: number;
 }
 
-export function cartItemId(slug: string, color: ColorSlug, size: Size): string {
-  return `${slug}-${color}-${size}`;
+export function cartItemId(slug: string, color: ColorSlug): string {
+  return `${slug}-${color}`;
 }
 
 export function countItems(items: CartItem[]): number {
@@ -73,8 +73,10 @@ export function calculateTotals(
 
 /**
  * Controleert een mand tegen de actuele catalogus. Wordt gebruikt bij het
- * afrekenen, zodat er nooit iets besteld kan worden dat niet meer op voorraad
- * is of waarvan de prijs inmiddels veranderd is.
+ * afrekenen, zodat er nooit iets besteld kan worden dat niet meer bestaat of
+ * waarvan de prijs inmiddels veranderd is.
+ *
+ * Voorraad speelt geen rol: elk kledingstuk wordt na de bestelling gemaakt.
  */
 export function validateCart(items: CartItem[]): {
   valid: boolean;
@@ -91,22 +93,14 @@ export function validateCart(items: CartItem[]): {
       continue;
     }
 
-    const stock = getStock(product, item.color, item.size);
-    if (stock === 0) {
+    if (!product.colors.includes(item.color)) {
       problems.push(
-        `${product.name} in ${item.colorLabel.toLowerCase()}, maat ${item.size} is uitverkocht en is uit je winkelmand gehaald.`
+        `${product.name} maken we niet meer in ${item.colorLabel.toLowerCase()}; kies een andere kleur.`
       );
       continue;
     }
 
-    const quantity = Math.min(item.quantity, stock);
-    if (quantity < item.quantity) {
-      problems.push(
-        `Van ${product.name} in maat ${item.size} hebben we er nog ${stock}. Het aantal is aangepast.`
-      );
-    }
-
-    validated.push({ ...item, quantity, price: product.price, name: product.name });
+    validated.push({ ...item, price: product.price, name: product.name });
   }
 
   return { valid: problems.length === 0, items: validated, problems };

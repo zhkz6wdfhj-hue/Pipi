@@ -2,21 +2,14 @@
  * Filters en sortering van de collectiepagina.
  *
  * De filterstatus staat volledig in de URL, bijvoorbeeld:
- *   /collectie?categorie=jassen&kleur=kameel,ecru&maat=M&sorteer=prijs-op
+ *   /collectie?categorie=jassen&kleur=kameel,ecru&sorteer=prijs-op
  *
  * Daardoor is een gefilterde pagina deelbaar, werkt de terugknop van de browser
  * zoals verwacht, en kan de pagina op de server gerenderd worden zonder dat er
  * JavaScript aan te pas komt.
  */
 
-import {
-  COLORS,
-  SIZES,
-  type Category,
-  type ColorSlug,
-  type Product,
-  type Size,
-} from '@/data/products';
+import { COLORS, type Category, type ColorSlug, type Product } from '@/data/products';
 
 export type SortKey = 'nieuw' | 'prijs-op' | 'prijs-af';
 
@@ -29,7 +22,6 @@ export const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 export interface CollectionFilters {
   categorie: Category | null;
   kleuren: ColorSlug[];
-  maten: Size[];
   sorteer: SortKey;
 }
 
@@ -59,9 +51,6 @@ export function parseFilters(searchParams: RawSearchParams): CollectionFilters {
     kleuren: parseList(searchParams.kleur).filter(
       (value): value is ColorSlug => value in COLORS
     ),
-    maten: parseList(searchParams.maat).filter((value): value is Size =>
-      (SIZES as readonly string[]).includes(value)
-    ),
     sorteer: SORT_OPTIONS.some((option) => option.key === sorteer) ? (sorteer as SortKey) : 'nieuw',
   };
 }
@@ -72,7 +61,6 @@ export function buildFilterUrl(
   change: Partial<{
     categorie: Category | null;
     kleur: ColorSlug;
-    maat: Size;
     sorteer: SortKey;
     leegmaken: true;
   }>
@@ -92,14 +80,6 @@ export function buildFilterUrl(
   }
   if (kleuren.length > 0) params.set('kleur', kleuren.join(','));
 
-  let maten = [...filters.maten];
-  if (change.maat) {
-    maten = maten.includes(change.maat)
-      ? maten.filter((maat) => maat !== change.maat)
-      : [...maten, change.maat];
-  }
-  if (maten.length > 0) params.set('maat', maten.join(','));
-
   const sorteer = change.sorteer ?? filters.sorteer;
   if (sorteer !== 'nieuw') params.set('sorteer', sorteer);
 
@@ -113,14 +93,6 @@ export function applyFilters(products: Product[], filters: CollectionFilters): P
 
     if (filters.kleuren.length > 0) {
       const match = product.colors.some((color) => filters.kleuren.includes(color));
-      if (!match) return false;
-    }
-
-    if (filters.maten.length > 0) {
-      // Een maat telt alleen mee als hij ook echt leverbaar is.
-      const match = product.variants.some(
-        (variant) => variant.stock > 0 && filters.maten.includes(variant.size)
-      );
       if (!match) return false;
     }
 
@@ -148,7 +120,7 @@ export function sortProducts(products: Product[], sorteer: SortKey): Product[] {
 
 /** Aantal actieve filters, voor de knop op mobiel. */
 export function activeFilterCount(filters: CollectionFilters): number {
-  return (filters.categorie ? 1 : 0) + filters.kleuren.length + filters.maten.length;
+  return (filters.categorie ? 1 : 0) + filters.kleuren.length;
 }
 
 /** Leesbare omschrijving van de selectie, voor de titel en de metadata. */
@@ -158,6 +130,5 @@ export function describeFilters(filters: CollectionFilters): string {
   if (filters.kleuren.length > 0) {
     delen.push(filters.kleuren.map((kleur) => COLORS[kleur].label.toLowerCase()).join(', '));
   }
-  if (filters.maten.length > 0) delen.push(`maat ${filters.maten.join(', ')}`);
   return delen.join(' · ');
 }

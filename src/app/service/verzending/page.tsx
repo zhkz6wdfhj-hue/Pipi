@@ -48,7 +48,8 @@ export default function VerzendingPage() {
         </table>
         <p>
           De drempel voor gratis verzending geldt voor het bedrag ná aftrek van een eventuele
-          kortingscode. In je winkelmand zie je precies hoeveel er nog te gaan is.
+          kortingscode. Bij de huidige prijzen wordt die drempel altijd gehaald, dus in de praktijk
+          betaal je niets voor verzending.
         </p>
         <p>
           Buiten Nederland en België verzenden we op dit moment niet. Woon je net over de grens en
@@ -57,14 +58,20 @@ export default function VerzendingPage() {
 
         <h2>Hoe lang het duurt</h2>
         <p>
-          Bestel je op een werkdag vóór 15.00 uur, dan gaat je pakket dezelfde dag nog weg. Daarna
-          duurt het naar Nederland {site.delivery.nlDaysMin} tot {site.delivery.nlDaysMax} werkdagen
-          en naar België {site.delivery.beDaysMin} tot {site.delivery.beDaysMax} werkdagen. In de
-          weken rond de feestdagen kan het een dag langer duren.
+          Reken op {site.delivery.weeksMin} tot {site.delivery.weeksMax} weken van bestelling tot
+          bezorging. Alles wordt na je bestelling gemaakt, dus die tijd zit hem niet in het
+          versturen maar in het maken: eerst nemen we je maten op, daarna gaat de jas naar het
+          atelier.
         </p>
         <p>
-          Op de bedankpagina en in je bevestigingsmail staat een verwachte bezorgperiode. Zodra het
-          pakket bij de vervoerder ligt, krijg je een tweede mail met het volgnummer.
+          Binnen {site.delivery.contactWithinDays} werkdagen na je bestelling nemen we contact op om
+          de maten door te nemen. Hoe eerder we die hebben, hoe eerder je jas in productie kan. Op de
+          bedankpagina en in je bevestigingsmail staat de verwachte bezorgperiode; zodra het pakket
+          bij de vervoerder ligt, krijg je een mail met het volgnummer.
+        </p>
+        <p>
+          Heb je hem nodig voor een bepaalde datum — een bruiloft, een reis — laat het dan weten bij
+          je bestelling. Soms kan het sneller.
         </p>
 
         <h2>Niet thuis</h2>
@@ -82,12 +89,11 @@ export default function VerzendingPage() {
         <h2>Verpakking</h2>
         <p>
           Elke jas gaat in een katoenen stofzak en daarna in een kartonnen doos. De stofzak is niet
-          alleen verpakking: je kunt hem gebruiken om de jas in de zomer stofvrij op te hangen. In de
-          doos zit ook het retourformulier.
+          alleen verpakking: je kunt hem gebruiken om de jas in de zomer stofvrij op te hangen.
         </p>
 
         <p>
-          <Link href="/service/retourneren">Retourneren en ruilen</Link> ·{' '}
+          <Link href="/service/passen-en-aanpassen">Passen en aanpassen</Link> ·{' '}
           <Link href="/contact">Een vraag stellen</Link>
         </p>
       </div>

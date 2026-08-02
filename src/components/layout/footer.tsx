@@ -20,9 +20,9 @@ const kolommen = [
     titel: 'Klantenservice',
     links: [
       { href: '/service/verzending', label: 'Verzending en levering' },
-      { href: '/service/retourneren', label: 'Retourneren en ruilen' },
+      { href: '/service/passen-en-aanpassen', label: 'Passen en aanpassen' },
       { href: '/service/betaalmethoden', label: 'Betaalmethoden' },
-      { href: '/service/maattabel', label: 'Maattabel' },
+      { href: '/service/op-maat', label: 'Op maat gemaakt' },
       { href: '/service/onderhoud', label: 'Onderhoud van wol' },
       { href: '/contact', label: 'Contact' },
     ],
@@ -48,8 +48,8 @@ export function Footer() {
           <div>
             <Logo as="tekst" size="groot" />
             <p className="mt-4 max-w-sm text-[0.9375rem] leading-relaxed text-ink-soft">
-              Lange wollen jassen en blazers, in kleine oplages gemaakt. Begonnen op Instagram,
-              nu ook hier.
+              Lange wollen jassen en blazers, na je bestelling op maat gemaakt. Begonnen op
+              Instagram, nu ook hier.
             </p>
 
             <div className="mt-8 max-w-sm">

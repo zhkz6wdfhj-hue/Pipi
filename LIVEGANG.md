@@ -14,7 +14,7 @@ beneden door; elk punt zegt waar je moet zijn en waarom het nodig is.
 | ------------------ | ------------------------ | ----------------------------------------------------------------------- |
 | KvK-nummer         | `INVULLEN-KVK-NUMMER`    | Wettelijk verplicht op een webwinkel; staat in de footer en de voorwaarden |
 | Btw-nummer         | `INVULLEN-BTW-NUMMER`    | Wettelijk verplicht; staat in de footer, de voorwaarden en de facturen  |
-| Straat en postcode | `INVULLEN-…`             | Retouradres; staat op de retourpagina en in het herroepingsformulier    |
+| Straat en postcode | `INVULLEN-…`             | Adres voor aanpassingen; staat op passen-en-aanpassen en in de voorwaarden |
 | E-mailadres        | `hallo@melin-clo.nl`     | Waar klanten je bereiken; staat overal waar contact wordt aangeboden    |
 | Afzenderadres      | `hallo@melin-clo.nl`     | Afzender van de bevestigingsmail                                        |
 | Intern adres       | `bestellingen@melin-clo.nl` | Waar het besteloverzicht per bestelling naartoe gaat                 |
@@ -27,12 +27,23 @@ maar één keer aan te passen.
 ## 2. Juridische teksten laten nakijken — reken op een week
 
 De vier pagina's onder `/juridisch/` bevatten volledige Nederlandse
-conceptteksten, geschreven naar Nederlands en Europees consumentenrecht:
+conceptteksten, geschreven naar Nederlands en Europees consumentenrecht.
+
+**Laat vooral het herroepingsrecht nakijken.** Omdat alles op maat wordt
+gemaakt, gaan de teksten ervan uit dat de wettelijke uitzondering geldt: goederen
+die volgens de specificaties van de consument zijn vervaardigd (artikel 6:230p
+BW). Er is dus geen bedenktijd van veertien dagen. Dat is verdedigbaar en
+gebruikelijk bij maatwerk, maar het is precies het soort bepaling waar een
+jurist naar moet kijken — zeker omdat een verkeerde toepassing je duur kan komen
+te staan. Laat meteen meekijken of onze eigen belofte ("kosteloos aanpassen tot
+het past") staat zoals je hem bedoelt.
+
+De pagina's:
 
 - Algemene voorwaarden
 - Privacyverklaring
 - Cookiebeleid
-- Herroepingsrecht, met het officiële modelformulier
+- Herroepingsrecht, met de uitzondering voor maatwerk
 
 Ze zijn **niet door een jurist opgesteld**. Bovenaan elke pagina staat daarom een
 zichtbare notitie. Laat de teksten nakijken door een jurist of gebruik een
@@ -41,8 +52,9 @@ haal daarna de notitie weg. Die staat in
 `src/components/layout/page-header.tsx`, in het onderdeel `LegalNotice` — je
 verwijdert de aanroep `<LegalNotice />` van de vier pagina's.
 
-Let bij het nakijken in elk geval op: je exacte bedenktijd, de retourkosten die
-je noemt, de bewaartermijnen in de privacyverklaring en de lijst met partijen
+Let bij het nakijken in elk geval op: het beroep op de maatwerkuitzondering, het
+moment waarop annuleren niet meer kan, de termijn van dertig dagen voor
+aanpassingen, de bewaartermijnen in de privacyverklaring en de lijst met partijen
 waarmee je gegevens deelt.
 
 ---
@@ -85,14 +97,25 @@ Vergeet de **alt-teksten** niet: die staan bij elke foto in
 
 ---
 
-## 6. Voorraad en prijzen controleren — 15 minuten
+## 6. Producten en levertijd controleren — 15 minuten
 
 Loop `src/data/products.ts` door en controleer per model:
 
-- klopt de prijs;
-- klopt de voorraad per kleur en maat;
-- klopt de samenstelling en de lengte;
+- klopt de prijs (alles staat nu op € 400);
+- kloppen de kleuren;
+- klopt de samenstelling, de voering en de standaardlengte;
 - staat het juiste viertal op `featured: true` voor de homepage.
+
+Controleer daarna in `src/data/site.ts`:
+
+- **de levertijd** — die staat op vier tot zes weken. Overleg met je atelier of
+  dat haalbaar is; hij staat op de productpagina, bij het afrekenen, op de
+  bedankpagina en in de bevestigingsmail;
+- **binnen hoeveel werkdagen je contact opneemt** voor de maten — nu twee;
+- **binnen hoeveel dagen een klant een aanpassing moet melden** — nu dertig.
+
+En in `src/data/measurements.ts`: de zeven maten die je opneemt. Vraagt je
+atelier er meer of andere, pas de lijst dan aan.
 
 ---
 
@@ -124,8 +147,10 @@ alsnog, dan is het duidelijk waar je moet beginnen:
 
 - **Klantaccounts.** Bestellen kan zonder account. Dat scheelt de klant gedoe en
   jou een berg persoonsgegevens.
-- **Automatisch afboeken van voorraad.** Bij deze aantallen werkt handmatig
-  bijwerken prima. Het interne besteloverzicht herinnert je eraan.
+- **Maten invullen tijdens het bestellen.** Je hebt gekozen om de maten ná de
+  bestelling op te nemen, dus het bestelscherm vraagt er niet naar. Wil je dat
+  later toch, dan komen er velden bij in stap twee van het afrekenen.
+- **Voorraadbeheer.** Niet nodig: er wordt niets vooruit gemaakt.
 - **Bestellingen in een database.** Ze staan nu in `.data/orders.json`. Op Vercel
   is dat bestandssysteem tijdelijk; zie README.md hoofdstuk 8 voor de stap naar
   een echte database.

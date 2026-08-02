@@ -33,7 +33,7 @@ export default async function BevestigenPage({
             <h1 className="display-lg mb-4">Je staat op de lijst</h1>
             <p className="leading-relaxed text-ink-soft">
               We hebben je aanmelding bevestigd voor <span className="text-ink">{adres}</span>. Je
-              krijgt een paar keer per jaar bericht, als er een nieuwe oplage klaar is. Onderaan elke
+              krijgt een paar keer per jaar bericht, als er een nieuw model bij komt. Onderaan elke
               mail staat een link om je weer af te melden.
             </p>
           </>

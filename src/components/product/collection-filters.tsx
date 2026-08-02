@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { CATEGORIES, SIZES, usedColors } from '@/data/products';
+import { CATEGORIES, usedColors } from '@/data/products';
 import {
   activeFilterCount,
   buildFilterUrl,
@@ -89,23 +89,6 @@ function FilterGroups({ filters }: { filters: CollectionFilters }) {
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend className="label-caps mb-3 text-ink">Maat</legend>
-        <div className="flex flex-wrap gap-2">
-          {SIZES.map((maat) => (
-            <Chip
-              key={maat}
-              href={buildFilterUrl(filters, { maat })}
-              active={filters.maten.includes(maat)}
-            >
-              {maat}
-            </Chip>
-          ))}
-        </div>
-        <p className="mt-2.5 text-[0.8125rem] text-ink-soft">
-          We tonen alleen modellen waarvan de gekozen maat nog op voorraad is.
-        </p>
-      </fieldset>
     </div>
   );
 }

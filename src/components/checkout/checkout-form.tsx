@@ -167,7 +167,6 @@ export function CheckoutForm() {
           items: items.map((item) => ({
             slug: item.slug,
             color: item.color,
-            size: item.size,
             quantity: item.quantity,
           })),
           discountCode,
@@ -252,8 +251,9 @@ export function CheckoutForm() {
               Contact
             </h2>
             <p className="mb-7 text-[0.9375rem] leading-relaxed text-ink-soft">
-              We sturen je bestelbevestiging en het volgnummer naar dit adres. Verder gebruiken we
-              het alleen als er iets met je bestelling aan de hand is.
+              Hier sturen we je bestelbevestiging naartoe, en hierlangs nemen we contact op om je
+              maten door te nemen. Verder gebruiken we het alleen als er iets met je bestelling aan
+              de hand is.
             </p>
 
             <div className="max-w-md space-y-5">
@@ -273,7 +273,7 @@ export function CheckoutForm() {
                 name="newsletter"
                 checked={waarden.newsletter}
                 onChange={(event) => zet('newsletter', event.target.checked)}
-                label="Houd me op de hoogte van nieuwe oplages. Je krijgt eerst een mail om je aanmelding te bevestigen."
+                label="Houd me op de hoogte van nieuwe modellen. Je krijgt eerst een mail om je aanmelding te bevestigen."
               />
             </div>
 
@@ -296,8 +296,9 @@ export function CheckoutForm() {
               Bezorging
             </h2>
             <p className="mb-7 text-[0.9375rem] leading-relaxed text-ink-soft">
-              We bezorgen in Nederland en België. Het pakket past niet door de brievenbus, dus zorg
-              dat er iemand thuis is of geef een buuradres op bij de opmerking.
+              We bezorgen in Nederland en België. Je jas wordt eerst op maat gemaakt, dus reken op
+              vier tot zes weken. Het pakket past niet door de brievenbus; zorg dat er iemand thuis
+              is of geef een buuradres op bij de opmerking.
             </p>
 
             <div className="max-w-xl space-y-5">
@@ -506,7 +507,8 @@ export function CheckoutForm() {
               <Link href="/juridisch/privacy" className="link-underlined text-accent-ink">
                 privacyverklaring
               </Link>
-              . Je hebt veertien dagen bedenktijd.
+              . Omdat alles op maat wordt gemaakt, geldt het herroepingsrecht van veertien dagen
+              hier niet; daar staat tegenover dat we kosteloos aanpassen tot het past.
             </p>
 
             {serverFout ? (
@@ -558,7 +560,7 @@ export function CheckoutForm() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[0.875rem] text-ink">{item.name}</p>
                   <p className="text-[0.8125rem] text-ink-soft">
-                    {item.colorLabel} · maat {item.size} · {item.quantity}×
+                    {item.colorLabel} · {item.quantity}×
                   </p>
                 </div>
                 <p className="shrink-0 text-[0.875rem]">{formatPrice(item.price * item.quantity)}</p>

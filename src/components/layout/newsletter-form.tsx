@@ -100,7 +100,7 @@ export function NewsletterForm() {
 
       <p id="nieuwsbrief-uitleg" className="mt-2.5 text-[0.8125rem] leading-relaxed text-ink-soft">
         Je ontvangt eerst een mail met een bevestigingslink; pas daarna staat je adres op de lijst.
-        Een paar berichten per jaar, als er een nieuwe oplage klaar is. Afmelden kan met één klik
+        Een paar berichten per jaar, als er een nieuw model bij komt. Afmelden kan met één klik
         onderaan elke mail.
       </p>
     </form>

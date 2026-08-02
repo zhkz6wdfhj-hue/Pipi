@@ -10,24 +10,24 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: `${site.name} — lange wollen jassen en blazers`,
   description:
-    'Lange wollen jassen en blazers in kleine oplages. Warme wol, rustige kleuren, een pasvorm die jaren meegaat. Gratis verzending vanaf € 150 binnen Nederland en België.',
+    'Lange wollen jassen en blazers, na je bestelling op maat gemaakt. Warme wol, rustige kleuren en een pasvorm die van jou alleen is. Levering binnen vier tot zes weken in Nederland en België.',
   path: '/',
 });
 
 const beloftes = [
   {
-    titel: 'Verzending',
+    titel: 'Op maat',
     tekst:
-      'Binnen Nederland € 4,95, naar België € 7,95. Vanaf € 150 verzenden we gratis. Bestel je vóór 15.00 uur, dan gaat je pakket dezelfde dag nog weg.',
-    href: '/service/verzending',
-    link: 'Verzending en levering',
+      'Je kiest een model en een kleur; de maat nemen we daarna samen op. Vier tot zes weken later ligt er een jas die op jouw schouders is gebouwd.',
+    href: '/service/op-maat',
+    link: 'Hoe dat gaat',
   },
   {
-    titel: 'Retour',
+    titel: 'Passend',
     tekst:
-      'Je hebt veertien dagen bedenktijd. Past de jas niet of valt de kleur tegen, dan stuur je hem terug met het formulier dat in je pakket zit.',
-    href: '/service/retourneren',
-    link: 'Retourneren en ruilen',
+      'Zit hij niet zoals hij hoort, dan passen we hem kosteloos aan tot hij past. Ook de verzending heen en terug is dan voor ons.',
+    href: '/service/passen-en-aanpassen',
+    link: 'Passen en aanpassen',
   },
   {
     titel: 'Contact',
@@ -56,7 +56,7 @@ export default function HomePage() {
 
         <div className="mt-8 flex flex-col gap-6 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
           <h1 className="display-xl max-w-2xl text-balance">
-            Wollen jassen die je in oktober aantrekt en in maart pas weer weghangt.
+            Wollen jassen die op jouw maat worden gemaakt, en daarna jaren meegaan.
           </h1>
           <ButtonLink href="/collectie" className="self-start lg:self-auto">
             Bekijk de collectie
@@ -95,9 +95,9 @@ export default function HomePage() {
             </h2>
             <p className="text-lead leading-relaxed text-ink-soft">
               Melin_clo begon in 2022 met één jas en een telefoon vol foto&apos;s. De wol komt van
-              een spinnerij in Portugal, waar ook genaaid wordt. Van elk model maken we twintig tot
-              veertig stuks; is een maat op, dan is hij op. Zo blijft er niets over aan het eind van
-              het seizoen.
+              een spinnerij in Portugal, waar ook genaaid wordt. We maken niets vooruit: elke jas
+              wordt pas gesneden als er iemand is die hem gaat dragen, naar diens maten. Daarom
+              blijft er aan het eind van het seizoen niets over.
             </p>
             <Link href="/over" className="link-underlined mt-6 inline-block text-[0.9375rem]">
               Lees het hele verhaal
@@ -117,7 +117,7 @@ export default function HomePage() {
       {/* Drie beloftes */}
       <section className="section container-page" aria-labelledby="beloftes-titel">
         <h2 id="beloftes-titel" className="sr-only">
-          Verzending, retour en contact
+          Op maat, passend en contact
         </h2>
         <div className="grid gap-8 border-t border-line pt-12 sm:grid-cols-3 sm:gap-10 lg:pt-16">
           {beloftes.map((belofte) => (

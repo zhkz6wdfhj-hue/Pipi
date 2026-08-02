@@ -7,7 +7,7 @@ import { ProductCard } from '@/components/product/product-card';
 import { ProductGallery } from '@/components/product/product-gallery';
 import { Accordion, AccordionItem } from '@/components/ui/accordion';
 import { getAllProducts, getProductBySlug, getRelatedProducts } from '@/data/products';
-import { blazerSizeChart, coatSizeChart } from '@/data/size-chart';
+import { layeringOptions, measurements } from '@/data/measurements';
 import { site } from '@/data/site';
 import { breadcrumbSchema, jsonLdScript, pageMetadata, productSchema } from '@/lib/seo';
 
@@ -34,7 +34,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     title: product.name,
-    description: `${product.tagline} ${product.specs.composition}. Maat XS tot XL, lengte ${product.specs.lengthCm} cm bij maat M.`,
+    description: `${product.tagline} ${product.specs.composition}. Op maat gemaakt, standaardlengte ${product.specs.lengthCm} cm.`,
     path: `/product/${product.slug}`,
     image: { url: product.images[0].src, alt: product.images[0].alt },
   });
@@ -46,7 +46,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   if (!product) notFound();
 
-  const maattabel = product.category === 'jassen' ? coatSizeChart : blazerSizeChart;
   const gerelateerd = getRelatedProducts(product.slug, 3);
   const categorieLabel = product.category === 'jassen' ? 'Lange jassen' : 'Blazers';
 
@@ -97,73 +96,47 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <Spec label="Sluiting" value={product.specs.closure} />
                   <Spec
                     label="Lengte"
-                    value={`${product.specs.lengthCm} cm, gemeten bij maat M van schoudernaad tot zoom`}
+                    value={`${product.specs.lengthCm} cm van schoudernaad tot zoom, op jouw lengte aangepast`}
                   />
                   <Spec label="Gemaakt in" value={product.specs.madeIn} />
                   <Spec label="Onderhoud" value={product.specs.care} />
                 </dl>
               </AccordionItem>
 
-              <AccordionItem title="Maattabel">
-                <div id="maattabel" className="scroll-mt-24">
+              <AccordionItem title="Op maat gemaakt">
+                <div id="maatwerk" className="scroll-mt-24">
                   <p className="mb-4">
-                    De maten hieronder zijn van het kledingstuk zelf, plat gemeten en waar het
-                    logisch is verdubbeld. Twijfel je tussen twee maten, kies dan de grootste — deze
-                    modellen worden vaak over een trui gedragen.
+                    Je kiest hier geen confectiemaat. Binnen {site.delivery.contactWithinDays}{' '}
+                    werkdagen na je bestelling nemen we contact op en lopen we deze maten samen door:
                   </p>
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[26rem] border-collapse text-[0.875rem]">
-                      <caption className="sr-only">
-                        Maattabel voor de {product.name}, in centimeters
-                      </caption>
-                      <thead>
-                        <tr>
-                          <th scope="col" className="label-caps border-b border-line py-2.5 pr-3 text-left text-ink">
-                            Maat
-                          </th>
-                          <th scope="col" className="label-caps border-b border-line px-3 py-2.5 text-left text-ink">
-                            NL
-                          </th>
-                          <th scope="col" className="label-caps border-b border-line px-3 py-2.5 text-left text-ink">
-                            Borst
-                          </th>
-                          <th scope="col" className="label-caps border-b border-line px-3 py-2.5 text-left text-ink">
-                            Schouder
-                          </th>
-                          <th scope="col" className="label-caps border-b border-line py-2.5 pl-3 text-left text-ink">
-                            Mouw
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {maattabel.map((rij) => (
-                          <tr key={rij.size}>
-                            <th scope="row" className="border-b border-line py-2.5 pr-3 text-left font-normal text-ink">
-                              {rij.size}
-                            </th>
-                            <td className="border-b border-line px-3 py-2.5">{rij.nl}</td>
-                            <td className="border-b border-line px-3 py-2.5">{rij.chest} cm</td>
-                            <td className="border-b border-line px-3 py-2.5">{rij.shoulder} cm</td>
-                            <td className="border-b border-line py-2.5 pl-3">{rij.sleeve} cm</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <p className="mt-4">
-                    <Link href="/service/maattabel" className="link-underlined text-accent-ink">
-                      Uitleg over opmeten
+                  <ul className="mb-4 list-disc space-y-1 pl-5">
+                    {measurements.map((maat) => (
+                      <li key={maat.label}>
+                        <span className="text-ink">{maat.label}</span> — {maat.how}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mb-4">
+                    We vragen ook wat je eronder wilt dragen ({layeringOptions.join(', ').toLowerCase()}),
+                    want dat bepaalt hoeveel ruimte we aanhouden.
+                  </p>
+                  <p>
+                    <Link href="/service/op-maat" className="link-underlined text-accent-ink">
+                      Uitleg over het opmeten
                     </Link>
                   </p>
                 </div>
               </AccordionItem>
 
-              <AccordionItem title="Verzending">
+              <AccordionItem title="Levering en verzending">
                 <p>
-                  Binnen Nederland € 4,95, naar België € 7,95. Vanaf € 150 verzenden we gratis.
-                  Bestel je op een werkdag vóór 15.00 uur, dan gaat je pakket dezelfde dag nog weg.
-                  Nederland duurt daarna {site.delivery.nlDaysMin} tot {site.delivery.nlDaysMax}{' '}
-                  werkdagen, België {site.delivery.beDaysMin} tot {site.delivery.beDaysMax}.
+                  Reken op {site.delivery.weeksMin} tot {site.delivery.weeksMax} weken van bestelling
+                  tot bezorging: het opnemen van de maten, het naaien en het versturen bij elkaar.
+                  Zodra je jas klaar is en bij de vervoerder ligt, sturen we je het volgnummer.
+                </p>
+                <p className="mt-3">
+                  Binnen Nederland € 4,95, naar België € 7,95 — bij deze prijs valt dat weg, want
+                  vanaf € 150 verzenden we gratis.
                 </p>
                 <p className="mt-3">
                   <Link href="/service/verzending" className="link-underlined text-accent-ink">
@@ -172,16 +145,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </p>
               </AccordionItem>
 
-              <AccordionItem title="Retour en ruilen">
+              <AccordionItem title="Passen en aanpassen">
                 <p>
-                  Je hebt {site.returnDays} dagen bedenktijd, gerekend vanaf de dag dat je het
-                  pakket ontvangt. Stuur je de jas terug, dan mag hij gepast zijn maar niet gedragen,
-                  en moeten de labels er nog aan zitten. De retourkosten zijn voor jou; het
-                  aankoopbedrag krijg je binnen veertien dagen terug.
+                  Zit je jas niet zoals hij hoort, dan passen we hem kosteloos aan — mouwen inkorten,
+                  de taille bijnemen, de zoom verleggen. Ook de verzending heen en terug is dan voor
+                  ons. Meld het binnen {site.alterationDays} dagen nadat je hem hebt ontvangen.
                 </p>
                 <p className="mt-3">
-                  <Link href="/service/retourneren" className="link-underlined text-accent-ink">
-                    Zo stuur je iets terug
+                  Omdat dit kledingstuk naar jouw maten wordt gemaakt, geldt het wettelijke
+                  herroepingsrecht van veertien dagen hier niet. Wat daarvoor in de plaats komt,
+                  staat op de pagina hieronder.
+                </p>
+                <p className="mt-3">
+                  <Link href="/service/passen-en-aanpassen" className="link-underlined text-accent-ink">
+                    Passen en aanpassen
                   </Link>
                 </p>
               </AccordionItem>

@@ -93,7 +93,7 @@ export async function sendNewsletterConfirmation(email: string, token: string): 
     to: email,
     subject: `Bevestig je aanmelding voor de nieuwsbrief van ${site.name}`,
     html: `<!doctype html><html lang="nl"><body style="background:#FAF8F4;padding:32px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1F1B18;">
-      <p style="font-size:15px;line-height:1.6;">Je hebt je aangemeld voor de nieuwsbrief van ${site.name}. Bevestig je aanmelding met de link hieronder; daarna ontvang je een paar keer per jaar bericht als er een nieuwe oplage klaar is.</p>
+      <p style="font-size:15px;line-height:1.6;">Je hebt je aangemeld voor de nieuwsbrief van ${site.name}. Bevestig je aanmelding met de link hieronder; daarna ontvang je een paar keer per jaar bericht als er een nieuw model bij komt.</p>
       <p style="font-size:15px;line-height:1.6;"><a href="${url}" style="color:#6B5B47;">Ja, meld mij aan</a></p>
       <p style="font-size:13px;line-height:1.6;color:#5B534B;">Heb je je niet aangemeld? Dan hoef je niets te doen; zonder bevestiging gebeurt er niets met je adres.</p>
     </body></html>`,

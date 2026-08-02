@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Herroepingsrecht',
   description:
-    'Veertien dagen bedenktijd bij Melin_clo: hoe het werkt, wat je terugkrijgt en het modelformulier voor herroeping.',
+    'Kleding die op maat wordt gemaakt valt buiten het wettelijke herroepingsrecht. Wat dat betekent, wanneer je wél kunt annuleren, en wat Melin_clo in de plaats daarvan belooft.',
   path: '/juridisch/herroepingsrecht',
 });
 
@@ -23,131 +23,101 @@ export default function HerroepingsrechtPage() {
 
       <div className="prose-melin">
         <p>
-          Laatst bijgewerkt op 1 augustus 2026. Omdat je online bestelt en de jas dus niet vooraf kunt
-          passen, heb je wettelijk bedenktijd. Hieronder staat precies hoe dat werkt, gevolgd door het
-          modelformulier.
+          Laatst bijgewerkt op 2 augustus 2026. Deze pagina legt uit waarom er bij ons geen
+          bedenktijd van veertien dagen geldt, en wat we in plaats daarvan doen.
         </p>
 
-        <h2>Je bedenktijd</h2>
+        <h2>Waarom de bedenktijd hier niet geldt</h2>
         <p>
-          Je hebt {site.returnDays} dagen om deze overeenkomst zonder opgave van redenen te
-          herroepen. De termijn begint op de dag nadat jij — of iemand die jij hebt aangewezen, en
-          die niet de vervoerder is — het product hebt ontvangen. Bestaat je bestelling uit meerdere
-          zendingen, dan begint de termijn op de dag dat je de laatste zending ontvangt.
+          Wie online koopt, heeft normaal gesproken veertien dagen bedenktijd. Op die regel staan in
+          de wet een paar uitzonderingen, en één daarvan gaat over goederen die volgens de
+          specificaties van de consument zijn vervaardigd of die duidelijk voor een specifieke
+          persoon bestemd zijn. Dat is precies wat wij maken: elke jas en elke blazer wordt gesneden
+          en genaaid naar de maten die jij ons doorgeeft.
+        </p>
+        <p>
+          Deze uitzondering staat in artikel 6:230p van het Burgerlijk Wetboek, dat de Europese
+          richtlijn consumentenrechten uitvoert. Het is dus geen huisregel van ons maar de wet, en
+          hij geldt vanaf het moment dat we op basis van jouw maten met de productie beginnen.
+        </p>
+        <p>
+          Praktisch gezien is het ook logisch: een jas die op jouw schouders, jouw armlengte en jouw
+          gewenste zoomhoogte is gemaakt, past zelden iemand anders. We kunnen hem niet opnieuw
+          verkopen.
         </p>
 
-        <h2>Hoe je herroept</h2>
+        <h2>Wat je wél kunt: annuleren vóór de productie</h2>
         <p>
-          Laat ons binnen de bedenktijd ondubbelzinnig weten dat je de overeenkomst wilt herroepen.
-          Een e-mail naar <a href={`mailto:${site.email}`}>{site.email}</a> is genoeg; je mag ook het
-          modelformulier hieronder gebruiken, maar dat is niet verplicht. Je hoeft geen reden te
-          geven.
+          Tussen je bestelling en het moment dat het atelier de stof insnijdt, zit meestal ruim een
+          week. In die periode kun je je bestelling zonder opgave van redenen annuleren en krijg je
+          het volledige bedrag terug, inclusief eventuele verzendkosten.
         </p>
         <p>
-          Om de termijn te halen, volstaat het dat je je bericht verstuurt vóór de bedenktijd
-          verstreken is. Wij bevestigen de ontvangst per e-mail.
-        </p>
-
-        <h2>Terugsturen</h2>
-        <p>
-          Stuur het product uiterlijk veertien dagen na je herroepingsmelding terug naar:
+          Stuur daarvoor een bericht naar <a href={`mailto:${site.email}`}>{site.email}</a> met je
+          ordernummer. We laten je weten of de productie al begonnen is; zo niet, dan storten we het
+          bedrag binnen veertien dagen terug op dezelfde rekening waarmee je hebt betaald.
         </p>
         <p>
-          {site.returnAddress.company}
-          <br />
-          {site.returnAddress.street}
-          <br />
-          {site.returnAddress.postalCode} {site.returnAddress.city}
-          <br />
-          {site.returnAddress.country}
-        </p>
-        <p>
-          De rechtstreekse kosten van het terugzenden zijn voor jou. Wij schatten die op ongeveer € 7
-          binnen Nederland en € 12 vanuit België, afhankelijk van de vervoerder die je kiest. Bewaar
-          je verzendbewijs tot de terugbetaling rond is.
+          Zijn we al begonnen, dan is annuleren niet meer mogelijk. We laten altijd weten wanneer dat
+          moment eraan komt, zodat je weet waar je aan toe bent.
         </p>
 
-        <h2>Wat je terugkrijgt</h2>
+        <h2>Wat wij daarvoor in de plaats doen</h2>
         <p>
-          Wij betalen alle betalingen terug die wij van je hebben ontvangen, inclusief de
-          verzendkosten van de levering. Heb je gekozen voor een duurdere verzendmethode dan onze
-          standaardlevering, dan vergoeden wij alleen de standaardkosten. Stuur je maar een deel van
-          je bestelling terug, dan blijven de verzendkosten van de levering voor jouw rekening.
+          De wet verplicht ons tot niets extra&apos;s. Toch vinden we dat je bij een jas van deze
+          prijs niet met een slecht zittend kledingstuk mag blijven zitten. Daarom beloven wij:
         </p>
+        <ul>
+          <li>
+            <strong>Kosteloos aanpassen tot hij past.</strong> Mouwen, taille, zoom, schouder — wat
+            er nodig is. Zo vaak als nodig, en ook de verzending heen en terug is voor ons.
+          </li>
+          <li>
+            <strong>Melden binnen {site.alterationDays} dagen na ontvangst.</strong> Trek hem eerst
+            een paar keer aan; wol zakt de eerste weken nog wat uit.
+          </li>
+          <li>
+            <strong>Bij een fout van ons: gewoon je geld terug.</strong> Klopt de kleur niet met wat
+            je hebt besteld, zit er een gebrek in de stof of de naad, of is de jas beschadigd
+            aangekomen, dan repareren we hem, maken we hem opnieuw of betalen we terug — wat jou het
+            beste uitkomt.
+          </li>
+        </ul>
         <p>
-          Wij betalen binnen veertien dagen nadat je de herroeping hebt gemeld, met hetzelfde
-          betaalmiddel als waarmee je hebt betaald, tenzij je uitdrukkelijk anders afspreekt. Je
-          betaalt daarvoor niets extra. Wij mogen wachten met terugbetalen tot wij het product terug
-          hebben ontvangen, of tot je hebt aangetoond dat je het hebt teruggestuurd — wat het eerst
-          gebeurt.
-        </p>
-
-        <h2>Omgang met het product tijdens de bedenktijd</h2>
-        <p>
-          Je mag het product uitpakken, bekijken en passen zoals je in een winkel zou doen: aantrekken
-          voor de spiegel, de mouwlengte controleren, de pasvorm beoordelen. Ga je verder — draag je de
-          jas buiten, haal je de labels eraf of raakt hij beschadigd — dan ben je aansprakelijk voor de
-          waardevermindering en mogen wij die verrekenen met het bedrag dat je terugkrijgt.
-        </p>
-
-        <h2>Uitzonderingen</h2>
-        <p>
-          Voor onze producten gelden geen uitzonderingen op het herroepingsrecht: alle jassen en
-          blazers in deze collectie zijn standaardmaten en niet op maat gemaakt. Zou je ooit iets op
-          maat laten aanpassen, dan spreken we vooraf af wat dat voor je bedenktijd betekent.
+          Hoe dat in de praktijk gaat, staat op{' '}
+          <Link href="/service/passen-en-aanpassen">passen en aanpassen</Link>.
         </p>
 
-        <h2>Modelformulier voor herroeping</h2>
+        <h2>Je wettelijke garantie blijft gelden</h2>
         <p>
-          Je gebruikt dit formulier alleen als je de overeenkomst wilt herroepen. Invullen en sturen
-          naar <a href={`mailto:${site.email}`}>{site.email}</a>, of op papier meesturen met je
-          retour.
+          Het vervallen van de bedenktijd verandert niets aan je recht op een deugdelijk product. Een
+          jas moet doen wat je er redelijkerwijs van mag verwachten, ook op langere termijn. Gaat er
+          iets stuk dat niet aan normaal gebruik ligt, dan lossen wij dat op.
         </p>
 
-        <div className="my-8 border border-line bg-surface p-6 lg:p-8">
-          <p className="mb-6 text-[0.875rem] leading-relaxed text-ink-soft">
-            <span className="label-caps mb-3 block text-ink">Modelformulier voor herroeping</span>
-            Aan {site.name}, {site.returnAddress.street}, {site.returnAddress.postalCode}{' '}
-            {site.returnAddress.city}, {site.returnAddress.country} — {site.email}
-          </p>
+        <h2>Als we het oneens worden</h2>
+        <p>
+          Ben je het niet eens met ons standpunt dat een bestelling onder de maatwerkuitzondering
+          valt, laat het dan weten via <a href={`mailto:${site.email}`}>{site.email}</a>. We
+          reageren binnen veertien dagen. Komen we er samen niet uit, dan kun je je klacht
+          voorleggen aan het Europees platform voor onlinegeschillenbeslechting via{' '}
+          <a href="https://ec.europa.eu/consumers/odr" rel="noopener noreferrer" target="_blank">
+            ec.europa.eu/consumers/odr
+          </a>{' '}
+          of aan de bevoegde Nederlandse rechter.
+        </p>
 
-          <ul className="!list-none space-y-4 !pl-0 text-[0.9375rem] leading-relaxed text-ink-soft">
-            <li className="!pl-0">
-              Ik/Wij (*) deel/delen (*) u hierbij mede dat ik/wij (*) onze overeenkomst betreffende
-              de verkoop van de volgende goederen herroep/herroepen (*):
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-            <li className="!pl-0">
-              Besteld op (*) / ontvangen op (*):
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-            <li className="!pl-0">
-              Ordernummer:
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-            <li className="!pl-0">
-              Naam consument(en):
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-            <li className="!pl-0">
-              Adres consument(en):
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-            <li className="!pl-0">
-              Handtekening consument(en) — alleen als dit formulier op papier wordt ingediend:
-              <span className="mt-2 block border-b border-line pb-10" />
-            </li>
-            <li className="!pl-0">
-              Datum:
-              <span className="mt-2 block border-b border-line pb-6" />
-            </li>
-          </ul>
-
-          <p className="mt-6 text-[0.8125rem] text-ink-soft">(*) Doorhalen wat niet van toepassing is.</p>
-        </div>
+        <h2>Het modelformulier</h2>
+        <p>
+          Omdat het herroepingsrecht bij maatwerk niet van toepassing is, is het wettelijke
+          modelformulier voor herroeping hier niet aan de orde. Wil je annuleren vóór de productie,
+          of een aanpassing melden, dan volstaat een mail met je ordernummer en wat er aan de hand
+          is. Daar hebben we geen formulier voor nodig.
+        </p>
 
         <p>
-          <Link href="/service/retourneren">Praktische uitleg over retourneren</Link> ·{' '}
+          <Link href="/service/passen-en-aanpassen">Passen en aanpassen</Link> ·{' '}
+          <Link href="/service/op-maat">Hoe het op maat maken gaat</Link> ·{' '}
           <Link href="/juridisch/voorwaarden">Algemene voorwaarden</Link>
         </p>
       </div>

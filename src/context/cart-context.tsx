@@ -24,7 +24,7 @@ import {
 } from 'react';
 
 import { calculateTotals, cartItemId, countItems, type CartItem, type CartTotals } from '@/lib/cart';
-import { COLORS, type ColorSlug, type Product, type Size } from '@/data/products';
+import { COLORS, type ColorSlug, type Product } from '@/data/products';
 import type { CountryCode } from '@/data/site';
 
 const STORAGE_KEY = 'melin-clo-winkelmand-v1';
@@ -104,7 +104,7 @@ interface CartContextValue {
   /** Laatste melding, voorgelezen door schermlezers via aria-live. */
   announcement: string;
   drawerOpen: boolean;
-  addItem: (product: Product, color: ColorSlug, size: Size, quantity?: number) => void;
+  addItem: (product: Product, color: ColorSlug, quantity?: number) => void;
   removeItem: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
   applyDiscount: (code: string | null) => void;
@@ -171,18 +171,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addItem = useCallback(
-    (product: Product, color: ColorSlug, size: Size, quantity = 1) => {
-      const variant = product.variants.find((v) => v.color === color && v.size === size);
-      if (!variant || variant.stock === 0) return;
+    (product: Product, color: ColorSlug, quantity = 1) => {
+      const variant = product.variants.find((v) => v.color === color);
+      if (!variant) return;
 
       const image = product.images[0];
       const item: CartItem = {
-        id: cartItemId(product.slug, color, size),
+        id: cartItemId(product.slug, color),
         slug: product.slug,
         name: product.name,
         color,
         colorLabel: COLORS[color].label,
-        size,
         price: product.price,
         quantity,
         image: image?.src ?? '',
@@ -190,9 +189,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         sku: variant.sku,
       };
 
-      dispatch({ type: 'add', payload: { item, maxQuantity: variant.stock } });
+      // Alles wordt op maat gemaakt, dus voorraad legt geen bovengrens op.
+      dispatch({ type: 'add', payload: { item, maxQuantity: 20 } });
       announce(
-        `${product.name} in ${COLORS[color].label.toLowerCase()}, maat ${size} is toegevoegd aan je winkelmand.`
+        `${product.name} in ${COLORS[color].label.toLowerCase()} is toegevoegd aan je winkelmand.`
       );
       setDrawerOpen(true);
     },
@@ -203,7 +203,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     (id: string) => {
       const item = state.items.find((line) => line.id === id);
       dispatch({ type: 'remove', payload: { id } });
-      if (item) announce(`${item.name}, maat ${item.size} is uit je winkelmand gehaald.`);
+      if (item) announce(`${item.name} in ${item.colorLabel.toLowerCase()} is uit je winkelmand gehaald.`);
     },
     [announce, state.items]
   );
@@ -213,7 +213,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'setQuantity', payload: { id, quantity } });
       const item = state.items.find((line) => line.id === id);
       if (item && quantity >= 1) {
-        announce(`Aantal van ${item.name}, maat ${item.size} is nu ${quantity}.`);
+        announce(`Aantal van ${item.name} is nu ${quantity}.`);
       }
     },
     [announce, state.items]

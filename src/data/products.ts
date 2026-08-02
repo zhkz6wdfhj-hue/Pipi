@@ -15,27 +15,31 @@
  * 2. Geef het een unieke `slug`. Dat is het adres van de pagina:
  *    slug 'duinjas' wordt /product/duinjas. Gebruik kleine letters en
  *    koppeltekens, geen spaties of accenten.
- * 3. Zet `price` in HELE CENTEN. € 389,00 schrijf je als 38900. Zo ontstaan er
+ * 3. Zet `price` in HELE CENTEN. € 400,00 schrijf je als 40000. Zo ontstaan er
  *    geen afrondingsfouten in de winkelmand.
  * 4. Zet de foto's in /public/images en verwijs ernaar in `images`. Elke foto
  *    heeft een `alt`-tekst nodig die beschrijft wat je ziet — die wordt
  *    voorgelezen door schermlezers en is dus geen bijzaak.
- * 5. Vul `variants` met een regel per combinatie van kleur en maat, inclusief
- *    de voorraad. Voorraad 0 betekent: de maat is zichtbaar maar uitgeschakeld.
+ * 5. Vul `variants` met één regel per kleur, met een eigen artikelnummer.
  * 6. Wil je het product op de homepage tonen, zet dan `featured: true`. De
  *    homepage laat de eerste vier uitgelichte producten zien.
+ *
+ * -----------------------------------------------------------------------------
+ * ALLES WORDT OP MAAT GEMAAKT
+ * -----------------------------------------------------------------------------
+ * Er zijn geen confectiematen en geen voorraad: elk kledingstuk wordt na de
+ * bestelling gemaakt naar de maten van de klant. De klant kiest dus alleen een
+ * kleur. De maten neem je zelf op nadat de bestelling binnen is.
+ *
+ * Daarom staat er nergens "uitverkocht", en hoef je niets bij te houden na een
+ * bestelling. De lengte in `specs.lengthCm` is de standaardlengte van het model;
+ * die pas je per klant aan.
  *
  * -----------------------------------------------------------------------------
  * EEN PRIJS WIJZIGEN
  * -----------------------------------------------------------------------------
  * Pas alleen `price` aan (in centen). Bestellingen die al geplaatst zijn
  * bewaren hun eigen prijs, dus lopende bestellingen veranderen niet mee.
- *
- * -----------------------------------------------------------------------------
- * VOORRAAD BIJWERKEN
- * -----------------------------------------------------------------------------
- * Zet het getal in `variants` op het aantal stuks dat je nog hebt. Op 0 kan de
- * maat niet meer in de winkelmand; de knop vermeldt "Uitverkocht".
  *
  * -----------------------------------------------------------------------------
  * LATER OVERSTAPPEN NAAR SANITY OF SHOPIFY
@@ -48,10 +52,6 @@
  */
 
 export type Category = 'jassen' | 'blazers';
-
-export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL';
-
-export const SIZES: readonly Size[] = ['XS', 'S', 'M', 'L', 'XL'] as const;
 
 export type ColorSlug = 'kameel' | 'ecru' | 'houtskool' | 'taupe' | 'donkergroen';
 
@@ -94,10 +94,7 @@ export interface ProductImage {
 
 export interface ProductVariant {
   color: ColorSlug;
-  size: Size;
-  /** Aantal stuks op voorraad. 0 = uitverkocht. */
-  stock: number;
-  /** Eigen artikelnummer, handig voor je administratie en de pakbon. */
+  /** Eigen artikelnummer, handig voor je administratie en de werkbon. */
   sku: string;
 }
 
@@ -108,7 +105,7 @@ export interface ProductSpecs {
   lining: string;
   /** Type sluiting. */
   closure: string;
-  /** Lengte in centimeters, gemeten bij maat M van schoudernaad tot zoom. */
+  /** Standaardlengte in centimeters, van schoudernaad tot zoom. Per klant aangepast. */
   lengthCm: number;
   /** Waar het kledingstuk gemaakt is. */
   madeIn: string;
@@ -120,14 +117,13 @@ export interface Product {
   slug: string;
   name: string;
   category: Category;
-  /** Prijs in centen. 38900 = € 389,00. */
+  /** Prijs in centen. 40000 = € 400,00. */
   price: number;
   /** Eén zin voor de collectiepagina en de zoekresultaten. */
   tagline: string;
   /** Volledige omschrijving, 40 tot 70 woorden. */
   description: string;
   colors: ColorSlug[];
-  sizes: Size[];
   variants: ProductVariant[];
   images: ProductImage[];
   specs: ProductSpecs;
@@ -141,23 +137,14 @@ export const products: Product[] = [
     slug: 'duinjas',
     name: 'Duinjas',
     category: 'jassen',
-    price: 38900,
+    price: 40000,
     tagline: 'Rechte jas van geborstelde wol, net onder de knie.',
     description:
       'Een rechte jas van geborstelde wol die net onder de knie valt. De schouder ligt iets ruimer, zodat er een trui onder past zonder dat de jas breed oogt. Verdekte knoopsluiting, twee steekzakken op heuphoogte en een split achter voor de looplijn. Draag hem open over een broek, of gesloten met de kraag omhoog als het waait.',
     colors: ['kameel', 'ecru'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'kameel', size: 'XS', stock: 2, sku: 'MEL-DUI-KAM-XS' },
-      { color: 'kameel', size: 'S', stock: 4, sku: 'MEL-DUI-KAM-S' },
-      { color: 'kameel', size: 'M', stock: 5, sku: 'MEL-DUI-KAM-M' },
-      { color: 'kameel', size: 'L', stock: 3, sku: 'MEL-DUI-KAM-L' },
-      { color: 'kameel', size: 'XL', stock: 0, sku: 'MEL-DUI-KAM-XL' },
-      { color: 'ecru', size: 'XS', stock: 0, sku: 'MEL-DUI-ECR-XS' },
-      { color: 'ecru', size: 'S', stock: 3, sku: 'MEL-DUI-ECR-S' },
-      { color: 'ecru', size: 'M', stock: 2, sku: 'MEL-DUI-ECR-M' },
-      { color: 'ecru', size: 'L', stock: 2, sku: 'MEL-DUI-ECR-L' },
-      { color: 'ecru', size: 'XL', stock: 1, sku: 'MEL-DUI-ECR-XL' },
+      { color: 'kameel', sku: 'MEL-DUI-KAM' },
+      { color: 'ecru', sku: 'MEL-DUI-ECR' },
     ],
     images: [
       {
@@ -200,23 +187,14 @@ export const products: Product[] = [
     slug: 'havenjas',
     name: 'Havenjas',
     category: 'jassen',
-    price: 42900,
+    price: 40000,
     tagline: 'Dubbelrij jas tot halverwege de kuit, in dicht geweven wol.',
     description:
       'De langste jas uit de collectie, met een dubbele rij knopen en een brede revers die je hoog kunt dichtslaan. De wol is dicht geweven en houdt wind tegen; de voering van cupro laat de jas soepel over een colbert glijden. Valt tot halverwege de kuit. Een jas voor koude ochtenden en late treinen.',
     colors: ['houtskool', 'taupe'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'houtskool', size: 'XS', stock: 1, sku: 'MEL-HAV-HOU-XS' },
-      { color: 'houtskool', size: 'S', stock: 3, sku: 'MEL-HAV-HOU-S' },
-      { color: 'houtskool', size: 'M', stock: 4, sku: 'MEL-HAV-HOU-M' },
-      { color: 'houtskool', size: 'L', stock: 2, sku: 'MEL-HAV-HOU-L' },
-      { color: 'houtskool', size: 'XL', stock: 2, sku: 'MEL-HAV-HOU-XL' },
-      { color: 'taupe', size: 'XS', stock: 0, sku: 'MEL-HAV-TAU-XS' },
-      { color: 'taupe', size: 'S', stock: 2, sku: 'MEL-HAV-TAU-S' },
-      { color: 'taupe', size: 'M', stock: 3, sku: 'MEL-HAV-TAU-M' },
-      { color: 'taupe', size: 'L', stock: 0, sku: 'MEL-HAV-TAU-L' },
-      { color: 'taupe', size: 'XL', stock: 1, sku: 'MEL-HAV-TAU-XL' },
+      { color: 'houtskool', sku: 'MEL-HAV-HOU' },
+      { color: 'taupe', sku: 'MEL-HAV-TAU' },
     ],
     images: [
       {
@@ -259,23 +237,14 @@ export const products: Product[] = [
     slug: 'kadejas',
     name: 'Kadejas',
     category: 'jassen',
-    price: 34900,
+    price: 40000,
     tagline: 'Wikkeljas met ceintuur, in een zachte en luchtige wolmix.',
     description:
       'Een wikkeljas zonder knopen: je sluit hem met de ceintuur, of laat hem los hangen. De wolmix is zachter en iets luchtiger dan de rest van de collectie, waardoor de jas mooi meebeweegt. De taille kun je hoog of laag leggen. Werkt over een jurk net zo goed als over een spijkerbroek en trui.',
     colors: ['ecru', 'kameel'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'ecru', size: 'XS', stock: 2, sku: 'MEL-KAD-ECR-XS' },
-      { color: 'ecru', size: 'S', stock: 5, sku: 'MEL-KAD-ECR-S' },
-      { color: 'ecru', size: 'M', stock: 4, sku: 'MEL-KAD-ECR-M' },
-      { color: 'ecru', size: 'L', stock: 0, sku: 'MEL-KAD-ECR-L' },
-      { color: 'ecru', size: 'XL', stock: 1, sku: 'MEL-KAD-ECR-XL' },
-      { color: 'kameel', size: 'XS', stock: 1, sku: 'MEL-KAD-KAM-XS' },
-      { color: 'kameel', size: 'S', stock: 2, sku: 'MEL-KAD-KAM-S' },
-      { color: 'kameel', size: 'M', stock: 3, sku: 'MEL-KAD-KAM-M' },
-      { color: 'kameel', size: 'L', stock: 2, sku: 'MEL-KAD-KAM-L' },
-      { color: 'kameel', size: 'XL', stock: 0, sku: 'MEL-KAD-KAM-XL' },
+      { color: 'ecru', sku: 'MEL-KAD-ECR' },
+      { color: 'kameel', sku: 'MEL-KAD-KAM' },
     ],
     images: [
       {
@@ -318,23 +287,14 @@ export const products: Product[] = [
     slug: 'veldjas',
     name: 'Veldjas',
     category: 'jassen',
-    price: 39900,
+    price: 40000,
     tagline: 'Rechte jas in melangewol, met kleppen op de zakken.',
     description:
       'Rechte jas met een klein, strak revers en verzonken knopen, zodat de voorkant rustig blijft. De wol heeft een lichte melange waardoor het groen in de zon warmer oogt dan binnen. Twee ruime zakken met klep, één binnenzak. De lengte valt tot over de knie en houdt je benen uit de wind tijdens lange wandelingen.',
     colors: ['donkergroen', 'houtskool'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'donkergroen', size: 'XS', stock: 1, sku: 'MEL-VEL-DGR-XS' },
-      { color: 'donkergroen', size: 'S', stock: 3, sku: 'MEL-VEL-DGR-S' },
-      { color: 'donkergroen', size: 'M', stock: 4, sku: 'MEL-VEL-DGR-M' },
-      { color: 'donkergroen', size: 'L', stock: 3, sku: 'MEL-VEL-DGR-L' },
-      { color: 'donkergroen', size: 'XL', stock: 1, sku: 'MEL-VEL-DGR-XL' },
-      { color: 'houtskool', size: 'XS', stock: 0, sku: 'MEL-VEL-HOU-XS' },
-      { color: 'houtskool', size: 'S', stock: 1, sku: 'MEL-VEL-HOU-S' },
-      { color: 'houtskool', size: 'M', stock: 2, sku: 'MEL-VEL-HOU-M' },
-      { color: 'houtskool', size: 'L', stock: 2, sku: 'MEL-VEL-HOU-L' },
-      { color: 'houtskool', size: 'XL', stock: 0, sku: 'MEL-VEL-HOU-XL' },
+      { color: 'donkergroen', sku: 'MEL-VEL-DGR' },
+      { color: 'houtskool', sku: 'MEL-VEL-HOU' },
     ],
     images: [
       {
@@ -377,23 +337,14 @@ export const products: Product[] = [
     slug: 'lijnjas',
     name: 'Lijnjas',
     category: 'jassen',
-    price: 32900,
+    price: 40000,
     tagline: 'De smalste jas uit de collectie, in dunnere wol.',
     description:
-      'De smalste jas die we maken: rechte lijn van schouder tot zoom, zonder ceintuur of extra volume. Door de dunnere wolkwaliteit draag je hem al vanaf begin oktober, ook binnen over een blouse. Enkele rij knopen, smalle revers, zakken in de naad. Kies een maat groter als je er een dikke trui onder wilt dragen.',
+      'Het smalste model dat we maken: rechte lijn van schouder tot zoom, zonder ceintuur of extra volume. Door de dunnere wolkwaliteit draag je hem al vanaf begin oktober, ook binnen over een blouse. Enkele rij knopen, smalle revers, zakken in de naad. Draag je er graag een dikke trui onder, zeg het dan bij het opnemen van de maten; dan houden we extra ruimte aan.',
     colors: ['taupe', 'houtskool'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'taupe', size: 'XS', stock: 3, sku: 'MEL-LIJ-TAU-XS' },
-      { color: 'taupe', size: 'S', stock: 4, sku: 'MEL-LIJ-TAU-S' },
-      { color: 'taupe', size: 'M', stock: 2, sku: 'MEL-LIJ-TAU-M' },
-      { color: 'taupe', size: 'L', stock: 1, sku: 'MEL-LIJ-TAU-L' },
-      { color: 'taupe', size: 'XL', stock: 0, sku: 'MEL-LIJ-TAU-XL' },
-      { color: 'houtskool', size: 'XS', stock: 2, sku: 'MEL-LIJ-HOU-XS' },
-      { color: 'houtskool', size: 'S', stock: 0, sku: 'MEL-LIJ-HOU-S' },
-      { color: 'houtskool', size: 'M', stock: 3, sku: 'MEL-LIJ-HOU-M' },
-      { color: 'houtskool', size: 'L', stock: 2, sku: 'MEL-LIJ-HOU-L' },
-      { color: 'houtskool', size: 'XL', stock: 1, sku: 'MEL-LIJ-HOU-XL' },
+      { color: 'taupe', sku: 'MEL-LIJ-TAU' },
+      { color: 'houtskool', sku: 'MEL-LIJ-HOU' },
     ],
     images: [
       {
@@ -436,23 +387,14 @@ export const products: Product[] = [
     slug: 'grachtblazer',
     name: 'Grachtblazer',
     category: 'blazers',
-    price: 22900,
+    price: 40000,
     tagline: 'Enkelrij blazer met twee knopen, in glad afgewerkte wol.',
     description:
       'Een enkelrij blazer met twee knopen en een licht getailleerde zijnaad. De wol is glad afgewerkt, dus de blazer blijft strak zitten zonder te kreuken. Schoudervulling is dun gehouden, waardoor de lijn zacht blijft. Draag hem op kantoor over een hemd, of ’s avonds met een T-shirt en de mouwen één slag opgerold.',
     colors: ['houtskool', 'taupe'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'houtskool', size: 'XS', stock: 2, sku: 'MEL-GRA-HOU-XS' },
-      { color: 'houtskool', size: 'S', stock: 4, sku: 'MEL-GRA-HOU-S' },
-      { color: 'houtskool', size: 'M', stock: 6, sku: 'MEL-GRA-HOU-M' },
-      { color: 'houtskool', size: 'L', stock: 3, sku: 'MEL-GRA-HOU-L' },
-      { color: 'houtskool', size: 'XL', stock: 2, sku: 'MEL-GRA-HOU-XL' },
-      { color: 'taupe', size: 'XS', stock: 0, sku: 'MEL-GRA-TAU-XS' },
-      { color: 'taupe', size: 'S', stock: 3, sku: 'MEL-GRA-TAU-S' },
-      { color: 'taupe', size: 'M', stock: 2, sku: 'MEL-GRA-TAU-M' },
-      { color: 'taupe', size: 'L', stock: 1, sku: 'MEL-GRA-TAU-L' },
-      { color: 'taupe', size: 'XL', stock: 0, sku: 'MEL-GRA-TAU-XL' },
+      { color: 'houtskool', sku: 'MEL-GRA-HOU' },
+      { color: 'taupe', sku: 'MEL-GRA-TAU' },
     ],
     images: [
       {
@@ -495,23 +437,14 @@ export const products: Product[] = [
     slug: 'atelierblazer',
     name: 'Atelierblazer',
     category: 'blazers',
-    price: 19900,
+    price: 40000,
     tagline: 'Ongevoerde blazer in losjes geweven wol, ook voor het voorjaar.',
     description:
-      'Ongevoerde blazer met open naden aan de binnenkant, zodat hij licht blijft en ook in het voorjaar te dragen is. De wol is losser geweven en voelt bijna als linnen. Eén knoop, ronde zoom, geen schoudervulling. Omdat er geen voering in zit valt hij dichter om het lichaam; twijfel je tussen twee maten, neem dan de grootste.',
+      'Ongevoerde blazer met open naden aan de binnenkant, zodat hij licht blijft en ook in het voorjaar te dragen is. De wol is losser geweven en voelt bijna als linnen. Eén knoop, ronde zoom, geen schoudervulling. Omdat er geen voering in zit valt hij dichter om het lichaam, dus we houden bij het opmeten iets meer ruimte aan dan bij de andere modellen.',
     colors: ['ecru', 'kameel'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'ecru', size: 'XS', stock: 3, sku: 'MEL-ATE-ECR-XS' },
-      { color: 'ecru', size: 'S', stock: 2, sku: 'MEL-ATE-ECR-S' },
-      { color: 'ecru', size: 'M', stock: 4, sku: 'MEL-ATE-ECR-M' },
-      { color: 'ecru', size: 'L', stock: 0, sku: 'MEL-ATE-ECR-L' },
-      { color: 'ecru', size: 'XL', stock: 2, sku: 'MEL-ATE-ECR-XL' },
-      { color: 'kameel', size: 'XS', stock: 0, sku: 'MEL-ATE-KAM-XS' },
-      { color: 'kameel', size: 'S', stock: 3, sku: 'MEL-ATE-KAM-S' },
-      { color: 'kameel', size: 'M', stock: 2, sku: 'MEL-ATE-KAM-M' },
-      { color: 'kameel', size: 'L', stock: 3, sku: 'MEL-ATE-KAM-L' },
-      { color: 'kameel', size: 'XL', stock: 1, sku: 'MEL-ATE-KAM-XL' },
+      { color: 'ecru', sku: 'MEL-ATE-ECR' },
+      { color: 'kameel', sku: 'MEL-ATE-KAM' },
     ],
     images: [
       {
@@ -554,23 +487,14 @@ export const products: Product[] = [
     slug: 'zondagblazer',
     name: 'Zondagblazer',
     category: 'blazers',
-    price: 24900,
+    price: 40000,
     tagline: 'Ruime blazer in zwaardere wol, te dragen over een trui.',
     description:
       'Ruime blazer met laag gezette schouder en langere mouw, bedoeld om over een trui te dragen. De wol is zwaarder dan bij de andere blazers, waardoor hij netjes valt in plaats van bol te staan. Eén knoop op heuphoogte, diepe zakken. In deze lengte vervangt hij op zachte dagen een jas.',
     colors: ['kameel', 'donkergroen'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     variants: [
-      { color: 'kameel', size: 'XS', stock: 1, sku: 'MEL-ZON-KAM-XS' },
-      { color: 'kameel', size: 'S', stock: 3, sku: 'MEL-ZON-KAM-S' },
-      { color: 'kameel', size: 'M', stock: 4, sku: 'MEL-ZON-KAM-M' },
-      { color: 'kameel', size: 'L', stock: 2, sku: 'MEL-ZON-KAM-L' },
-      { color: 'kameel', size: 'XL', stock: 0, sku: 'MEL-ZON-KAM-XL' },
-      { color: 'donkergroen', size: 'XS', stock: 0, sku: 'MEL-ZON-DGR-XS' },
-      { color: 'donkergroen', size: 'S', stock: 2, sku: 'MEL-ZON-DGR-S' },
-      { color: 'donkergroen', size: 'M', stock: 3, sku: 'MEL-ZON-DGR-M' },
-      { color: 'donkergroen', size: 'L', stock: 1, sku: 'MEL-ZON-DGR-L' },
-      { color: 'donkergroen', size: 'XL', stock: 2, sku: 'MEL-ZON-DGR-XL' },
+      { color: 'kameel', sku: 'MEL-ZON-KAM' },
+      { color: 'donkergroen', sku: 'MEL-ZON-DGR' },
     ],
     images: [
       {
@@ -644,28 +568,8 @@ export function getRelatedProducts(slug: string, limit = 3): Product[] {
   return [...sameCategory, ...otherCategory].slice(0, limit);
 }
 
-export function getVariant(
-  product: Product,
-  color: ColorSlug,
-  size: Size
-): ProductVariant | undefined {
-  return product.variants.find((variant) => variant.color === color && variant.size === size);
-}
-
-export function getStock(product: Product, color: ColorSlug, size: Size): number {
-  return getVariant(product, color, size)?.stock ?? 0;
-}
-
-/** Een product is uitverkocht als geen enkele variant nog voorraad heeft. */
-export function isSoldOut(product: Product): boolean {
-  return product.variants.every((variant) => variant.stock === 0);
-}
-
-/** Alle maten die voor een kleur nog leverbaar zijn. */
-export function availableSizes(product: Product, color: ColorSlug): Size[] {
-  return product.variants
-    .filter((variant) => variant.color === color && variant.stock > 0)
-    .map((variant) => variant.size);
+export function getVariant(product: Product, color: ColorSlug): ProductVariant | undefined {
+  return product.variants.find((variant) => variant.color === color);
 }
 
 /** Kleuren die in de collectie voorkomen, in de volgorde van COLORS. */

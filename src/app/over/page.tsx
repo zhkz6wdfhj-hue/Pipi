@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Over ons',
   description:
-    'Hoe Melin_clo begon op Instagram, waar de wol vandaan komt en waarom de oplages klein blijven.',
+    'Hoe Melin_clo begon op Instagram, waar de wol vandaan komt en waarom we alles pas na de bestelling maken.',
   path: '/over',
 });
 
@@ -17,7 +17,7 @@ export default function OverPage() {
     <div className="container-page py-10 lg:py-16">
       <PageHeader
         title="Over Melin_clo"
-        intro="Een klein merk uit Amsterdam dat lange wollen jassen en blazers maakt. Weinig modellen, kleine oplages, en een voorkeur voor stof die je jarenlang blijft dragen."
+        intro="Een klein merk uit Amsterdam dat lange wollen jassen en blazers maakt. Weinig modellen, alles op maat gemaakt, en een voorkeur voor stof die je jarenlang blijft dragen."
         breadcrumb={[{ label: 'Over Melin_clo', href: '/over' }]}
       />
 
@@ -63,17 +63,17 @@ export default function OverPage() {
             hele verhaal.
           </p>
 
-          <h2>Kleine oplages</h2>
+          <h2>Op maat, en niets vooruit</h2>
           <p>
-            Van elk model laten we twintig tot veertig stuks maken, verdeeld over twee kleuren en
-            vijf maten. Dat betekent soms dat een maat halverwege het seizoen op is en niet
-            terugkomt. Het betekent ook dat er in maart niets overblijft dat met korting weg moet, en
-            dat we niets hoeven te vernietigen. Loopt een model goed, dan maken we het jaar erop een
-            nieuwe oplage — meestal in een andere kleur.
+            We maken niets vooruit. Elke jas wordt pas gesneden als er iemand is die hem gaat
+            dragen, naar diens maten. Dat kost tijd — reken op vier tot zes weken — en het scheelt
+            een magazijn vol kleding dat in maart met korting weg moet. Er blijft niets over, en we
+            hoeven niets te vernietigen.
           </p>
           <p>
-            We rekenen prijzen die passen bij wat de stof en het naaiwerk kosten. Er zit geen
-            tussenhandel op, en geen budget voor advertenties. Wat je betaalt gaat naar de jas.
+            Alle modellen kosten hetzelfde: € 400. Dat is de prijs van de stof, het patroon en het
+            naaiwerk, plus de tijd om de maten op te nemen. Er zit geen tussenhandel op en geen
+            budget voor advertenties. Wat je betaalt gaat naar de jas.
           </p>
 
           <h2>Instagram blijft</h2>
@@ -83,7 +83,7 @@ export default function OverPage() {
               {site.instagram.handle}
             </a>{' '}
             staan de foto&apos;s van hoe de jassen er in het echt uitzien, gedragen door mensen met
-            verschillende lengtes en maten. Twijfel je over de pasvorm, stuur dan gerust een bericht;
+            verschillende lengtes en bouw. Twijfel je over een model, stuur dan gerust een bericht;
             dat leest nog steeds dezelfde persoon.
           </p>
         </div>

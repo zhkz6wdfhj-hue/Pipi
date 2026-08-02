@@ -50,7 +50,7 @@ function itemRows(order: Order): string {
         <tr>
           <td style="padding:14px 0;border-bottom:1px solid ${LINE};font-family:${sans};font-size:14px;color:${INK};line-height:1.5;">
             <strong style="font-weight:600;">${escapeHtml(item.name)}</strong><br />
-            <span style="color:${INK_SOFT};">${escapeHtml(COLORS[item.color].label)} &middot; maat ${escapeHtml(item.size)} &middot; ${item.quantity} stuks</span>
+            <span style="color:${INK_SOFT};">${escapeHtml(COLORS[item.color].label)} &middot; op maat gemaakt &middot; ${item.quantity} stuks</span>
           </td>
           <td style="padding:14px 0;border-bottom:1px solid ${LINE};font-family:${sans};font-size:14px;color:${INK};text-align:right;white-space:nowrap;vertical-align:top;">
             ${formatPrice(item.price * item.quantity)}
@@ -113,8 +113,9 @@ export function orderConfirmationEmail(order: Order): { subject: string; html: s
   const content = `
     <h1 style="margin:0 0 16px 0;font-family:${serif};font-weight:400;font-size:26px;line-height:1.2;color:${INK};">${heading}</h1>
     <p style="margin:0 0 20px 0;font-family:${sans};font-size:15px;line-height:1.6;color:${INK_SOFT};">
-      We hebben je betaling ontvangen en zijn je pakket aan het klaarmaken. Hieronder staat wat je hebt besteld.
-      Bewaar deze mail; je ordernummer staat erin.
+      We hebben je betaling ontvangen. Omdat alles op maat wordt gemaakt, nemen we binnen
+      ${site.delivery.contactWithinDays} werkdagen contact op om je maten door te nemen. Daarna gaat je jas
+      in productie. Bewaar deze mail; je ordernummer staat erin.
     </p>
 
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
@@ -156,9 +157,10 @@ export function orderConfirmationEmail(order: Order): { subject: string; html: s
 
     <p style="margin:0 0 8px 0;font-family:${sans};font-size:14px;line-height:1.6;color:${INK_SOFT};">
       Zodra je pakket bij de vervoerder ligt, sturen we je een bericht met het volgnummer.
-      Past de jas niet? Je hebt ${site.returnDays} dagen bedenktijd; op
-      <a href="${site.url}/service/retourneren" style="color:${ACCENT_INK};">${site.url.replace(/^https?:\/\//, '')}/service/retourneren</a>
-      lees je hoe je hem terugstuurt.
+      Zit de jas straks niet zoals hij hoort? Laat het binnen ${site.alterationDays} dagen weten,
+      dan passen we hem kosteloos aan tot hij past. Op
+      <a href="${site.url}/service/passen-en-aanpassen" style="color:${ACCENT_INK};">${site.url.replace(/^https?:\/\//, '')}/service/passen-en-aanpassen</a>
+      lees je hoe dat gaat.
     </p>
     <p style="margin:0;font-family:${sans};font-size:14px;line-height:1.6;color:${INK_SOFT};">
       Vragen mag altijd: <a href="mailto:${site.email}" style="color:${ACCENT_INK};">${escapeHtml(site.email)}</a>.
@@ -173,7 +175,7 @@ export function orderConfirmationEmail(order: Order): { subject: string; html: s
     '',
     ...order.items.map(
       (item) =>
-        `${item.quantity}x ${item.name} — ${COLORS[item.color].label}, maat ${item.size} — ${formatPrice(item.price * item.quantity)}`
+        `${item.quantity}x ${item.name} — ${COLORS[item.color].label}, op maat — ${formatPrice(item.price * item.quantity)}`
     ),
     '',
     `Subtotaal: ${formatPrice(order.totals.subtotal)}`,
@@ -198,7 +200,7 @@ export function internalOrderEmail(order: Order): { subject: string; html: strin
       (item) => `
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid ${LINE};font-family:${sans};font-size:14px;color:${INK};">
-            ${item.quantity}&times; ${escapeHtml(item.name)} — ${escapeHtml(COLORS[item.color].label)}, maat ${escapeHtml(item.size)}
+            ${item.quantity}&times; ${escapeHtml(item.name)} — ${escapeHtml(COLORS[item.color].label)}, op maat
           </td>
           <td style="padding:10px 0;border-bottom:1px solid ${LINE};font-family:${sans};font-size:13px;color:${INK_SOFT};text-align:right;white-space:nowrap;">
             ${escapeHtml(item.sku)}
@@ -213,7 +215,7 @@ export function internalOrderEmail(order: Order): { subject: string; html: strin
       ${formatDateShort(order.createdAt)} &middot; ${formatPrice(order.totals.total)} &middot; ${escapeHtml(paymentMethodLabel(order.paymentMethod))} &middot; status: ${escapeHtml(order.status)}
     </p>
 
-    <span style="display:block;font-family:${sans};font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:${INK};margin-bottom:8px;">Inpakken</span>
+    <span style="display:block;font-family:${sans};font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:${INK};margin-bottom:8px;">Te maken</span>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${LINE};margin-bottom:24px;">
       ${packingRows}
     </table>
@@ -233,7 +235,7 @@ export function internalOrderEmail(order: Order): { subject: string; html: strin
 
     <p style="margin:0;font-family:${sans};font-size:13px;line-height:1.6;color:${INK_SOFT};">
       Nieuwsbrief: ${order.customer.newsletter ? 'ja, de klant wil de nieuwsbrief ontvangen (bevestiging nog nodig)' : 'nee'}.<br />
-      Vergeet de voorraad in <code>src/data/products.ts</code> niet bij te werken.
+      Neem binnen ${site.delivery.contactWithinDays} werkdagen contact op om de maten door te nemen.
     </p>
   `;
 
@@ -241,7 +243,7 @@ export function internalOrderEmail(order: Order): { subject: string; html: strin
     `Nieuwe bestelling ${order.number} — ${formatPrice(order.totals.total)}`,
     '',
     ...order.items.map(
-      (item) => `${item.quantity}x ${item.name} (${COLORS[item.color].label}, ${item.size}) — ${item.sku}`
+      (item) => `${item.quantity}x ${item.name} (${COLORS[item.color].label}, op maat) — ${item.sku}`
     ),
     '',
     `${order.customer.firstName} ${order.customer.lastName}`,

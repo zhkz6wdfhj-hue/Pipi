@@ -113,7 +113,7 @@ export function CartView() {
                       </Link>
                     </h3>
                     <p className="mt-1 text-[0.875rem] text-ink-soft">
-                      {item.colorLabel} · maat {item.size}
+                      {item.colorLabel}
                     </p>
                     <p className="mt-1 text-[0.875rem] text-ink-soft">
                       {formatPrice(item.price)} per stuk
@@ -127,7 +127,7 @@ export function CartView() {
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <QuantityStepper
                     value={item.quantity}
-                    label={`${item.name}, maat ${item.size}`}
+                    label={`${item.name} in ${item.colorLabel.toLowerCase()}`}
                     onChange={(quantity) => setQuantity(item.id, quantity)}
                   />
                   <button
