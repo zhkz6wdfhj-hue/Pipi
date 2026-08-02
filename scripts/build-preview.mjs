@@ -132,7 +132,7 @@ async function bakFotosIn(html) {
   );
 
   for (const naam of namen) {
-    const breedte = naam.startsWith('sfeer') || naam.startsWith('og') ? 1240 : 720;
+    const breedte = naam.startsWith('sfeer') || naam.startsWith('og') ? 1100 : 640;
     const uri = await alsDataUri(naam, breedte);
     resultaat = resultaat.replaceAll(`/images/${naam}`, uri);
   }
@@ -166,13 +166,13 @@ async function stijlMetLettertypen(html) {
 
 /* -------------------------------------------------------------------------- */
 
-const naarVerwijzing = new Map(PAGINAS.map(([pad, sleutel]) => [pad, `#/${sleutel}`]));
+const naarVerwijzing = new Map(PAGINAS.map(([pad, sleutel]) => [pad, `#p-${sleutel}`]));
 
 function herschrijfLinks(html) {
   return html.replace(/href="(\/[^"]*)"/g, (heel, href) => {
     if (href.startsWith('/_next/') || href.startsWith('data:')) return heel;
     const doel = naarVerwijzing.get(href.split('#')[0]);
-    return doel ? `href="${doel}"` : 'href="#/home"';
+    return doel ? `href="${doel}"` : 'href="#p-home"';
   });
 }
 
@@ -188,8 +188,8 @@ async function opnamesPagina() {
     if (!beschikbaar.has(bestand)) continue;
 
     const buffer = await sharp(path.join(SCHERMAFBEELDINGEN, bestand))
-      .resize({ width: 900, withoutEnlargement: true })
-      .jpeg({ quality: 72, mozjpeg: true })
+      .resize({ width: 860, withoutEnlargement: true })
+      .jpeg({ quality: 70, mozjpeg: true })
       .toBuffer();
 
     blokken.push(`
@@ -224,7 +224,7 @@ const BALK = `
     <strong>Voorbeeld van de webshop.</strong>
     Je klikt hier door de echte pagina&rsquo;s. Bestellen kan niet: daar is een server voor nodig.
   </p>
-  <a href="#/zo-werkt-bestellen">Zo ziet bestellen eruit &rarr;</a>
+  <a href="#p-zo-werkt-bestellen">Zo ziet bestellen eruit &rarr;</a>
 </div>`;
 
 const EIGEN_STIJL = `
@@ -252,8 +252,14 @@ const EIGEN_STIJL = `
 }
 .voorbeeldbalk a:hover { text-decoration-color: #8A7A66; }
 
+/*
+ * Bladeren zonder JavaScript. De browser toont de sectie waarvan het id
+ * overeenkomt met wat er achter het hekje in de adresbalk staat (:target).
+ * Staat er niets — of iets onbekends — dan zie je de homepage.
+ */
 [data-pagina] { display: none; }
-[data-pagina].actief { display: block; }
+[data-pagina]:target { display: block; }
+body:not(:has([data-pagina]:target)) [data-pagina="home"] { display: block; }
 
 .voorbeelden { display: grid; gap: 4rem; }
 .voorbeeld { margin: 0; }
@@ -279,24 +285,22 @@ const EIGEN_STIJL = `
 }
 `;
 
+/*
+ * Alleen een extraatje: het bladeren zelf doet CSS. Dit zorgt er nog voor dat je
+ * bovenaan de nieuwe pagina begint en dat de titel in het tabblad meeloopt.
+ * Werkt dit niet, dan werkt de kopie nog steeds.
+ */
 const SCRIPT = `
 (function () {
-  var paginas = document.querySelectorAll('[data-pagina]');
-  function toon() {
-    var sleutel = (location.hash || '#/home').replace('#/', '') || 'home';
-    var gevonden = false;
-    paginas.forEach(function (pagina) {
-      var actief = pagina.dataset.pagina === sleutel;
-      pagina.classList.toggle('actief', actief);
-      if (actief) gevonden = true;
-    });
-    if (!gevonden) {
-      document.querySelector('[data-pagina="niet-gevonden"]').classList.add('actief');
-    }
-    document.title = (document.querySelector('[data-pagina].actief').dataset.titel || 'Melin_clo') + ' — Melin_clo';
+  function bij() {
+    var pagina = document.querySelector('[data-pagina]:target') ||
+                 document.querySelector('[data-pagina="home"]');
+    if (!pagina) return;
+    document.title = (pagina.dataset.titel || 'Melin_clo') + ' \\u2014 Melin_clo';
+    scrollTo(0, 0);
   }
-  addEventListener('hashchange', function () { toon(); scrollTo(0, 0); });
-  toon();
+  addEventListener('hashchange', bij);
+  bij();
 })();
 `;
 
@@ -325,14 +329,16 @@ async function main() {
     inhoud = herschrijfLinks(inhoud);
     inhoud = await bakFotosIn(inhoud);
 
-    secties.push(`<section data-pagina="${sleutel}" data-titel="${titel}">${inhoud}</section>`);
+    secties.push(
+      `<section id="p-${sleutel}" data-pagina="${sleutel}" data-titel="${titel}">${inhoud}</section>`
+    );
     console.log(`  ${titel}`);
   }
 
   const opnames = await opnamesPagina();
   if (opnames) {
     secties.push(
-      `<section data-pagina="zo-werkt-bestellen" data-titel="Zo werkt bestellen">${opnames}</section>`
+      `<section id="p-zo-werkt-bestellen" data-pagina="zo-werkt-bestellen" data-titel="Zo werkt bestellen">${opnames}</section>`
     );
     console.log('  Zo werkt bestellen');
   }
