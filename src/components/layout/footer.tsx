@@ -13,7 +13,7 @@ const kolommen = [
       { href: '/collectie', label: 'Alles' },
       { href: '/collectie?categorie=jassen', label: 'Lange jassen' },
       { href: '/collectie?categorie=blazers', label: 'Blazers' },
-      { href: '/over', label: 'Over Melin_clo' },
+      { href: '/over', label: 'Over Mèlin' },
     ],
   },
   {

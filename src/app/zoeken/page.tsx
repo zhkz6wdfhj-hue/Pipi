@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   return pageMetadata({
     title: q ? `Zoeken naar “${q}”` : 'Zoeken',
-    description: 'Zoek in de collectie van Melin_clo op naam, kleur, stof of categorie.',
+    description: 'Zoek in de collectie van Mèlin op naam, kleur, stof of categorie.',
     path: '/zoeken',
     noindex: true,
   });

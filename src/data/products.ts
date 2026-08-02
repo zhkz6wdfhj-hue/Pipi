@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * Melin_clo — productcatalogus
+ * Mèlin — productcatalogus
  * =============================================================================
  *
  * Dit bestand is de enige bron van waarheid voor het assortiment. Er is geen

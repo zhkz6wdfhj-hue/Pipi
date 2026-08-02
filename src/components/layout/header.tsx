@@ -17,7 +17,7 @@ const navigation = [
   { href: '/collectie', label: 'Collectie' },
   { href: '/collectie?categorie=jassen', label: 'Jassen' },
   { href: '/collectie?categorie=blazers', label: 'Blazers' },
-  { href: '/over', label: 'Over Melin' },
+  { href: '/over', label: 'Over Mèlin' },
   { href: '/contact', label: 'Contact' },
 ];
 

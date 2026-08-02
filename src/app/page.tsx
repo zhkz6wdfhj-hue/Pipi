@@ -94,7 +94,7 @@ export default function HomePage() {
               Klein gehouden, met opzet
             </h2>
             <p className="text-lead leading-relaxed text-ink-soft">
-              Melin_clo begon in 2022 met één jas en een telefoon vol foto&apos;s. Inmiddels
+              Mèlin begon in 2022 met één jas en een telefoon vol foto&apos;s. Inmiddels
               werken we vanuit een atelier aan de gracht: daar liggen de patronen, daar hangen de
               modellen, en daar passen we. We maken niets vooruit — elke jas wordt pas gesneden als
               er iemand is die hem gaat dragen, naar diens maten.

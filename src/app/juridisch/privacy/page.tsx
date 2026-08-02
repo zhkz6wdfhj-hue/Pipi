@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Privacyverklaring',
   description:
-    'Welke gegevens Melin_clo bewaart, waarom, hoe lang, met wie ze gedeeld worden en welke rechten je hebt.',
+    'Welke gegevens Mèlin bewaart, waarom, hoe lang, met wie ze gedeeld worden en welke rechten je hebt.',
   path: '/juridisch/privacy',
 });
 

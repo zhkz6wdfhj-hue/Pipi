@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Op maat gemaakt',
   description:
-    'Elke jas en blazer van Melin_clo wordt na de bestelling op maat gemaakt. Hoe het opnemen van de maten gaat, welke maten we nodig hebben en hoe lang het duurt.',
+    'Elke jas en blazer van Mèlin wordt na de bestelling op maat gemaakt. Hoe het opnemen van de maten gaat, welke maten we nodig hebben en hoe lang het duurt.',
   path: '/service/op-maat',
 });
 

@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Herroepingsrecht',
   description:
-    'Kleding die op maat wordt gemaakt valt buiten het wettelijke herroepingsrecht. Wat dat betekent, wanneer je wél kunt annuleren, en wat Melin_clo in de plaats daarvan belooft.',
+    'Kleding die op maat wordt gemaakt valt buiten het wettelijke herroepingsrecht. Wat dat betekent, wanneer je wél kunt annuleren, en wat Mèlin in de plaats daarvan belooft.',
   path: '/juridisch/herroepingsrecht',
 });
 

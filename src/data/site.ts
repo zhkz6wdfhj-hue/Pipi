@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * Melin_clo — bedrijfsgegevens op één plek
+ * Mèlin — bedrijfsgegevens op één plek
  * =============================================================================
  *
  * Alles wat met de identiteit van de winkel te maken heeft staat hier. De
@@ -13,22 +13,28 @@
  */
 
 export const site = {
-  /** Volledige merknaam. Gebruik deze in de footer, metadata en juridische teksten. */
-  name: 'Melin_clo',
-  /** Stam van de naam; in de interface gevolgd door het kleine achtervoegsel "clo". */
-  nameShort: 'Melin',
-  nameSuffix: 'clo',
+  /**
+   * De merknaam zoals hij overal gelezen wordt: Mèlin, met accent grave.
+   * In het wordmerk staat hij in kapitalen met ruime letterafstand — dat regelt
+   * src/components/layout/logo.tsx, niet deze waarde.
+   */
+  name: 'Mèlin',
+  /**
+   * Naam zonder accent, voor plekken waar diakritische tekens problemen geven:
+   * bestandsnamen, sommige e-mailprogramma's, oude systemen.
+   */
+  nameAscii: 'Melin',
 
   /** Zonder afsluitende schuine streep. Wordt gebruikt voor canonieke URL's en de sitemap. */
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ?? 'https://www.melin-clo.nl',
 
   description:
-    'Lange wollen jassen en blazers, na je bestelling op maat gemaakt. Melin_clo maakt niets vooruit: warme wol, rustige kleuren en een pasvorm die van jou alleen is.',
+    'Lange wollen jassen en blazers, na je bestelling op maat gemaakt. Mèlin maakt niets vooruit: warme wol, rustige kleuren en een pasvorm die van jou alleen is.',
 
   /** INVULLEN — het e-mailadres waarop je klanten wilt ontvangen. */
   email: 'hallo@melin-clo.nl',
   /** INVULLEN — afzender van de bevestigingsmail (mag hetzelfde adres zijn). */
-  emailFrom: 'Melin_clo <hallo@melin-clo.nl>',
+  emailFrom: 'Melin <hallo@melin-clo.nl>',
   /** INVULLEN — intern adres waar het besteloverzicht naartoe gaat. */
   emailInternal: 'bestellingen@melin-clo.nl',
 
@@ -44,7 +50,7 @@ export const site = {
 
   /** INVULLEN — het adres waar retourzendingen naartoe mogen. */
   returnAddress: {
-    company: 'Melin_clo',
+    company: 'Mèlin',
     street: 'INVULLEN-STRAAT EN HUISNUMMER',
     postalCode: 'INVULLEN-POSTCODE',
     city: 'Amsterdam',
@@ -73,7 +79,7 @@ export const site = {
   alterationDays: 30,
 } as const;
 
-/** "Melin_clo" met een net leesteken voor in lopende tekst. */
+/** De merknaam voor in lopende tekst. */
 export const brandFull = site.name;
 
 export const countries = [

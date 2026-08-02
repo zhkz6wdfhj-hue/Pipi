@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata = pageMetadata({
   title: 'Aanmelding bevestigen',
-  description: 'Bevestig je aanmelding voor de nieuwsbrief van Melin_clo.',
+  description: 'Bevestig je aanmelding voor de nieuwsbrief van Mèlin.',
   path: '/nieuwsbrief/bevestigen',
   noindex: true,
 });

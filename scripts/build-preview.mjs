@@ -42,7 +42,7 @@ const PAGINAS = [
   ['/product/grachtblazer', 'product-grachtblazer', 'Grachtblazer'],
   ['/product/atelierblazer', 'product-atelierblazer', 'Atelierblazer'],
   ['/product/zondagblazer', 'product-zondagblazer', 'Zondagblazer'],
-  ['/over', 'over', 'Over Melin_clo'],
+  ['/over', 'over', 'Over Mèlin'],
   ['/contact', 'contact', 'Contact'],
   ['/klantenservice', 'klantenservice', 'Klantenservice'],
   ['/service/verzending', 'service-verzending', 'Verzending'],
@@ -299,7 +299,7 @@ const SCRIPT = `
     var pagina = document.querySelector('[data-pagina]:target') ||
                  document.querySelector('[data-pagina="home"]');
     if (!pagina) return;
-    document.title = (pagina.dataset.titel || 'Melin_clo') + ' \\u2014 Melin_clo';
+    document.title = (pagina.dataset.titel || 'Mèlin') + ' \\u2014 Mèlin';
     scrollTo(0, 0);
   }
   addEventListener('hashchange', bij);
@@ -352,7 +352,7 @@ async function main() {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="color-scheme" content="light" />
-<title>Melin_clo — voorbeeld van de webshop</title>
+<title>Mèlin — voorbeeld van de webshop</title>
 <style>${css}</style>
 <style>${EIGEN_STIJL}</style>
 </head>

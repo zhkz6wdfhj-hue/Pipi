@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Passen en aanpassen',
   description:
-    'Zit je jas niet zoals hij hoort? Melin_clo past hem kosteloos aan tot hij past. Hoe dat werkt, en wat maatwerk betekent voor je bedenktijd.',
+    'Zit je jas niet zoals hij hoort? Mèlin past hem kosteloos aan tot hij past. Hoe dat werkt, en wat maatwerk betekent voor je bedenktijd.',
   path: '/service/passen-en-aanpassen',
 });
 

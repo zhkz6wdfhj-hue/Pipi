@@ -1,6 +1,6 @@
-# Melin_clo — webshop
+# Mèlin — webshop
 
-De webshop van Melin_clo: lange wollen jassen en blazers, na de bestelling op maat
+De webshop van Mèlin: lange wollen jassen en blazers, na de bestelling op maat
 gemaakt. Deze
 site vervangt het bestellen via Instagram.
 
@@ -336,7 +336,7 @@ getoond — handig tijdens het bouwen. Voor livegang:
 
    ```ts
    email:         'hallo@melin-clo.nl',            // waar klanten je bereiken
-   emailFrom:     'Melin_clo <hallo@melin-clo.nl>', // afzender van de mails
+   emailFrom:     'Mèlin <hallo@melin-clo.nl>', // afzender van de mails
    emailInternal: 'bestellingen@melin-clo.nl',      // waar het besteloverzicht heen gaat
    ```
 

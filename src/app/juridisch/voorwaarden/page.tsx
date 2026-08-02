@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Algemene voorwaarden',
   description:
-    'De algemene voorwaarden van Melin_clo: bestellen, betalen, leveren, herroepingsrecht, garantie en klachten.',
+    'De algemene voorwaarden van Mèlin: bestellen, betalen, leveren, herroepingsrecht, garantie en klachten.',
   path: '/juridisch/voorwaarden',
 });
 

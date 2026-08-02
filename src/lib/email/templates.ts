@@ -83,7 +83,7 @@ function shell(title: string, content: string): string {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:${SURFACE};border:1px solid ${LINE};">
             <tr>
               <td style="padding:32px 32px 24px 32px;border-bottom:1px solid ${LINE};text-align:center;">
-                <span style="font-family:${serif};font-size:26px;color:${INK};letter-spacing:0.02em;">Melin</span><span style="font-family:${sans};font-size:12px;color:${ACCENT_INK};letter-spacing:0.12em;">clo</span>
+                <span style="font-family:${serif};font-size:22px;font-weight:500;color:${INK};letter-spacing:0.26em;text-transform:uppercase;padding-left:0.26em;">M&egrave;lin</span>
               </td>
             </tr>
             <tr>

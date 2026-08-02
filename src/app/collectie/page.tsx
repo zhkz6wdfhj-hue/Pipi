@@ -30,7 +30,7 @@ export async function generateMetadata({
   return pageMetadata({
     title: titel,
     description: omschrijving
-      ? `${omschrijving} van Melin_clo. Op maat gemaakt, in kameel, ecru, houtskool, taupe en donkergroen.`
+      ? `${omschrijving} van Mèlin. Op maat gemaakt, in kameel, ecru, houtskool, taupe en donkergroen.`
       : 'Vijf lange wollen jassen en drie blazers, na je bestelling op maat gemaakt. Kameel, ecru, houtskool, taupe en donkergroen.',
     path: filters.categorie ? `/collectie?categorie=${filters.categorie}` : '/collectie',
   });

@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Cookiebeleid',
   description:
-    'Welke cookies en lokale opslag Melin_clo gebruikt, waarvoor ze dienen en hoe je je keuze weer intrekt.',
+    'Welke cookies en lokale opslag Mèlin gebruikt, waarvoor ze dienen en hoe je je keuze weer intrekt.',
   path: '/juridisch/cookies',
 });
 

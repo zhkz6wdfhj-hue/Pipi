@@ -1,10 +1,19 @@
 import Link from 'next/link';
 
 /**
- * Het merk in de interface: "Melin" in de display-letter, met "clo" als klein
- * achtervoegsel. De volledige schrijfwijze Melin_clo staat in de footer, de
- * metadata en de juridische teksten.
+ * Het wordmerk: MÈLIN in kapitalen, met ruime letterafstand, in de display-letter.
+ * Zo staat het ook op het profiel — geen hoofdletter-M met kleine rest, maar
+ * vijf even zware letters met lucht ertussen.
+ *
+ * De letterafstand is bewust groot (0.26em) en wordt aan de rechterkant
+ * gecompenseerd, anders lijkt het merk uit het midden te staan.
  */
+
+const MAAT = {
+  klein: 'text-[0.9375rem]',
+  normaal: 'text-[1.0625rem]',
+  groot: 'text-[1.375rem]',
+} as const;
 
 export function Logo({
   className,
@@ -13,20 +22,14 @@ export function Logo({
 }: {
   className?: string;
   as?: 'link' | 'tekst';
-  size?: 'normaal' | 'groot';
+  size?: keyof typeof MAAT;
 }) {
   const content = (
-    <span className="inline-flex items-baseline gap-[0.18em]">
-      <span
-        className={
-          size === 'groot'
-            ? 'font-display text-[1.75rem] leading-none tracking-[0.02em]'
-            : 'font-display text-[1.375rem] leading-none tracking-[0.02em]'
-        }
-      >
-        Melin
-      </span>
-      <span className="text-[0.6875rem] leading-none tracking-[0.12em] text-accent-ink">clo</span>
+    <span
+      className={`font-display font-medium ${MAAT[size]} leading-none tracking-[0.26em] uppercase`}
+      style={{ marginRight: '-0.26em' }}
+    >
+      Mèlin
     </span>
   );
 
@@ -38,7 +41,7 @@ export function Logo({
     <Link
       href="/"
       className={['inline-block text-ink', className].filter(Boolean).join(' ')}
-      aria-label="Melin_clo, naar de homepage"
+      aria-label="Mèlin, naar de homepage"
     >
       {content}
     </Link>

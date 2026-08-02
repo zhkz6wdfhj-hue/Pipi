@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Over ons',
   description:
-    'Hoe Melin_clo begon op Instagram, waar de wol vandaan komt en waarom we alles pas na de bestelling maken.',
+    'Hoe Mèlin begon op Instagram, waar de wol vandaan komt en waarom we alles pas na de bestelling maken.',
   path: '/over',
 });
 
@@ -16,9 +16,9 @@ export default function OverPage() {
   return (
     <div className="container-page py-10 lg:py-16">
       <PageHeader
-        title="Over Melin_clo"
+        title="Over Mèlin"
         intro="Een klein merk uit Amsterdam dat lange wollen jassen en blazers maakt. Weinig modellen, alles op maat gemaakt, en een voorkeur voor stof die je jarenlang blijft dragen."
-        breadcrumb={[{ label: 'Over Melin_clo', href: '/over' }]}
+        breadcrumb={[{ label: 'Over Mèlin', href: '/over' }]}
       />
 
       <figure>
@@ -49,7 +49,7 @@ export default function OverPage() {
             dat er maar één was, vroegen elf mensen of er meer konden komen.
           </p>
           <p>
-            Zo is Melin_clo begonnen: met een berichtenmap in plaats van een winkel. Bestellingen
+            Zo is Mèlin begonnen: met een berichtenmap in plaats van een winkel. Bestellingen
             gingen per direct message, betalingen per tikkie, en de maten hield ik bij in een
             schrift. Dat werkte prima tot een stuk of dertig jassen per seizoen. Daarna niet meer —
             vandaar deze site.

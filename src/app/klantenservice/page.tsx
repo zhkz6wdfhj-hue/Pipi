@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Klantenservice',
   description:
-    'Alles over verzending, retourneren, betaalmethoden, het onderhoud van wol en de maattabel van Melin_clo.',
+    'Alles over verzending, retourneren, betaalmethoden, het onderhoud van wol en de maattabel van Mèlin.',
   path: '/klantenservice',
 });
 
