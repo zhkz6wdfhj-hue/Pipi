@@ -59,7 +59,8 @@ account aanmaakt.
 | `npm run typecheck` | Controleert alle types zonder te bouwen                 |
 | `npm run lint`      | Controleert de code op fouten                           |
 | `npm run images`    | Maakt de placeholderfoto's opnieuw (zie hoofdstuk 4)     |
-| `npm run export-html` | Maakt een statische HTML-kopie om te bekijken of door te sturen |
+| `npm run export-html` | Maakt een statische HTML-kopie (map met pagina's)       |
+| `npm run preview`   | Maakt één los HTML-bestand met de hele winkel erin       |
 
 ---
 
@@ -407,6 +408,20 @@ uitlegt.
 
 Handig om door te sturen, of om de teksten na te lezen zonder afleiding. Voor
 een winkel waar echt besteld kan worden, publiceer je het project (hoofdstuk 9).
+
+### Alles in één bestand
+
+Wil je liever één bestand dat je kunt mailen of appen:
+
+```bash
+npm run build && npm run start
+npm run preview
+```
+
+Dat maakt `preview.html`: de hele winkel in één bestand, inclusief de opmaak,
+de lettertypen en alle foto's. Je klikt er gewoon doorheen. De winkelmand en het
+afrekenen staan erin als opname, op een eigen pagina, want die hebben een server
+nodig.
 
 ---
 

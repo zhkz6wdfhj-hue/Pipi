@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "images": "node scripts/generate-images.mjs",
-    "export-html": "node scripts/export-html.mjs"
+    "export-html": "node scripts/export-html.mjs",
+    "preview": "node scripts/build-preview.mjs"
   },
   "dependencies": {
     "next": "^15.5.22",

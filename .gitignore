@@ -17,6 +17,8 @@ tsconfig.tsbuildinfo
 # Lokale bestellingen (alleen voor ontwikkeling — zie README, hoofdstuk "Bestellingen")
 .data/orders.json
 
-# Statische HTML-kopie (te maken met: node scripts/export-html.mjs)
+# Statische kopieën (te maken met: npm run export-html / npm run preview)
 html-kopie
 melin-clo-html.zip
+preview.html
+artifact-preview.html
